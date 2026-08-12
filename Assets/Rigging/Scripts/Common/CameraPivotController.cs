@@ -1,4 +1,5 @@
 using System;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,7 +8,7 @@ namespace Rigging.Common
     public class CameraPivotController : MonoBehaviour
     {
         [SerializeField] private InputActionReference actionReference;
-        [SerializeField] private Transform cameraPivot;
+        [SerializeField] private CinemachineCamera cinemachineCamera;
         [SerializeField, Range(-180f, 180f)] private float maxYaw;
         [SerializeField, Range(-180f, 180f)] private float minYaw;
         [SerializeField, Range(-90f, 90f)] private float maxPitch;
@@ -25,8 +26,8 @@ namespace Rigging.Common
             if (actionReference == null)
                 throw new InvalidOperationException("InputActionReference の取得に失敗しました。SerializeField に登録してください。");
 
-            if (cameraPivot == null)
-                throw new InvalidOperationException("Camera Pivot の取得に失敗しました。SerializeField に登録してください。");
+            if (cinemachineCamera == null)
+                throw new InvalidOperationException("CinemachineCamera の取得に失敗しました。SerializeField に登録してください。");
 
             if (minYaw >= maxYaw)
                 throw new ArgumentOutOfRangeException("Yaw の範囲制限が不正な値です。有効範囲は [ Min Yaw < Max Yaw ] です。");
@@ -45,7 +46,7 @@ namespace Rigging.Common
             AddInput();
             ApplyLimits();
 
-            cameraPivot.rotation = Quaternion.Euler(_axis.y, _axis.x, 0f);
+            cinemachineCamera.Target.TrackingTarget.transform.rotation = Quaternion.Euler(_axis.y, _axis.x, 0f);
         }
 
         private void AddInput()

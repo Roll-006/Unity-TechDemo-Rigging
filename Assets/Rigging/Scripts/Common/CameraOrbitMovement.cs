@@ -11,7 +11,7 @@ namespace Rigging.Common
         [SerializeField] private float topShoulderOffsetZ;
         [SerializeField] private float bottomShoulderOffsetZ;
         [SerializeField] private CinemachineThirdPersonFollow thirdPersonFollow;
-        [SerializeField] private Transform cameraPivot;
+        [SerializeField] private CinemachineCamera cinemachineCamera;
         [SerializeField, Range(-90f, 90f)] private float maxPitch;
         [SerializeField, Range(-90f, 90f)] private float minPitch;
 
@@ -23,8 +23,8 @@ namespace Rigging.Common
             if (thirdPersonFollow == null)
                 throw new InvalidOperationException("CinemachineThirdPersonFollow の取得に失敗しました。SerializeField に登録してください。");
 
-            if (cameraPivot == null)
-                throw new InvalidOperationException("Camera Pivot の取得に失敗しました。SerializeField に登録してください。");
+            if (cinemachineCamera == null)
+                throw new InvalidOperationException("CinemachineCamera の取得に失敗しました。SerializeField に登録してください。");
 
             if (minPitch >= maxPitch)
                 throw new ArgumentOutOfRangeException("Pitch の範囲制限が不正な値です。有効範囲は [ Min Pitch < Max Pitch ] です。");
@@ -40,7 +40,7 @@ namespace Rigging.Common
 
         private void UpdateCameraDistance()
         {
-            var pitchDegree = Mathf.DeltaAngle(0, cameraPivot.eulerAngles.x);
+            var pitchDegree = Mathf.DeltaAngle(0, cinemachineCamera.Target.TrackingTarget.eulerAngles.x);
             var t = Mathf.InverseLerp(minPitch, maxPitch, pitchDegree);
 
             // ベジェ曲線で補間
