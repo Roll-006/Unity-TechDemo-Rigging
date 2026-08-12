@@ -11,11 +11,14 @@ namespace Rigging.Player
         [SerializeField] private Rigidbody rb;
         [SerializeField] private float towardSpeed;
 
-        public Vector3 CurrentMoveDirection { get; private set; }
-        public bool IsMoving => CurrentMoveDirection.sqrMagnitude > Mathf.Epsilon;
+        /// <summary>
+        /// カメラ基準の移動方向
+        /// </summary>
+        public Vector3 MoveDirection { get; private set; }
+        public bool IsMoving => MoveDirection.sqrMagnitude > Mathf.Epsilon;
+        public bool IsSprinting { get; private set; }
 
         private Vector2 _inputAxis;
-        private Vector3 _targetMoveDirection;
         private Vector3 _localMoveDirection;
 
         private void Awake()
@@ -47,24 +50,35 @@ namespace Rigging.Player
             cameraRight.Normalize();
 
             // 入力をカメラ基準のベクトルに変換
-            _targetMoveDirection = cameraRight * _inputAxis.x + cameraForward * _inputAxis.y;
-            _targetMoveDirection = Vector3.ClampMagnitude(_targetMoveDirection, 1f);
+            var targetMoveDirection = cameraRight * _inputAxis.x + cameraForward * _inputAxis.y;
+            targetMoveDirection = Vector3.ClampMagnitude(targetMoveDirection, 1f);
 
-            CurrentMoveDirection = Vector3.MoveTowards(CurrentMoveDirection, _targetMoveDirection, towardSpeed * Time.deltaTime);
+            MoveDirection = Vector3.MoveTowards(MoveDirection, targetMoveDirection, towardSpeed * Time.deltaTime);
             
-            _localMoveDirection = transform.InverseTransformDirection(CurrentMoveDirection);
+            _localMoveDirection = transform.InverseTransformDirection(MoveDirection);
         }
 
         private void UpdateAnimatorParameters()
         {
             animator.SetBool("IsMoving", IsMoving);
+            animator.SetBool("IsSprinting", IsSprinting);
             animator.SetFloat("PlayerMoveDirectionX", _localMoveDirection.x);
             animator.SetFloat("PlayerMoveDirectionZ", _localMoveDirection.z);
+        }
+
+        public void StopSprint()
+        {
+            IsSprinting = false;
         }
 
         private void OnMove(InputValue value)
         {
             _inputAxis = value.Get<Vector2>();
+        }
+
+        private void OnSprint(InputValue value)
+        {
+            IsSprinting = !IsSprinting;
         }
     }
 }

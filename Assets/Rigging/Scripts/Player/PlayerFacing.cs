@@ -25,20 +25,29 @@ namespace Rigging.Player
 
         private void Update()
         {
+            UpdateSyncState();
             UpdateFacingDirection();
+        }
+
+        private void UpdateSyncState()
+        {
+            if (playerMovement.IsSprinting)
+            {
+                _isSyncCameraForward = false;
+                return;
+            }
+
+            _isSyncCameraForward = true;
         }
 
         private void UpdateFacingDirection()
         {
             if (!playerMovement.IsMoving) return;
 
-            var targetFacingDirection = _isSyncCameraForward ? GetMoveCameraForward() : playerMovement.CurrentMoveDirection;
+            var targetFacingDirection = _isSyncCameraForward ? GetMoveCameraForward() : playerMovement.MoveDirection;
 
             _currentFacingDirection = Vector3.RotateTowards(_currentFacingDirection, targetFacingDirection, towardSpeed * Time.deltaTime, 0f);
             transform.LookAt(transform.position + _currentFacingDirection);
-            Debug.Log($"targetFacingDirection : {targetFacingDirection}");
-            Debug.Log($"_currentFacingDirection : {_currentFacingDirection}");
-            Debug.Log($"towardSpeed * Time.deltaTime : {towardSpeed * Time.deltaTime}");
         }
 
         private Vector3 GetMoveCameraForward()
