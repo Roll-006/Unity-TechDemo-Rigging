@@ -7,6 +7,9 @@ namespace Rigging.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
+        [SerializeField] private PlayerInput playerInput;
+        [SerializeField] private InputActionReference moveAction;
+        [SerializeField] private InputActionReference sprintAction;
         [SerializeField] private Animator animator;
         [SerializeField] private Rigidbody rb;
         [SerializeField] private float towardSpeed;
@@ -23,11 +26,30 @@ namespace Rigging.Player
 
         private void Awake()
         {
+            if (playerInput == null)
+                throw new InvalidOperationException("PlayerInput ÇÃéÊìæÇ…é∏îsÇµÇ‹ÇµÇΩÅBSerializeField Ç…ìoò^ÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB");
+
+            if (moveAction == null)
+                throw new InvalidOperationException("Move Action ÇÃéÊìæÇ…é∏îsÇµÇ‹ÇµÇΩÅBSerializeField Ç…ìoò^ÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB");
+
+            if (sprintAction == null)
+                throw new InvalidOperationException("Sprint Action ÇÃéÊìæÇ…é∏îsÇµÇ‹ÇµÇΩÅBSerializeField Ç…ìoò^ÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB");
+
             if (animator == null)
                 throw new InvalidOperationException("Animator ÇÃéÊìæÇ…é∏îsÇµÇ‹ÇµÇΩÅBSerializeField Ç…ìoò^ÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB");
 
             if (rb == null)
                 throw new InvalidOperationException("Rigidbody ÇÃéÊìæÇ…é∏îsÇµÇ‹ÇµÇΩÅBSerializeField Ç…ìoò^ÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB");
+        }
+
+        private void OnEnable()
+        {
+            playerInput.onActionTriggered += OnActionTriggered;
+        }
+
+        private void OnDisable()
+        {
+            playerInput.onActionTriggered -= OnActionTriggered;
         }
 
         private void Update()
@@ -36,6 +58,49 @@ namespace Rigging.Player
 
             UpdateMoveDirection();
             UpdateAnimatorParameters();
+        }
+
+        private void OnActionTriggered(InputAction.CallbackContext context)
+        {
+            if (OnMove(context)) return;
+            if (OnSprint(context)) return;
+        }
+
+        private bool OnMove(InputAction.CallbackContext context)
+        {
+            if (context.action != moveAction.action) return false;
+
+            switch (context.phase)
+            {
+                case InputActionPhase.Performed:
+                    _inputAxis = context.ReadValue<Vector2>();
+                    break;
+
+                case InputActionPhase.Canceled:
+                    _inputAxis = Vector2.zero;
+                    break;
+            }
+
+            return true;
+        }
+
+        private bool OnSprint(InputAction.CallbackContext context)
+        {
+            if (context.action != sprintAction.action) return false;
+
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:
+                    IsSprinting = !IsSprinting;
+                    break;
+            }
+
+            return true;
+        }
+
+        public void StopSprint()
+        {
+            IsSprinting = false;
         }
 
         private void UpdateMoveDirection()
@@ -64,21 +129,6 @@ namespace Rigging.Player
             animator.SetBool("IsSprinting", IsSprinting);
             animator.SetFloat("PlayerMoveDirectionX", _localMoveDirection.x);
             animator.SetFloat("PlayerMoveDirectionZ", _localMoveDirection.z);
-        }
-
-        public void StopSprint()
-        {
-            IsSprinting = false;
-        }
-
-        private void OnMove(InputValue value)
-        {
-            _inputAxis = value.Get<Vector2>();
-        }
-
-        private void OnSprint(InputValue value)
-        {
-            IsSprinting = !IsSprinting;
         }
     }
 }
