@@ -140,5 +140,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb9730619a875349b62159b92bfbc3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rigging.Common.Handgun
+  pivotOffset: {x: -0.0354, y: 0.1684, z: 0.0295}
   gridSize: {x: 2, y: 2}
   icon: {fileID: 21300000, guid: 16d016fdf7b90e847b47534152bdb11f, type: 3}

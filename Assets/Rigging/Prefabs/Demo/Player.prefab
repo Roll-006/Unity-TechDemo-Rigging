@@ -468,9 +468,6 @@ PrefabInstance:
       addedObject: {fileID: 1122958119258472930}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8475769503665383669}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 3928856730568417891}
   m_SourcePrefab: {fileID: 100100000, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
 --- !u!4 &23827558857878236 stripped
@@ -938,19 +935,6 @@ MonoBehaviour:
   items:
   - {fileID: -7537494182416686846, guid: 04033b9bb843dc144b675f0fd95fd8bf, type: 3}
   - {fileID: 5703398760415201921, guid: e140677c3c496f443a0796bf9a812e75, type: 3}
---- !u!114 &8475769503665383669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6894470543546107092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba58ebafcb5f5224db34edb323852dcf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Rigging.Demo.ItemHolder
-  items: []
 --- !u!114 &3928856730568417891
 MonoBehaviour:
   m_ObjectHideFlags: 0

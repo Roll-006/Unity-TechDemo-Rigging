@@ -94,14 +94,14 @@ namespace Rigging.Demo.Player
         private void UpdateAnimatorParameters()
         {
             animator.SetBool("IsAiming", IsAiming);
-            animator.SetBool("HasHandgun", weaponEquipper.EquipWeapon ? weaponEquipper.EquipWeapon.WeaponType == WeaponType.Handgun : false);
-            animator.SetBool("HasRifle", weaponEquipper.EquipWeapon ? weaponEquipper.EquipWeapon.WeaponType == WeaponType.Rifle : false);
+            animator.SetBool("HasHandgun", weaponEquipper.EquippedWeapon ? weaponEquipper.EquippedWeapon.WeaponType == WeaponType.Handgun : false);
+            animator.SetBool("HasRifle", weaponEquipper.EquippedWeapon ? weaponEquipper.EquippedWeapon.WeaponType == WeaponType.Rifle : false);
         }
 
         private void UpdateLayerWeight()
         {
             var currentLayerWeight = animator.GetLayerWeight(_gunLayerIndex);
-            var targetLayerWeight = weaponEquipper.EquipWeapon ? 1 : 0;
+            var targetLayerWeight = weaponEquipper.EquippedWeapon ? 1 : 0;
             var resultLayerWeight = Mathf.MoveTowards(currentLayerWeight, targetLayerWeight, towardSpeed * Time.deltaTime);
 
             animator.SetLayerWeight(_gunLayerIndex, resultLayerWeight);

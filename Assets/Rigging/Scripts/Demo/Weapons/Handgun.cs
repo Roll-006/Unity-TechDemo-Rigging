@@ -6,10 +6,12 @@ namespace Rigging.Demo.Weapons
 {
     public class Handgun : WeaponBase, IInventoryStorable, IReloadable
     {
+        [SerializeField] private Vector3 pivotOffset;
         [SerializeField, Min(1)] private Vector2Int gridSize;
         [SerializeField] private Sprite icon;
 
         public override WeaponType WeaponType => WeaponType.Handgun;
+        public override Vector3 PivotOffset => pivotOffset;
         public Vector2Int GridSize => gridSize;
         public Sprite Icon => icon;
 

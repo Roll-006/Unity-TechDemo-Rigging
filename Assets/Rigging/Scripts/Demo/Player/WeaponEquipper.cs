@@ -5,18 +5,18 @@ namespace Rigging.Demo.Player
 {
     public class WeaponEquipper : MonoBehaviour
     {
-        public WeaponBase EquipWeapon { get; private set; }
+        public WeaponBase EquippedWeapon { get; private set; }
 
         public void OnEquipWeapon(WeaponBase weapon)
         {
             if (weapon == null) return;
 
-            EquipWeapon = weapon;
+            EquippedWeapon = weapon;
         }
 
-        public void OnUnequip()
+        public void OnUnequipWeapon()
         {
-            EquipWeapon = null;
+            EquippedWeapon = null;
         }
     }
 }
