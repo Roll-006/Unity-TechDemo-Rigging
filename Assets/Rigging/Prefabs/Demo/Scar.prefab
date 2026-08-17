@@ -225,9 +225,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2542517243264720674}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2735d01400a86304e82edeea826d5cbc, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a954acf50f774d4aac203c2a49c9dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rigging.Common.Rifle
+  gridSize: {x: 8, y: 2}
+  icon: {fileID: 21300000, guid: 7e9f9949ab9789a45b094068c22ef5c3, type: 3}
 --- !u!1 &2702772872842984608
 GameObject:
   m_ObjectHideFlags: 0

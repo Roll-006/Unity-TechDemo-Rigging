@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2637388723626321632}
   - component: {fileID: 8290216712190912715}
   - component: {fileID: 5354672815457028097}
-  - component: {fileID: 4570327504353398758}
   - component: {fileID: 646207653724905073}
+  - component: {fileID: 5743630583645634131}
   m_Layer: 5
   m_Name: Shortcut
   m_TagString: Untagged
@@ -77,19 +77,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4570327504353398758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3443388745031690590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a55969333aec0742a0c2bb3de5e2faa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Shortcut
-  weaponEquipper: {fileID: 0}
 --- !u!114 &646207653724905073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,8 +121,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4570327504353398758}
-        m_TargetAssemblyTypeName: WeaponShortcut, Assembly-CSharp
+      - m_Target: {fileID: 5743630583645634131}
+        m_TargetAssemblyTypeName: Rigging.Demo.WeaponShortcut, Assembly-CSharp
         m_MethodName: EquipWeapon
         m_Mode: 1
         m_Arguments:
@@ -146,3 +133,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5743630583645634131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3443388745031690590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 207cb9ebe536b694ca427bcd802d7849, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Rigging.Demo.WeaponShortcut
+  weaponEquipper: {fileID: 0}

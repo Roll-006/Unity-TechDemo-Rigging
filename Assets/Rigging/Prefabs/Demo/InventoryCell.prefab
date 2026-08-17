@@ -161,8 +161,8 @@ GameObject:
   - component: {fileID: 7362277959149232658}
   - component: {fileID: 6084879761934591121}
   - component: {fileID: 4115981074673508164}
-  - component: {fileID: 8044868304846128269}
   - component: {fileID: 3235152399313133401}
+  - component: {fileID: 8044868304846128269}
   m_Layer: 5
   m_Name: InventoryCell
   m_TagString: Untagged
@@ -229,18 +229,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8044868304846128269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4682089639659961891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e204c09705d0da49ac1676b9b786265, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Rigging.Demo.InventoryCell
 --- !u!114 &3235152399313133401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,3 +273,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8044868304846128269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4682089639659961891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e204c09705d0da49ac1676b9b786265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Rigging.Demo.InventoryCell
