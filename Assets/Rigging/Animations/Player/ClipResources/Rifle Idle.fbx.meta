@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1fb3667474c9f5b4fb154d38b7a1ad91
+guid: ef8cdd8270790bb449a25ea141294483
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -31,7 +31,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Armature|Armature|mixamo.com|Layer0
+      name: Rifle Idle
       takeName: Armature|Armature|mixamo.com|Layer0
       internalID: -4791504522942941401
       firstFrame: 0
