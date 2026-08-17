@@ -1,5 +1,5 @@
 using Rigging.Core;
-using Rigging.Player;
+using Rigging.Demo.Player;
 using System;
 using UnityEngine;
 
