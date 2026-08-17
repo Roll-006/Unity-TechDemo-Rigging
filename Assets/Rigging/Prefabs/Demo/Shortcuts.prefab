@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6587357592118812488}
   - component: {fileID: 5661430082448768086}
+  - component: {fileID: 3030059769739195859}
   m_Layer: 5
   m_Name: Shortcuts
   m_TagString: Untagged
@@ -55,6 +56,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &3030059769739195859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4642481162767378082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67f35b1da82a8b44d90eb106db723fde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Rigging.Common.CanvasGroupFade
+  canvasGroup: {fileID: 5661430082448768086}
+  fadeInSpeed: 8
+  fadeOutSpeed: 4
 --- !u!1001 &1889653833458325474
 PrefabInstance:
   m_ObjectHideFlags: 0

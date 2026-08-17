@@ -141,4 +141,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rigging.Common.Handgun
   gridSize: {x: 2, y: 2}
-  icon: {fileID: 21300000, guid: be54b3a8498ce6c4199c2c70d5e3802f, type: 3}
+  icon: {fileID: 21300000, guid: 16d016fdf7b90e847b47534152bdb11f, type: 3}
