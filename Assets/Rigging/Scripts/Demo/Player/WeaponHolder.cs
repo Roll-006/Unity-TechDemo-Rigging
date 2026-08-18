@@ -13,6 +13,7 @@ namespace Rigging.Demo.Player
         [SerializeField] private List<WeaponBase> testWeapons;
 
         public WeaponBase EquippedWeapon { get; private set; }
+        public WeaponBase EquippedWeaponInstance { get; private set; }
         public WeaponBase PendingWeapon { get; private set; }
 
         private bool _isEquipped;
@@ -29,9 +30,18 @@ namespace Rigging.Demo.Player
 
         private void Update()
         {
-            if (Keyboard.current.rKey.wasPressedThisFrame)
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
                 _isEquipped = !_isEquipped;
+            }
+
+            if (_isEquipped)
+            {
+                OnEquipWeapon(testWeapons[_count]);
+            }
+            else
+            {
+                OnUnequipWeapon();
             }
 
             if (Keyboard.current.digit1Key.wasPressedThisFrame)
@@ -46,14 +56,9 @@ namespace Rigging.Demo.Player
             {
                 _count = 2;
             }
-
-            if (_isEquipped)
+            if (Keyboard.current.digit4Key.wasPressedThisFrame)
             {
-                OnEquipWeapon(testWeapons[_count]);
-            }
-            else
-            {
-                OnUnequipWeapon();
+                _count = 3;
             }
         }
 
@@ -62,50 +67,61 @@ namespace Rigging.Demo.Player
             if (weapon == null) return;
             if (weapon == PendingWeapon) return;
             if (weapon == EquippedWeapon) return;
-            Debug.Log("装備が要求されました。");
-            Debug.Log($"PendingWeapon : {PendingWeapon}");
-            Debug.Log($"EquippedWeapon : {EquippedWeapon}");
 
             PendingWeapon = weapon;
 
             animator.SetTrigger("EquipWeapon");
+            if (PendingWeapon != EquippedWeapon && EquippedWeapon != null)
+            {
+                animator.SetTrigger("UnequipWeapon");
+            }
+
+            Debug.Log("装備が要求が承認されました。");
+            Debug.Log($"PendingWeapon : {PendingWeapon}");
+            Debug.Log($"EquippedWeapon : {EquippedWeapon}");
         }
 
         public void OnUnequipWeapon()
         {
             if (PendingWeapon == null) return;
             if (EquippedWeapon == null) return;
-            Debug.Log("着脱が要求されました。");
-            Debug.Log($"PendingWeapon : {PendingWeapon}");
-            Debug.Log($"EquippedWeapon : {EquippedWeapon}");
 
             PendingWeapon = null;
-
             animator.SetTrigger("UnequipWeapon");
+
+            Debug.Log("着脱が要求が承認されました。");
+            Debug.Log($"PendingWeapon : {PendingWeapon}");
+            Debug.Log($"EquippedWeapon : {EquippedWeapon}");
         }
 
         public void CreateWeapon()
         {
-            Debug.Log("装備がされました。");
-            Debug.Log($"PendingWeapon : {PendingWeapon}");
-            Debug.Log($"EquippedWeapon : {EquippedWeapon}");
+            Debug.Log("装備通知が送られました。");
+
+            if (PendingWeapon == null) return;
 
             EquippedWeapon = PendingWeapon;
             handGripPivot.localPosition = EquippedWeapon.PivotOffset;
+            EquippedWeaponInstance = Instantiate(EquippedWeapon, handGripPivot, false);
 
-            EquippedWeapon = Instantiate(PendingWeapon);
-            EquippedWeapon.transform.SetParent(handGripPivot, false);
+            Debug.Log("装備がされました。");
+            Debug.Log($"PendingWeapon : {PendingWeapon}");
+            Debug.Log($"EquippedWeapon : {EquippedWeapon}");
         }
 
         public void DestroyWeapon()
         {
-            if (EquippedWeapon == null) return;
+            Debug.Log("着脱通知が送られました。");
+
+            if (EquippedWeaponInstance == null) return;
+
+            Destroy(EquippedWeaponInstance.gameObject);
+            EquippedWeaponInstance = null;
+            EquippedWeapon = null;
+
             Debug.Log("着脱されました。");
             Debug.Log($"PendingWeapon : {PendingWeapon}");
             Debug.Log($"EquippedWeapon : {EquippedWeapon}");
-
-            Destroy(EquippedWeapon.gameObject);
-            EquippedWeapon = null;
         }
     }
 }

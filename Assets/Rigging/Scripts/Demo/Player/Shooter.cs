@@ -15,9 +15,10 @@ namespace Rigging.Demo.Player
         [SerializeField] private Transform gripPivot;
         [SerializeField] private float towardSpeed;
 
-        public bool IsAiming {  get; private set; }
+        public bool IsAiming => _isAimingInput && weaponHolder.EquippedWeapon != null;
 
         private int _gunLayerIndex;
+        private bool _isAimingInput;
 
         private void Awake()
         {
@@ -73,11 +74,11 @@ namespace Rigging.Demo.Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    IsAiming = true;
+                    _isAimingInput = true;
                     break;
-
+                    
                 case InputActionPhase.Canceled:
-                    IsAiming = false;
+                    _isAimingInput = false;
                     break;
             }
 
