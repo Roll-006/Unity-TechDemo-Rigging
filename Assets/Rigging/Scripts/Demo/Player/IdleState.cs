@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Rigging.Player
+namespace Rigging.Demo.Player
 {
     public class IdleState : StateMachineBehaviour
     {

@@ -2,7 +2,7 @@ using Rigging.Core;
 using System;
 using UnityEngine;
 
-namespace Rigging.Player
+namespace Rigging.Demo.Player
 {
     public class PlayerFacing : MonoBehaviour
     {
@@ -15,7 +15,7 @@ namespace Rigging.Player
         private void Awake()
         {
             if (playerMovement == null)
-                throw new InvalidOperationException("PlayerMovement ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+                throw new InvalidOperationException($"{nameof(playerMovement)} ({typeof(PlayerMovement).Name}) ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
         }
 
         private void Start()
