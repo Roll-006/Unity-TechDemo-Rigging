@@ -1,4 +1,4 @@
-using Rigging.Core;
+ï»¿using Rigging.Core;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,37 +11,38 @@ namespace Rigging.Demo.Player
         [SerializeField] private InputActionReference aimGunAction;
         [SerializeField] private InputActionReference fireAction;
         [SerializeField] private Animator animator;
-        [SerializeField] private WeaponEquipper weaponEquipper;
+        [SerializeField] private WeaponHolder weaponHolder;
         [SerializeField] private Transform gripPivot;
         [SerializeField] private float towardSpeed;
 
-        public bool IsAiming {  get; private set; }
+        public bool IsAiming => _isAimingInput && weaponHolder.EquippedWeapon != null;
 
         private int _gunLayerIndex;
+        private bool _isAimingInput;
 
         private void Awake()
         {
             if (playerInput == null)
-                throw new InvalidOperationException($"{nameof(playerInput)} ({typeof(PlayerInput).Name}) ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+                throw new InvalidOperationException($"{nameof(playerInput)} ({typeof(PlayerInput).Name}) ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚SerializeField ã«ç™»éŒ²ã—ã¦ãã ã•ã„ã€‚");
             
             if (aimGunAction == null)
-                throw new InvalidOperationException($"{nameof(aimGunAction)} ({typeof(InputActionReference).Name}) ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+                throw new InvalidOperationException($"{nameof(aimGunAction)} ({typeof(InputActionReference).Name}) ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚SerializeField ã«ç™»éŒ²ã—ã¦ãã ã•ã„ã€‚");
 
             if (fireAction == null)
-                throw new InvalidOperationException($"{nameof(fireAction)} ({typeof(InputActionReference).Name}) ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+                throw new InvalidOperationException($"{nameof(fireAction)} ({typeof(InputActionReference).Name}) ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚SerializeField ã«ç™»éŒ²ã—ã¦ãã ã•ã„ã€‚");
 
             if (animator == null)
-                throw new InvalidOperationException($"{nameof(animator)} ({typeof(Animator).Name}) ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+                throw new InvalidOperationException($"{nameof(animator)} ({typeof(Animator).Name}) ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚SerializeField ã«ç™»éŒ²ã—ã¦ãã ã•ã„ã€‚");
 
-            if (weaponEquipper == null)
-                throw new InvalidOperationException($"{nameof(weaponEquipper)} ({typeof(WeaponEquipper).Name}) ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+            if (weaponHolder == null)
+                throw new InvalidOperationException($"{nameof(weaponHolder)} ({typeof(WeaponHolder).Name}) ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚SerializeField ã«ç™»éŒ²ã—ã¦ãã ã•ã„ã€‚");
 
             if (gripPivot == null)
-                throw new InvalidOperationException($"{nameof(gripPivot)} ({typeof(Transform).Name}) ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+                throw new InvalidOperationException($"{nameof(gripPivot)} ({typeof(Transform).Name}) ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚SerializeField ã«ç™»éŒ²ã—ã¦ãã ã•ã„ã€‚");
 
             _gunLayerIndex = animator.GetLayerIndex("Gun Layer");
             if (_gunLayerIndex == -1)
-                throw new InvalidOperationException($"{nameof(_gunLayerIndex)} ‚Ì Index ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½B");
+                throw new InvalidOperationException($"{nameof(_gunLayerIndex)} ã® Index ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
         }
         
         private void OnEnable()
@@ -73,11 +74,11 @@ namespace Rigging.Demo.Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    IsAiming = true;
+                    _isAimingInput = true;
                     break;
-
+                    
                 case InputActionPhase.Canceled:
-                    IsAiming = false;
+                    _isAimingInput = false;
                     break;
             }
 
@@ -94,17 +95,22 @@ namespace Rigging.Demo.Player
         private void UpdateAnimatorParameters()
         {
             animator.SetBool("IsAiming", IsAiming);
-            animator.SetBool("HasHandgun", weaponEquipper.EquippedWeapon ? weaponEquipper.EquippedWeapon.WeaponType == WeaponType.Handgun : false);
-            animator.SetBool("HasRifle", weaponEquipper.EquippedWeapon ? weaponEquipper.EquippedWeapon.WeaponType == WeaponType.Rifle : false);
+            animator.SetBool("HasHandgun", weaponHolder.PendingWeapon ? weaponHolder.PendingWeapon.WeaponType == WeaponType.Handgun : false);
+            animator.SetBool("HasRifle", weaponHolder.PendingWeapon ? weaponHolder.PendingWeapon.WeaponType == WeaponType.Rifle : false);
         }
 
         private void UpdateLayerWeight()
         {
             var currentLayerWeight = animator.GetLayerWeight(_gunLayerIndex);
-            var targetLayerWeight = weaponEquipper.EquippedWeapon ? 1 : 0;
+            var targetLayerWeight = IsActiveGunLayer() ? 1f : 0f;
             var resultLayerWeight = Mathf.MoveTowards(currentLayerWeight, targetLayerWeight, towardSpeed * Time.deltaTime);
 
             animator.SetLayerWeight(_gunLayerIndex, resultLayerWeight);
+        }
+
+        private bool IsActiveGunLayer()
+        {
+            return weaponHolder.EquippedWeapon != null || weaponHolder.PendingWeapon != null;
         }
     }
 }

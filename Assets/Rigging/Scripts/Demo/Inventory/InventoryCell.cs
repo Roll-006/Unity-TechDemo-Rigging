@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Rigging.Demo
+namespace Rigging.Demo.Inventory
 {
     public class InventoryCell : MonoBehaviour
     {

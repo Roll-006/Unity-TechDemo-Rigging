@@ -465,10 +465,7 @@ PrefabInstance:
       addedObject: {fileID: 5322086283071475904}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1122958119258472930}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3928856730568417891}
+      addedObject: {fileID: 5286044153528273230}
   m_SourcePrefab: {fileID: 100100000, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
 --- !u!4 &23827558857878236 stripped
 Transform:
@@ -768,7 +765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.BoneRenderer
   boneShape: 1
-  drawBones: 1
+  drawBones: 0
   drawTripods: 0
   boneSize: 1
   tripodSize: 1
@@ -917,10 +914,10 @@ MonoBehaviour:
   aimGunAction: {fileID: -6834717552555626933, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   fireAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   animator: {fileID: 145777745517364244}
-  weaponEquipper: {fileID: 3928856730568417891}
+  weaponHolder: {fileID: 5286044153528273230}
   gripPivot: {fileID: 634774319089298478}
-  towardSpeed: 10
---- !u!114 &1122958119258472930
+  towardSpeed: 4
+--- !u!114 &5286044153528273230
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -929,24 +926,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6894470543546107092}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba58ebafcb5f5224db34edb323852dcf, type: 3}
+  m_Script: {fileID: 11500000, guid: 821c7cfceb439e043bf67b49fe4201d0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Rigging.Demo.ItemHolder
-  items:
+  m_EditorClassIdentifier: Assembly-CSharp::Rigging.Demo.Player.WeaponHolder
+  animator: {fileID: 145777745517364244}
+  handGripPivot: {fileID: 634774319089298478}
+  testWeapons:
+  - {fileID: 1337206358344138825, guid: e6365591cf6eeaf4fa69077be8ed8f4b, type: 3}
   - {fileID: -7537494182416686846, guid: 04033b9bb843dc144b675f0fd95fd8bf, type: 3}
-  - {fileID: 5703398760415201921, guid: e140677c3c496f443a0796bf9a812e75, type: 3}
---- !u!114 &3928856730568417891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6894470543546107092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 286b8287d1d87cf40b426a67d7b84835, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponEquipper
+  - {fileID: 2820597206791435623, guid: e140677c3c496f443a0796bf9a812e75, type: 3}
+  - {fileID: 2820597206791435623, guid: e140677c3c496f443a0796bf9a812e75, type: 3}
 --- !u!4 &6939232428645759581 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5538751756592888872, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
