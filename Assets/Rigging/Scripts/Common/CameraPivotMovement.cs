@@ -1,11 +1,11 @@
-using System;
+ï»¿using System;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Rigging.Common
 {
-    public class CameraPivotController : MonoBehaviour
+    public class CameraPivotMovement : MonoBehaviour
     {
         [SerializeField] private InputActionReference actionReference;
         [SerializeField] private CinemachineCamera cinemachineCamera;
@@ -24,16 +24,16 @@ namespace Rigging.Common
         private void Awake()
         {
             if (actionReference == null)
-                throw new InvalidOperationException("InputActionReference ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+                throw new InvalidOperationException("InputActionReference ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚SerializeField ã«ç™»éŒ²ã—ã¦ãã ã•ã„ã€‚");
 
             if (cinemachineCamera == null)
-                throw new InvalidOperationException("CinemachineCamera ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+                throw new InvalidOperationException("CinemachineCamera ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚SerializeField ã«ç™»éŒ²ã—ã¦ãã ã•ã„ã€‚");
 
             if (minYaw >= maxYaw)
-                throw new ArgumentOutOfRangeException("Yaw ‚Ì”ÍˆÍ§ŒÀ‚ª•s³‚È’l‚Å‚·B—LŒø”ÍˆÍ‚Í [ Min Yaw < Max Yaw ] ‚Å‚·B");
+                throw new ArgumentOutOfRangeException("Yaw ã®ç¯„å›²åˆ¶é™ãŒä¸æ­£ãªå€¤ã§ã™ã€‚æœ‰åŠ¹ç¯„å›²ã¯ [ Min Yaw < Max Yaw ] ã§ã™ã€‚");
 
             if (minPitch >= maxPitch)
-                throw new ArgumentOutOfRangeException("Pitch ‚Ì”ÍˆÍ§ŒÀ‚ª•s³‚È’l‚Å‚·B—LŒø”ÍˆÍ‚Í [ Min Pitch < Max Pitch ] ‚Å‚·B");
+                throw new ArgumentOutOfRangeException("Pitch ã®ç¯„å›²åˆ¶é™ãŒä¸æ­£ãªå€¤ã§ã™ã€‚æœ‰åŠ¹ç¯„å›²ã¯ [ Min Pitch < Max Pitch ] ã§ã™ã€‚");
         }
 
         private void LateUpdate()

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7633267712742145486}
   - component: {fileID: 3492503259909626976}
   m_Layer: 0
-  m_Name: UI Camera
+  m_Name: UICamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 5528699227380279470}
   - component: {fileID: 3224906530781579241}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,8 +156,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7308612336149062695}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.04363431, y: -0.000000003384408, z: -1.4781708e-10, w: 0.9990476}
+  m_LocalPosition: {x: 0.71000457, y: 1.1954155, z: -1.5947691}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

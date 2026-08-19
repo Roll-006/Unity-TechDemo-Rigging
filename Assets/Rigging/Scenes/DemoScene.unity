@@ -411,6 +411,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ThirdPersonAimCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 1857809629738080495, guid: af21a00da0260834ebc1b59232036904, type: 3}
+      propertyPath: IgnoreTag
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7001341504007524450, guid: af21a00da0260834ebc1b59232036904, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
@@ -460,6 +464,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af21a00da0260834ebc1b59232036904, type: 3}
+--- !u!4 &1388393200 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4595715402954820417, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
+  m_PrefabInstance: {fileID: 4545392555473253895}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1710981328
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -738,7 +747,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7308612336149062695, guid: cd798d2e1fb0ce941b87001f4b685bd3, type: 3}
       propertyPath: m_Name
-      value: Main Camera
+      value: MainCamera
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -753,6 +762,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3380907248941139313, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
+      propertyPath: targetTransform
+      value: 
+      objectReference: {fileID: 1388393200}
     - target: {fileID: 6117512009925107310, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
