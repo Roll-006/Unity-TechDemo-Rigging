@@ -116,7 +116,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1534c52c035876a47bdd7acd2ede6007, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -7537494182416686846}
+      addedObject: {fileID: 7697952953501892584}
   m_SourcePrefab: {fileID: 100100000, guid: 1534c52c035876a47bdd7acd2ede6007, type: 3}
 --- !u!4 &2308924502604720987 stripped
 Transform:
@@ -128,7 +128,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1534c52c035876a47bdd7acd2ede6007, type: 3}
   m_PrefabInstance: {fileID: 2846358421757643952}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-7537494182416686846
+--- !u!114 &7697952953501892584
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,6 +140,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb9730619a875349b62159b92bfbc3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rigging.Common.Handgun
+  rig:
+    PivotOffset: {x: -0.0354, y: 0.1684, z: 0.0295}
+    LeftHandRigHintPosition: {x: 0.096, y: -0.04, z: 0.18}
+    LeftHandRigTargetPosition: {x: -0.0055506, y: 0.02513298, z: 0.0692343}
+    LeftHandRigTargetRotation: {x: 7.282, y: -155.581, z: 13.942}
   pivotOffset: {x: -0.0354, y: 0.1684, z: 0.0295}
   gridSize: {x: 2, y: 2}
   icon: {fileID: 21300000, guid: 16d016fdf7b90e847b47534152bdb11f, type: 3}

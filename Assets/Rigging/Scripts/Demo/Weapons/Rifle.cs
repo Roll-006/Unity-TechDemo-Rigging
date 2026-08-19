@@ -1,4 +1,4 @@
-using Rigging.Core;
+ï»¿using Rigging.Core;
 using System;
 using UnityEngine;
 
@@ -6,19 +6,19 @@ namespace Rigging.Demo.Weapons
 {
     public class Rifle : WeaponBase, IInventoryStorable, IReloadable
     {
-        [SerializeField] private Vector3 pivotOffset;
+        [SerializeField] private WeaponRigData rig;
         [SerializeField, Min(1)] private Vector2Int gridSize;
         [SerializeField] private Sprite icon;
 
         public override WeaponType WeaponType => WeaponType.Rifle;
-        public override Vector3 PivotOffset => pivotOffset;
+        public override WeaponRigData Rig => rig;
         public Vector2Int GridSize => gridSize;
         public Sprite Icon => icon;
 
         private void Awake()
         {
             if (icon == null)
-                throw new InvalidOperationException($"{nameof(icon)} ({typeof(Sprite).Name}) ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+                throw new InvalidOperationException($"{nameof(icon)} ({typeof(Sprite).Name}) ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚SerializeField ã«ç™»éŒ²ã—ã¦ãã ã•ã„ã€‚");
         }
 
         public void OnReload()
