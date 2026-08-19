@@ -9,7 +9,9 @@ namespace Rigging.Demo.Player
     public class WeaponHolder : MonoBehaviour
     {
         [SerializeField] private Animator animator;
-        [SerializeField] private Transform handGripPivot;
+        [SerializeField] private Transform rightHandGripPivot;
+        [SerializeField] private Transform leftHandRigHint;
+        [SerializeField] private Transform leftHandRigTarget;
         [SerializeField] private List<WeaponBase> testWeapons;
 
         public WeaponBase EquippedWeapon { get; private set; }
@@ -24,8 +26,14 @@ namespace Rigging.Demo.Player
             if (animator == null)
                 throw new InvalidOperationException($"{nameof(animator)} ({typeof(Animator).Name}) の取得に失敗しました。SerializeField に登録してください。");
 
-            if (handGripPivot == null)
-                throw new InvalidOperationException($"{nameof(handGripPivot)} ({typeof(Transform).Name}) の取得に失敗しました。SerializeField に登録してください。");
+            if (rightHandGripPivot == null)
+                throw new InvalidOperationException($"{nameof(rightHandGripPivot)} ({typeof(Transform).Name}) の取得に失敗しました。SerializeField に登録してください。");
+
+            if (leftHandRigHint == null)
+                throw new InvalidOperationException($"{nameof(leftHandRigHint)} ({typeof(Transform).Name}) の取得に失敗しました。SerializeField に登録してください。");
+
+            if (leftHandRigTarget == null)
+                throw new InvalidOperationException($"{nameof(leftHandRigTarget)} ({typeof(Transform).Name}) の取得に失敗しました。SerializeField に登録してください。");
         }
 
         private void Update()
@@ -75,10 +83,6 @@ namespace Rigging.Demo.Player
             {
                 animator.SetTrigger("UnequipWeapon");
             }
-
-            Debug.Log("装備が要求が承認されました。");
-            Debug.Log($"PendingWeapon : {PendingWeapon}");
-            Debug.Log($"EquippedWeapon : {EquippedWeapon}");
         }
 
         public void OnUnequipWeapon()
@@ -88,40 +92,30 @@ namespace Rigging.Demo.Player
 
             PendingWeapon = null;
             animator.SetTrigger("UnequipWeapon");
-
-            Debug.Log("着脱が要求が承認されました。");
-            Debug.Log($"PendingWeapon : {PendingWeapon}");
-            Debug.Log($"EquippedWeapon : {EquippedWeapon}");
         }
 
         public void CreateWeapon()
         {
-            Debug.Log("装備通知が送られました。");
-
             if (PendingWeapon == null) return;
 
             EquippedWeapon = PendingWeapon;
-            handGripPivot.localPosition = EquippedWeapon.PivotOffset;
-            EquippedWeaponInstance = Instantiate(EquippedWeapon, handGripPivot, false);
 
-            Debug.Log("装備がされました。");
-            Debug.Log($"PendingWeapon : {PendingWeapon}");
-            Debug.Log($"EquippedWeapon : {EquippedWeapon}");
+            rightHandGripPivot.localPosition = EquippedWeapon.Rig.PivotOffset;
+            leftHandRigHint.localPosition = EquippedWeapon.Rig.LeftHandRigHintPosition;
+            leftHandRigTarget.localPosition = EquippedWeapon.Rig.LeftHandRigTargetPosition;
+            leftHandRigTarget.localEulerAngles = EquippedWeapon.Rig.LeftHandRigTargetRotation;
+
+            EquippedWeaponInstance = Instantiate(EquippedWeapon, rightHandGripPivot, false);
         }
 
         public void DestroyWeapon()
         {
-            Debug.Log("着脱通知が送られました。");
-
             if (EquippedWeaponInstance == null) return;
 
             Destroy(EquippedWeaponInstance.gameObject);
+
             EquippedWeaponInstance = null;
             EquippedWeapon = null;
-
-            Debug.Log("着脱されました。");
-            Debug.Log($"PendingWeapon : {PendingWeapon}");
-            Debug.Log($"EquippedWeapon : {EquippedWeapon}");
         }
     }
 }
