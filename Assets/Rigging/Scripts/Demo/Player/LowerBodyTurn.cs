@@ -16,7 +16,6 @@ namespace Riggin.Demo.Player
         [SerializeField] private float towardSpeed;
         
         private int _lowerBodyTurnLayerIndex;
-        private Vector2 _prevCamreaPosition;
 
         void Awake()
         {
@@ -46,7 +45,7 @@ namespace Riggin.Demo.Player
         private void UpdateAnimatorParameters()
         {
             animator.SetFloat("CameraMoveDirectionX", cameraPivotMovement.Input.x);
-            animator.SetFloat("TurnSpeed", GetTurnSpeed());
+            animator.SetFloat("TurnSpeed", Mathf.Abs(cameraPivotMovement.Input.x) * turnSpeedMultiplier);
         }
 
         private void UpdateLayerWeight()
@@ -60,14 +59,11 @@ namespace Riggin.Demo.Player
 
         private bool IsActiveLayer()
         {
-            return !playerMovement.IsMoving && cameraPivotMovement.IsMoving && playerFacing.IsSyncCameraForward;
-        }
+            if (playerMovement.IsMoving) return false;
+            if (!cameraPivotMovement.IsMoving) return false;
+            if (!playerFacing.IsSyncCameraForward) return false;
 
-        private float GetTurnSpeed()
-        {
-            return cameraPivotMovement.IsMoving ?
-                Mathf.Abs(cameraPivotMovement.Input.x) * turnSpeedMultiplier :
-                Vector3.SignedAngle(transform.forward, CameraManager.I.OutputCamera.transform.forward, Vector3.up);
+            return true;
         }
     }
 }

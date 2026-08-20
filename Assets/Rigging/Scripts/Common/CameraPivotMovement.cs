@@ -19,7 +19,7 @@ namespace Rigging.Common
         [SerializeField] private bool isInvertPitch;
         [SerializeField] private float speed;
 
-        public bool IsMoving => _axis.sqrMagnitude > Mathf.Epsilon;
+        public bool IsMoving => Input.sqrMagnitude > Mathf.Epsilon;
         public Vector2 Input { get; private set; }
 
         private Vector2 _axis;

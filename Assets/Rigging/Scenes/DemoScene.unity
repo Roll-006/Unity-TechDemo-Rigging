@@ -545,14 +545,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ThirdPersonAimCamera
       objectReference: {fileID: 0}
-    - target: {fileID: 4738799522391200980, guid: af21a00da0260834ebc1b59232036904, type: 3}
-      propertyPath: isWrapYaw
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738799522391200980, guid: af21a00da0260834ebc1b59232036904, type: 3}
-      propertyPath: isInvertPitch
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7001341504007524450, guid: af21a00da0260834ebc1b59232036904, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
@@ -928,6 +920,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5826011336962819955, guid: 3b6b58f333ef9bf4fae769d49daefdac, type: 3}
+      propertyPath: cursorLockMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6971822176462396409, guid: 3b6b58f333ef9bf4fae769d49daefdac, type: 3}
       propertyPath: m_Name
       value: Cursor
@@ -1005,10 +1001,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 145777745517364244, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
-      propertyPath: m_WarningMessage
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1552531042066527616, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
       propertyPath: cameraPivotMovement
       value: 
@@ -1286,18 +1278,6 @@ PrefabInstance:
     - target: {fileID: 5069707396826772813, guid: 34f1f6faa02c3bf4299d2906db4cc202, type: 3}
       propertyPath: m_Name
       value: Inventory
-      objectReference: {fileID: 0}
-    - target: {fileID: 5968192698460652622, guid: 34f1f6faa02c3bf4299d2906db4cc202, type: 3}
-      propertyPath: m_ChildAlignment
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5968192698460652622, guid: 34f1f6faa02c3bf4299d2906db4cc202, type: 3}
-      propertyPath: m_ConstraintCount
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 6417969279857162865, guid: 34f1f6faa02c3bf4299d2906db4cc202, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
