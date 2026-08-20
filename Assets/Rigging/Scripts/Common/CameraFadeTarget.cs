@@ -6,7 +6,7 @@ namespace Rigging.Common
 {
     public class CameraFadeTarget : MonoBehaviour
     {
-        [SerializeField] private Renderer renderer;
+        [SerializeField] private new Renderer renderer;
         [SerializeField] private Transform targetTransform;
         [SerializeField] private float transparentDistance;
 

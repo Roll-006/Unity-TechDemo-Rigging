@@ -55,7 +55,7 @@ namespace Rigging.Demo.Player
             playerInput.onActionTriggered -= OnActionTriggered;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             UpdateAnimatorParameters();
             UpdateLayerWeight();
