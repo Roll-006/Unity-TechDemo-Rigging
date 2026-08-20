@@ -1,5 +1,5 @@
-﻿using Rigging.Common;
-using Rigging.Core;
+﻿using Rigging.Core;
+using Rigging.Common;
 using Rigging.Demo.Player;
 using System;
 using UnityEngine;
@@ -14,8 +14,9 @@ namespace Riggin.Demo.Player
         [SerializeField] private PlayerFacing playerFacing;
         [SerializeField] private float turnSpeedMultiplier;
         [SerializeField] private float towardSpeed;
-
+        
         private int _lowerBodyTurnLayerIndex;
+        private Vector2 _prevCamreaPosition;
 
         void Awake()
         {
@@ -45,16 +46,28 @@ namespace Riggin.Demo.Player
         private void UpdateAnimatorParameters()
         {
             animator.SetFloat("CameraMoveDirectionX", cameraPivotMovement.Input.x);
-            animator.SetFloat("TurnSpeed", Mathf.Abs(cameraPivotMovement.Input.x) * turnSpeedMultiplier);
+            animator.SetFloat("TurnSpeed", GetTurnSpeed());
         }
 
         private void UpdateLayerWeight()
         {
             var currentLayerWeight = animator.GetLayerWeight(_lowerBodyTurnLayerIndex);
-            var targetLayerWeight = !playerMovement.IsMoving && cameraPivotMovement.IsMoving && playerFacing.IsSyncCameraForward ? 1f : 0f;
+            var targetLayerWeight = IsActiveLayer() ? 1f : 0f;
             var resultLayerWeight = Mathf.MoveTowards(currentLayerWeight, targetLayerWeight, towardSpeed * Time.deltaTime);
 
             animator.SetLayerWeight(_lowerBodyTurnLayerIndex, resultLayerWeight);
+        }
+
+        private bool IsActiveLayer()
+        {
+            return !playerMovement.IsMoving && cameraPivotMovement.IsMoving && playerFacing.IsSyncCameraForward;
+        }
+
+        private float GetTurnSpeed()
+        {
+            return cameraPivotMovement.IsMoving ?
+                Mathf.Abs(cameraPivotMovement.Input.x) * turnSpeedMultiplier :
+                Vector3.SignedAngle(transform.forward, CameraManager.I.OutputCamera.transform.forward, Vector3.up);
         }
     }
 }

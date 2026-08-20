@@ -1538,7 +1538,7 @@ MonoBehaviour:
   playerMovement: {fileID: 8744046751771125862}
   cameraPivotMovement: {fileID: 0}
   playerFacing: {fileID: 1724535611957470226}
-  turnSpeedMultiplier: 0.17
+  turnSpeedMultiplier: 0.67
   towardSpeed: 1
 --- !u!4 &6939232428645759581 stripped
 Transform:

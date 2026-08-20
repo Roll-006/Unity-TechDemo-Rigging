@@ -55,8 +55,9 @@ namespace Rigging.Common
         private void AddInput()
         {
             Input = actionReference.action.ReadValue<Vector2>();
-            Input.Scale(new Vector2(isInvertYaw ? -1 : 1, isInvertPitch ? -1 : 1));
+            Input *= new Vector2(isInvertYaw ? -1 : 1, isInvertPitch ? -1 : 1);
             _axis += Input * speed;
+
         }
 
         private void ApplyLimits()
