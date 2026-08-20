@@ -7,9 +7,6 @@ namespace Rigging.Core
         public abstract WeaponType WeaponType { get; }
         public abstract WeaponRigData Rig { get; }
 
-        public void OnFire()
-        {
-
-        }
+        public abstract void OnFire();
     }
 }
