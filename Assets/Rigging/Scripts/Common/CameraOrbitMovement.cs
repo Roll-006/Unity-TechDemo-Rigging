@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -21,13 +21,13 @@ namespace Rigging.Common
         private void Awake()
         {
             if (thirdPersonFollow == null)
-                throw new InvalidOperationException("CinemachineThirdPersonFollow ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+                throw new InvalidOperationException($"{nameof(thirdPersonFollow)} ({typeof(CinemachineThirdPersonFollow).Name}) ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚SerializeField ã«ç™»éŒ²ã—ã¦ãã ã•ã„ã€‚");
 
             if (cinemachineCamera == null)
-                throw new InvalidOperationException("CinemachineCamera ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+                throw new InvalidOperationException($"{nameof(cinemachineCamera)} ({typeof(CinemachineCamera).Name}) ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚SerializeField ã«ç™»éŒ²ã—ã¦ãã ã•ã„ã€‚");
 
             if (minPitch >= maxPitch)
-                throw new ArgumentOutOfRangeException("Pitch ‚Ì”ÍˆÍ§ŒÀ‚ª•s³‚È’l‚Å‚·B—LŒø”ÍˆÍ‚Í [ Min Pitch < Max Pitch ] ‚Å‚·B");
+                throw new ArgumentOutOfRangeException($"{nameof(minPitch)}, {nameof(maxPitch)} ã®ç¯„å›²åˆ¶é™ãŒä¸æ­£ãªå€¤ã§ã™ã€‚æœ‰åŠ¹ç¯„å›²ã¯ [ {nameof(minPitch)} < {nameof(maxPitch)} ] ã§ã™ã€‚");
 
             _defaultCameraDistance = thirdPersonFollow.CameraDistance;
             _defaultShoulderOffsetZ = thirdPersonFollow.ShoulderOffset.z;
@@ -43,7 +43,7 @@ namespace Rigging.Common
             var pitchDegree = Mathf.DeltaAngle(0, cinemachineCamera.Target.TrackingTarget.eulerAngles.x);
             var t = Mathf.InverseLerp(minPitch, maxPitch, pitchDegree);
 
-            // ƒxƒWƒF‹Èü‚Å•âŠÔ
+            // ãƒ™ã‚¸ã‚§æ›²ç·šã§è£œé–“
             thirdPersonFollow.CameraDistance = MathUtility.QuadraticBezierCurve(bottomCameraDistance, _defaultCameraDistance, topCameraDistance, t);
             thirdPersonFollow.ShoulderOffset.z = MathUtility.QuadraticBezierCurve(bottomShoulderOffsetZ, _defaultShoulderOffsetZ, topShoulderOffsetZ, t);
         }

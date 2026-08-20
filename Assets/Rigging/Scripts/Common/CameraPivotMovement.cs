@@ -19,21 +19,24 @@ namespace Rigging.Common
         [SerializeField] private bool isInvertPitch;
         [SerializeField] private float speed;
 
+        public bool IsMoving => _axis.sqrMagnitude > Mathf.Epsilon;
+        public Vector2 Input { get; private set; }
+
         private Vector2 _axis;
 
         private void Awake()
         {
             if (actionReference == null)
-                throw new InvalidOperationException("InputActionReference の取得に失敗しました。SerializeField に登録してください。");
+                throw new InvalidOperationException($"{nameof(actionReference)} ({typeof(InputActionReference).Name}) の取得に失敗しました。SerializeField に登録してください。");
 
             if (cinemachineCamera == null)
-                throw new InvalidOperationException("CinemachineCamera の取得に失敗しました。SerializeField に登録してください。");
+                throw new InvalidOperationException($"{nameof(cinemachineCamera)} ({typeof(CinemachineCamera).Name}) の取得に失敗しました。SerializeField に登録してください。");
 
             if (minYaw >= maxYaw)
-                throw new ArgumentOutOfRangeException("Yaw の範囲制限が不正な値です。有効範囲は [ Min Yaw < Max Yaw ] です。");
+                throw new ArgumentOutOfRangeException($"{nameof(minYaw)}, {nameof(maxYaw)} の範囲制限が不正な値です。有効範囲は [ {nameof(minYaw)} < {nameof(maxYaw)} ] です。");
 
             if (minPitch >= maxPitch)
-                throw new ArgumentOutOfRangeException("Pitch の範囲制限が不正な値です。有効範囲は [ Min Pitch < Max Pitch ] です。");
+                throw new ArgumentOutOfRangeException($"{nameof(minPitch)}, {nameof(maxPitch)} の範囲制限が不正な値です。有効範囲は [ {nameof(minPitch)} < {nameof(maxPitch)} ] です。");
         }
 
         private void LateUpdate()
@@ -51,9 +54,9 @@ namespace Rigging.Common
 
         private void AddInput()
         {
-            var input = actionReference.action.ReadValue<Vector2>();
-            input.Scale(new Vector2(isInvertYaw ? -1 : 1, isInvertPitch ? -1 : 1));
-            _axis += input * speed;
+            Input = actionReference.action.ReadValue<Vector2>();
+            Input.Scale(new Vector2(isInvertYaw ? -1 : 1, isInvertPitch ? -1 : 1));
+            _axis += Input * speed;
         }
 
         private void ApplyLimits()

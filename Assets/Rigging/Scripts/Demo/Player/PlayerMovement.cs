@@ -1,4 +1,4 @@
-using Rigging.Core;
+ï»¿using Rigging.Core;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,7 +15,7 @@ namespace Rigging.Demo.Player
         [SerializeField] private float towardSpeed;
 
         /// <summary>
-        /// ƒJƒƒ‰Šî€‚ÌˆÚ“®•ûŒü
+        /// ã‚«ãƒ¡ãƒ©åŸºæº–ã®ç§»å‹•æ–¹å‘
         /// </summary>
         public Vector3 MoveDirection { get; private set; }
         public bool IsMoving => MoveDirection.sqrMagnitude > Mathf.Epsilon;
@@ -27,19 +27,19 @@ namespace Rigging.Demo.Player
         private void Awake()
         {
             if (playerInput == null)
-                throw new InvalidOperationException($"{nameof(playerInput)} ({typeof(PlayerInput).Name}) ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+                throw new InvalidOperationException($"{nameof(playerInput)} ({typeof(PlayerInput).Name}) ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚SerializeField ã«ç™»éŒ²ã—ã¦ãã ã•ã„ã€‚");
 
             if (moveAction == null)
-                throw new InvalidOperationException($"{nameof(moveAction)} ({typeof(InputActionReference).Name}) ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+                throw new InvalidOperationException($"{nameof(moveAction)} ({typeof(InputActionReference).Name}) ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚SerializeField ã«ç™»éŒ²ã—ã¦ãã ã•ã„ã€‚");
 
             if (sprintAction == null)
-                throw new InvalidOperationException($"{nameof(sprintAction)} ({typeof(InputActionReference).Name}) ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+                throw new InvalidOperationException($"{nameof(sprintAction)} ({typeof(InputActionReference).Name}) ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚SerializeField ã«ç™»éŒ²ã—ã¦ãã ã•ã„ã€‚");
 
             if (animator == null)
-                throw new InvalidOperationException($"{nameof(animator)} ({typeof(Animator).Name}) ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+                throw new InvalidOperationException($"{nameof(animator)} ({typeof(Animator).Name}) ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚SerializeField ã«ç™»éŒ²ã—ã¦ãã ã•ã„ã€‚");
 
             if (rb == null)
-                throw new InvalidOperationException($"{nameof(rb)} ({typeof(Rigidbody).Name}) ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+                throw new InvalidOperationException($"{nameof(rb)} ({typeof(Rigidbody).Name}) ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚SerializeField ã«ç™»éŒ²ã—ã¦ãã ã•ã„ã€‚");
         }
 
         private void OnEnable()
@@ -55,8 +55,11 @@ namespace Rigging.Demo.Player
         private void Update()
         {
             rb.angularVelocity = Vector3.zero;
-
             UpdateMoveDirection();
+        }
+
+        private void LateUpdate()
+        {
             UpdateAnimatorParameters();
         }
 
@@ -114,7 +117,7 @@ namespace Rigging.Demo.Player
             cameraForward.Normalize();
             cameraRight.Normalize();
 
-            // “ü—Í‚ğƒJƒƒ‰Šî€‚ÌƒxƒNƒgƒ‹‚É•ÏŠ·
+            // å…¥åŠ›ã‚’ã‚«ãƒ¡ãƒ©åŸºæº–ã®ãƒ™ã‚¯ãƒˆãƒ«ã«å¤‰æ›
             var targetMoveDirection = cameraRight * _inputAxis.x + cameraForward * _inputAxis.y;
             targetMoveDirection = Vector3.ClampMagnitude(targetMoveDirection, 1f);
 

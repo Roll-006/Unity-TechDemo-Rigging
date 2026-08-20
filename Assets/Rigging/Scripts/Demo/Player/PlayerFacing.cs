@@ -1,4 +1,4 @@
-using Rigging.Core;
+Ôªøusing Rigging.Core;
 using System;
 using UnityEngine;
 
@@ -9,13 +9,14 @@ namespace Rigging.Demo.Player
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private float towardSpeed;
 
+        public bool IsSyncCameraForward { get; private set; }
+
         private Vector3 _currentFacingDirection;
-        private bool _isSyncCameraForward;
 
         private void Awake()
         {
             if (playerMovement == null)
-                throw new InvalidOperationException($"{nameof(playerMovement)} ({typeof(PlayerMovement).Name}) ÇÃéÊìæÇ…é∏îsÇµÇ‹ÇµÇΩÅBSerializeField Ç…ìoò^ÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB");
+                throw new InvalidOperationException($"{nameof(playerMovement)} ({typeof(PlayerMovement).Name}) „ÅÆÂèñÂæó„Å´Â§±Êïó„Åó„Åæ„Åó„Åü„ÄÇSerializeField „Å´ÁôªÈå≤„Åó„Å¶„Åè„Å†„Åï„ÅÑ„ÄÇ");
         }
 
         private void Start()
@@ -25,26 +26,22 @@ namespace Rigging.Demo.Player
 
         private void Update()
         {
-            UpdateSyncState();
+            IsSyncCameraForward = false;
+        }
+
+        private void LateUpdate()
+        {
             UpdateFacingDirection();
         }
 
-        private void UpdateSyncState()
+        public void SyncCameraForward()
         {
-            if (playerMovement.IsSprinting)
-            {
-                _isSyncCameraForward = false;
-                return;
-            }
-
-            _isSyncCameraForward = true;
+            IsSyncCameraForward = true;
         }
 
         private void UpdateFacingDirection()
         {
-            if (!playerMovement.IsMoving) return;
-
-            var targetFacingDirection = _isSyncCameraForward ? GetMoveCameraForward() : playerMovement.MoveDirection;
+            var targetFacingDirection = IsSyncCameraForward ? GetMoveCameraForward() : playerMovement.MoveDirection;
 
             _currentFacingDirection = Vector3.RotateTowards(_currentFacingDirection, targetFacingDirection, towardSpeed * Time.deltaTime, 0f);
             transform.LookAt(transform.position + _currentFacingDirection);
