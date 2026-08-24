@@ -183,4 +183,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 16d016fdf7b90e847b47534152bdb11f, type: 3}
   initialVelocity: 98
   range: 50
-  aimTarget: {fileID: 0}
+  rayPivot: {fileID: 3180035533931379729}

@@ -4,7 +4,7 @@ using UnityEngine.Animations.Rigging;
 
 namespace Riggin.Demo.Player
 {
-    public class HasGunRigUpdater : MonoBehaviour
+    public class TwoHandedWeaponRigUpdater : MonoBehaviour
     {
         [SerializeField] private Rig rig;
         [SerializeField] private float towardSpeed;

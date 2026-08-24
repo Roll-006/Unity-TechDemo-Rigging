@@ -9,6 +9,7 @@ namespace Rigging.Demo.Player
     public class WeaponHolder : MonoBehaviour
     {
         [SerializeField] private Animator animator;
+        [SerializeField] private Transform aimTarget;
         [SerializeField] private Transform rightHandGripPivot;
         [SerializeField] private Transform leftHandRigHint;
         [SerializeField] private Transform leftHandRigTarget;
@@ -106,6 +107,12 @@ namespace Rigging.Demo.Player
             leftHandRigTarget.localEulerAngles = EquippedWeapon.Rig.LeftHandRigTargetRotation;
 
             EquippedWeaponInstance = Instantiate(EquippedWeapon, rightHandGripPivot, false);
+
+            var shootable = EquippedWeaponInstance.GetComponent<IShootable>();
+            if (shootable != null)
+            {
+                shootable.SetAimTarget(aimTarget);
+            }
         }
 
         public void DestroyWeapon()
