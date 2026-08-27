@@ -739,7 +739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RayPivotTrigger
   trigger: {fileID: 8463913247066034084}
-  exitRadius: 7
+  exitRadius: 8
 --- !u!1 &7618803547483416695
 GameObject:
   m_ObjectHideFlags: 0
