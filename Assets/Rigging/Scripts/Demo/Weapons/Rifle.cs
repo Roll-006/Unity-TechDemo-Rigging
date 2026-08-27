@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Rigging.Demo.Weapons
 {
-    public class Rifle : WeaponBase, IInventoryStorable, IReloadable, IShootable
+    public class Rifle : WeaponBase, IInventoryStorable, IReloadable, IShootable, ITriggerable
     {
         [SerializeField] private WeaponRigData rig;
         [SerializeField, Min(1)] private Vector2Int gridSize;
@@ -12,6 +12,7 @@ namespace Rigging.Demo.Weapons
         [SerializeField] private float initialVelocity;
         [SerializeField] private float range;
         [SerializeField] private Transform rayPivot;
+        [SerializeField] private RayPivotTrigger rayPivotTrigger;
 
         public override WeaponType WeaponType => WeaponType.Rifle;
         public override WeaponRigData Rig => rig;
@@ -19,7 +20,8 @@ namespace Rigging.Demo.Weapons
         public Sprite Icon => icon;
         public float InitialVelocity => initialVelocity;
         public float Range => range;
-        public Transform AimTarget { get; private set; }
+        public Transform AimTarget { get; set; }
+        public RayPivotTrigger RayPivotTrigger => rayPivotTrigger;
 
         private void Awake()
         {
@@ -28,6 +30,9 @@ namespace Rigging.Demo.Weapons
 
             if (rayPivot == null)
                 throw new InvalidOperationException($"{nameof(rayPivot)} ({typeof(Transform).Name}) の取得に失敗しました。SerializeField に登録してください。");
+
+            if (rayPivotTrigger == null)
+                throw new InvalidOperationException($"{nameof(rayPivotTrigger)} ({typeof(RayPivotTrigger).Name}) の取得に失敗しました。SerializeField に登録してください。");
         }
 
         private void Update()
@@ -43,11 +48,6 @@ namespace Rigging.Demo.Weapons
         public void OnReload()
         {
 
-        }
-
-        public void SetAimTarget(Transform aimTarget)
-        {
-            AimTarget = aimTarget;
         }
 
         public void UpdateAimTarget()

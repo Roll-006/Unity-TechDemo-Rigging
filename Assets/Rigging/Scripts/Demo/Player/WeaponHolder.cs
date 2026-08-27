@@ -111,7 +111,7 @@ namespace Rigging.Demo.Player
             var shootable = EquippedWeaponInstance.GetComponent<IShootable>();
             if (shootable != null)
             {
-                shootable.SetAimTarget(aimTarget);
+                shootable.AimTarget = aimTarget;
             }
         }
 

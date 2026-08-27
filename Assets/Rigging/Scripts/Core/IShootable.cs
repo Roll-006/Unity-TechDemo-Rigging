@@ -6,9 +6,8 @@ namespace Rigging.Core
     {
         public float InitialVelocity { get; }
         public float Range { get; }
-        public Transform AimTarget { get; }
+        public Transform AimTarget { get; set; }
 
-        public void SetAimTarget(Transform aimTarget);
         public void UpdateAimTarget();
     }
 }
