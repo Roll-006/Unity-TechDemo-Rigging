@@ -1,6 +1,5 @@
 ﻿using Rigging.Core;
 using Rigging.Demo.Player;
-using System;
 using UnityEngine;
 
 namespace Rigging.Demo
@@ -15,8 +14,7 @@ namespace Rigging.Demo
 
         private void Awake()
         {
-            if (weaponHolder == null)
-                throw new InvalidOperationException($"{nameof(weaponHolder)} ({typeof(WeaponHolder).Name}) の取得に失敗しました。SerializeField に登録してください。");
+            Debugger.I.ValidateSerializeField(weaponHolder, this);
         }
 
         public void EquipWeapon()

@@ -1,4 +1,4 @@
-using System;
+Ôªøusing Rigging.Core;
 using UnityEngine;
 
 public class RayPivotTrigger : MonoBehaviour
@@ -12,22 +12,19 @@ public class RayPivotTrigger : MonoBehaviour
 
     private void Awake()
     {
-        if (trigger == null)
-            throw new InvalidOperationException($"{nameof(trigger)} ({typeof(SphereCollider).Name}) ÇÃéÊìæÇ…é∏îsÇµÇ‹ÇµÇΩÅBSerializeField Ç…ìoò^ÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB");
+        Debugger.I.ValidateSerializeField(trigger, this);
 
         _defaultRadius = trigger.radius;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"TriggerEnter : {other.gameObject.name}");
         IsHit = true;
         trigger.radius = exitRadius;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log($"TriggerExit : {other.gameObject.name}");
         IsHit = false;
         trigger.radius = _defaultRadius;
     }

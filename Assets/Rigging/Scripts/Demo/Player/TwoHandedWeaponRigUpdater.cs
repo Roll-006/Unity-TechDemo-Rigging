@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Rigging.Core;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
 namespace Riggin.Demo.Player
 {
-    public class RightHandRigUpdater : MonoBehaviour
+    public class TwoHandedWeaponRigUpdater : MonoBehaviour
     {
         [SerializeField] private Rig rig;
         [SerializeField] private float towardSpeed;
@@ -13,8 +13,7 @@ namespace Riggin.Demo.Player
 
         private void Awake()
         {
-            if (rig == null)
-                throw new InvalidOperationException($"{nameof(rig)} ({typeof(Rig).Name}) の取得に失敗しました。SerializeField に登録してください。");
+            Debugger.I.ValidateSerializeField(rig, this);
         }
 
         private void Update()
@@ -28,12 +27,12 @@ namespace Riggin.Demo.Player
             rig.weight = Mathf.MoveTowards(rig.weight, targetRigWeight, towardSpeed * Time.deltaTime);
         }
 
-        public void EnableRightHandRig()
+        public void EnableTwoHandedWeaponRig()
         {
             _isEnable = true;
         }
 
-        public void DisableRightHandRig()
+        public void DisableTwoHandedWeaponRig()
         {
             _isEnable = false;
         }

@@ -1,5 +1,4 @@
 ﻿using Rigging.Core;
-using System;
 using UnityEngine;
 
 namespace Rigging.Demo.Player
@@ -15,8 +14,7 @@ namespace Rigging.Demo.Player
 
         private void Awake()
         {
-            if (playerMovement == null)
-                throw new InvalidOperationException($"{nameof(playerMovement)} ({typeof(PlayerMovement).Name}) の取得に失敗しました。SerializeField に登録してください。");
+            Debugger.I.ValidateSerializeField(playerMovement, this);
         }
 
         private void Start()

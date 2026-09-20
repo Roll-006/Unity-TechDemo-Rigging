@@ -26,20 +26,11 @@ namespace Rigging.Demo.Player
 
         private void Awake()
         {
-            if (playerInput == null)
-                throw new InvalidOperationException($"{nameof(playerInput)} ({typeof(PlayerInput).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (moveAction == null)
-                throw new InvalidOperationException($"{nameof(moveAction)} ({typeof(InputActionReference).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (sprintAction == null)
-                throw new InvalidOperationException($"{nameof(sprintAction)} ({typeof(InputActionReference).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (animator == null)
-                throw new InvalidOperationException($"{nameof(animator)} ({typeof(Animator).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (rb == null)
-                throw new InvalidOperationException($"{nameof(rb)} ({typeof(Rigidbody).Name}) の取得に失敗しました。SerializeField に登録してください。");
+            Debugger.I.ValidateSerializeField(playerInput, this);
+            Debugger.I.ValidateSerializeField(moveAction, this);
+            Debugger.I.ValidateSerializeField(sprintAction, this);
+            Debugger.I.ValidateSerializeField(animator, this);
+            Debugger.I.ValidateSerializeField(rb, this);
         }
 
         private void OnEnable()

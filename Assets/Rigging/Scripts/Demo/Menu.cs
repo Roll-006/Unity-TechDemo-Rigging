@@ -1,5 +1,5 @@
+using Rigging.Core;
 using Rigging.Common;
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,14 +15,9 @@ namespace Rigging.Demo
 
         private void Awake()
         {
-            if (menuAction == null)
-                throw new InvalidOperationException($"{nameof(menuAction)} ({typeof(InputActionReference).Name}) ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
-
-            if (canvasGroup == null)
-                throw new InvalidOperationException($"{nameof(canvasGroup)} ({typeof(CanvasGroup).Name}) ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
-
-            if (canvasGroupFade == null)
-                throw new InvalidOperationException($"{nameof(canvasGroupFade)} ({typeof(CanvasGroupFade).Name}) ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+            Debugger.I.ValidateSerializeField(menuAction, this);
+            Debugger.I.ValidateSerializeField(canvasGroup, this);
+            Debugger.I.ValidateSerializeField(canvasGroupFade, this);
         }
 
         private void Start()

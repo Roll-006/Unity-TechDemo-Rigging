@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Rigging.Core;
 using UnityEngine;
 
 namespace Rigging.Demo.Player
@@ -9,8 +9,7 @@ namespace Rigging.Demo.Player
 
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            _playerFacing = animator.GetComponent<PlayerFacing>() ??
-                throw new InvalidOperationException($"{nameof(_playerFacing)} ({typeof(PlayerFacing).Name}) の取得に失敗しました。Component に登録してください。"); ;
+            _playerFacing = Debugger.I.ValidateComponent<PlayerFacing>(animator);
 
             animator.GetComponent<PlayerMovement>()?.StopSprint();
         }

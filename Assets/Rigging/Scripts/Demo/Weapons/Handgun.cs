@@ -1,5 +1,4 @@
 ﻿using Rigging.Core;
-using System;
 using UnityEngine;
 
 namespace Rigging.Demo.Weapons
@@ -25,14 +24,9 @@ namespace Rigging.Demo.Weapons
 
         private void Awake()
         {
-            if (icon == null)
-                throw new InvalidOperationException($"{nameof(icon)} ({typeof(Sprite).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (rayPivot == null)
-                throw new InvalidOperationException($"{nameof(rayPivot)} ({typeof(Transform).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (rayPivotTrigger == null)
-                throw new InvalidOperationException($"{nameof(rayPivotTrigger)} ({typeof(RayPivotTrigger).Name}) の取得に失敗しました。SerializeField に登録してください。");
+            Debugger.I.ValidateSerializeField(icon, this);
+            Debugger.I.ValidateSerializeField(rayPivot, this);
+            Debugger.I.ValidateSerializeField(rayPivotTrigger, this);
         }
 
         private void Update()

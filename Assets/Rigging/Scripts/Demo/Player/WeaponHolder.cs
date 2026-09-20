@@ -1,5 +1,4 @@
 ﻿using Rigging.Core;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -24,17 +23,10 @@ namespace Rigging.Demo.Player
 
         private void Awake()
         {
-            if (animator == null)
-                throw new InvalidOperationException($"{nameof(animator)} ({typeof(Animator).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (rightHandGripPivot == null)
-                throw new InvalidOperationException($"{nameof(rightHandGripPivot)} ({typeof(Transform).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (leftHandRigHint == null)
-                throw new InvalidOperationException($"{nameof(leftHandRigHint)} ({typeof(Transform).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (leftHandRigTarget == null)
-                throw new InvalidOperationException($"{nameof(leftHandRigTarget)} ({typeof(Transform).Name}) の取得に失敗しました。SerializeField に登録してください。");
+            Debugger.I.ValidateSerializeField(animator, this);
+            Debugger.I.ValidateSerializeField(rightHandGripPivot, this);
+            Debugger.I.ValidateSerializeField(leftHandRigHint, this);
+            Debugger.I.ValidateSerializeField(leftHandRigTarget, this);
         }
 
         private void Update()

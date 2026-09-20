@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Rigging.Core;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -10,8 +10,7 @@ namespace Rigging.Common
 
         private void Awake()
         {
-            if (cinemachine == null)
-                throw new InvalidOperationException($"{nameof(cinemachine)} ({typeof(CinemachineCamera).Name}) の取得に失敗しました。SerializeField に登録してください。");
+            Debugger.I.ValidateSerializeField(cinemachine, this);
         }
 
         public void ActivateCinemachine()

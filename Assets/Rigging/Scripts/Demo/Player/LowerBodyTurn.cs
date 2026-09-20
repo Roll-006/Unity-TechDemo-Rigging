@@ -19,17 +19,10 @@ namespace Riggin.Demo.Player
 
         void Awake()
         {
-            if (animator == null)
-                throw new InvalidOperationException($"{nameof(animator)} ({typeof(Animator).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (playerMovement == null)
-                throw new InvalidOperationException($"{nameof(playerMovement)} ({typeof(PlayerMovement).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (cameraPivotMovement == null)
-                throw new InvalidOperationException($"{nameof(cameraPivotMovement)} ({typeof(CameraPivotMovement).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (playerFacing == null)
-                throw new InvalidOperationException($"{nameof(playerFacing)} ({typeof(PlayerFacing).Name}) の取得に失敗しました。SerializeField に登録してください。");
+            Debugger.I.ValidateSerializeField(animator, this);
+            Debugger.I.ValidateSerializeField(playerMovement, this);
+            Debugger.I.ValidateSerializeField(cameraPivotMovement, this);
+            Debugger.I.ValidateSerializeField(playerFacing, this);
 
             _lowerBodyTurnLayerIndex = animator.GetLayerIndex("Lower Body Turn Layer");
             if (_lowerBodyTurnLayerIndex == -1)

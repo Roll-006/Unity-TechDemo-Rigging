@@ -1,4 +1,6 @@
-﻿using Rigging.Core;
+﻿using Riggin.Demo.Player;
+using Rigging.Common;
+using Rigging.Core;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,6 +13,8 @@ namespace Rigging.Demo.Player
         [SerializeField] private InputActionReference aimGunAction;
         [SerializeField] private InputActionReference fireAction;
         [SerializeField] private Animator animator;
+        [SerializeField] private CinemachineActiveController cinemachineActiveController;
+        [SerializeField] private AimRigUpdater aimRigUpdater;
         [SerializeField] private WeaponHolder weaponHolder;
         [SerializeField] private Transform gripPivot;
         [SerializeField] private float towardSpeed;
@@ -22,23 +26,14 @@ namespace Rigging.Demo.Player
 
         private void Awake()
         {
-            if (playerInput == null)
-                throw new InvalidOperationException($"{nameof(playerInput)} ({typeof(PlayerInput).Name}) の取得に失敗しました。SerializeField に登録してください。");
-            
-            if (aimGunAction == null)
-                throw new InvalidOperationException($"{nameof(aimGunAction)} ({typeof(InputActionReference).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (fireAction == null)
-                throw new InvalidOperationException($"{nameof(fireAction)} ({typeof(InputActionReference).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (animator == null)
-                throw new InvalidOperationException($"{nameof(animator)} ({typeof(Animator).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (weaponHolder == null)
-                throw new InvalidOperationException($"{nameof(weaponHolder)} ({typeof(WeaponHolder).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (gripPivot == null)
-                throw new InvalidOperationException($"{nameof(gripPivot)} ({typeof(Transform).Name}) の取得に失敗しました。SerializeField に登録してください。");
+            Debugger.I.ValidateSerializeField(playerInput, this);
+            Debugger.I.ValidateSerializeField(aimGunAction, this);
+            Debugger.I.ValidateSerializeField(fireAction, this);
+            Debugger.I.ValidateSerializeField(animator, this);
+            Debugger.I.ValidateSerializeField(cinemachineActiveController, this);
+            Debugger.I.ValidateSerializeField(aimRigUpdater, this);
+            Debugger.I.ValidateSerializeField(weaponHolder, this);
+            Debugger.I.ValidateSerializeField(gripPivot, this);
 
             _gunLayerIndex = animator.GetLayerIndex("Gun Layer");
             if (_gunLayerIndex == -1)
@@ -55,10 +50,25 @@ namespace Rigging.Demo.Player
             playerInput.onActionTriggered -= OnActionTriggered;
         }
 
+        private void Update()
+        {
+        }
+
         private void LateUpdate()
         {
             UpdateAnimatorParameters();
             UpdateLayerWeight();
+
+            if (IsAiming)
+            {
+                cinemachineActiveController.ActivateCinemachine();
+                aimRigUpdater.EnableAimRig();
+            }
+            else
+            {
+                cinemachineActiveController.DeactivateCinemachine();
+                aimRigUpdater.DisableAimRig();
+            }
         }
 
         private void OnActionTriggered(InputAction.CallbackContext context)
@@ -95,6 +105,7 @@ namespace Rigging.Demo.Player
         private void UpdateAnimatorParameters()
         {
             animator.SetBool("IsAiming", IsAiming);
+            if (weaponHolder.EquippedWeaponInstance) animator.SetBool("IsHitWeaponRayPivot", weaponHolder.EquippedWeaponInstance.GetComponent<ITriggerable>().RayPivotTrigger.IsHit);
             animator.SetBool("HasHandgun", weaponHolder.PendingWeapon ? weaponHolder.PendingWeapon.WeaponType == WeaponType.Handgun : false);
             animator.SetBool("HasRifle", weaponHolder.PendingWeapon ? weaponHolder.PendingWeapon.WeaponType == WeaponType.Rifle : false);
         }

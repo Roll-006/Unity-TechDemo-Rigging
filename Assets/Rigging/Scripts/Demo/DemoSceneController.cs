@@ -1,6 +1,5 @@
-﻿using Rigging.Demo.Inventory;
-using Rigging.Demo.Player;
-using System;
+﻿using Rigging.Core;
+using Rigging.Demo.Inventory;
 using UnityEngine;
 
 namespace Rigging.Demo
@@ -9,19 +8,18 @@ namespace Rigging.Demo
     {
         [SerializeField] private InventoryView inventoryView;
 
-        private InventoryViewModel inventoryViewModel = new();
+        private InventoryViewModel _inventoryViewModel = new();
 
         private void Awake()
         {
-            if (inventoryView == null)
-                throw new InvalidOperationException($"{nameof(inventoryView)} ({typeof(InventoryView).Name}) の取得に失敗しました。SerializeField に登録してください。");
+            Debugger.I.ValidateSerializeField(inventoryView, this);
 
-            inventoryView.SetViewModel(inventoryViewModel);
+            inventoryView.SetViewModel(_inventoryViewModel);
         }
 
         private void OnDestroy()
         {
-            inventoryViewModel.Dispose();
+            _inventoryViewModel.Dispose();
         }
     }
 }
