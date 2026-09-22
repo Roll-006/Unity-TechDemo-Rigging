@@ -18,6 +18,8 @@ namespace Rigging.Demo.Player
         public WeaponBase EquippedWeaponInstance { get; private set; }
         public WeaponBase PendingWeapon { get; private set; }
 
+        private int _equipWeaponIndex;
+        private int _unequipWeaponIndex;
         private bool _isEquipped;
         private int _count;
 
@@ -27,6 +29,9 @@ namespace Rigging.Demo.Player
             Debugger.I.ValidateSerializeField(rightHandGripPivot, this);
             Debugger.I.ValidateSerializeField(leftHandRigHint, this);
             Debugger.I.ValidateSerializeField(leftHandRigTarget, this);
+
+            _equipWeaponIndex = Animator.StringToHash("EquipWeapon");
+            _unequipWeaponIndex = Animator.StringToHash("UnequipWeapon");
         }
 
         private void Update()
@@ -71,10 +76,10 @@ namespace Rigging.Demo.Player
 
             PendingWeapon = weapon;
 
-            animator.SetTrigger("EquipWeapon");
+            animator.SetTrigger(_equipWeaponIndex);
             if (PendingWeapon != EquippedWeapon && EquippedWeapon != null)
             {
-                animator.SetTrigger("UnequipWeapon");
+                animator.SetTrigger(_unequipWeaponIndex);
             }
         }
 
@@ -84,7 +89,7 @@ namespace Rigging.Demo.Player
             if (EquippedWeapon == null) return;
 
             PendingWeapon = null;
-            animator.SetTrigger("UnequipWeapon");
+            animator.SetTrigger(_unequipWeaponIndex);
         }
 
         public void CreateWeapon()

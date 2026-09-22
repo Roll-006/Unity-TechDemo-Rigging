@@ -50,8 +50,6 @@ namespace Rigging.Demo.Weapons
             var cameraTransform = CameraManager.I.OutputCamera.transform;
             var cameraRay = new Ray(cameraTransform.position + cameraTransform.forward * 2f, cameraTransform.forward);
             var obstaclePosition = Physics.Raycast(cameraRay, out var cameraTarget) ? cameraTarget.point : cameraTransform.position + cameraTransform.forward * Range;
-            
-            var distance = Vector3.Distance(rayPivot.position, obstaclePosition);
             var direction = (obstaclePosition - rayPivot.position).normalized;
 
             // 武器からのレイ

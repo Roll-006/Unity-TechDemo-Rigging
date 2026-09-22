@@ -23,6 +23,10 @@ namespace Rigging.Demo.Player
 
         private int _gunLayerIndex;
         private bool _isAimingInput;
+        private int _isAimingIndex;
+        private int _isHitWeaponRayPivotIndex;
+        private int _hasHandgunIndex;
+        private int _hasRifleIndex;
 
         private void Awake()
         {
@@ -38,6 +42,11 @@ namespace Rigging.Demo.Player
             _gunLayerIndex = animator.GetLayerIndex("Gun Layer");
             if (_gunLayerIndex == -1)
                 throw new InvalidOperationException($"{nameof(_gunLayerIndex)} の Index の取得に失敗しました。");
+
+            _isAimingIndex = Animator.StringToHash("IsAiming");
+            _isHitWeaponRayPivotIndex = Animator.StringToHash("IsHitWeaponRayPivot");
+            _hasHandgunIndex = Animator.StringToHash("HasHandgun");
+            _hasRifleIndex = Animator.StringToHash("HasRifle");
         }
         
         private void OnEnable()
@@ -48,10 +57,6 @@ namespace Rigging.Demo.Player
         private void OnDisable()
         {
             playerInput.onActionTriggered -= OnActionTriggered;
-        }
-
-        private void Update()
-        {
         }
 
         private void LateUpdate()
@@ -104,10 +109,11 @@ namespace Rigging.Demo.Player
 
         private void UpdateAnimatorParameters()
         {
-            animator.SetBool("IsAiming", IsAiming);
-            if (weaponHolder.EquippedWeaponInstance) animator.SetBool("IsHitWeaponRayPivot", weaponHolder.EquippedWeaponInstance.GetComponent<ITriggerable>().RayPivotTrigger.IsHit);
-            animator.SetBool("HasHandgun", weaponHolder.PendingWeapon ? weaponHolder.PendingWeapon.WeaponType == WeaponType.Handgun : false);
-            animator.SetBool("HasRifle", weaponHolder.PendingWeapon ? weaponHolder.PendingWeapon.WeaponType == WeaponType.Rifle : false);
+
+            animator.SetBool(_isAimingIndex, IsAiming);
+            if (weaponHolder.EquippedWeaponInstance) animator.SetBool(_isHitWeaponRayPivotIndex, weaponHolder.EquippedWeaponInstance.GetComponent<ITriggerable>().RayPivotTrigger.IsHit);
+            animator.SetBool(_hasHandgunIndex, weaponHolder.PendingWeapon ? weaponHolder.PendingWeapon.WeaponType == WeaponType.Handgun : false);
+            animator.SetBool(_hasRifleIndex, weaponHolder.PendingWeapon ? weaponHolder.PendingWeapon.WeaponType == WeaponType.Rifle : false);
         }
 
         private void UpdateLayerWeight()

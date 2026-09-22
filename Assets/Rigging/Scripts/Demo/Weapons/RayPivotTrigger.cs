@@ -1,31 +1,36 @@
 ﻿using Rigging.Core;
 using UnityEngine;
 
-public class RayPivotTrigger : MonoBehaviour
+namespace Rigging.Demo.Weapons
 {
-    [SerializeField] private SphereCollider trigger;
-    [SerializeField] private float exitRadius;
-
-    public bool IsHit { get; private set; }
-
-    private float _defaultRadius;
-
-    private void Awake()
+    public class RayPivotTrigger : MonoBehaviour
     {
-        Debugger.I.ValidateSerializeField(trigger, this);
+        [SerializeField] private SphereCollider trigger;
+        [SerializeField] private float exitRadius;
 
-        _defaultRadius = trigger.radius;
-    }
+        public bool IsHit { get; private set; }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        IsHit = true;
-        trigger.radius = exitRadius;
-    }
+        private float _defaultRadius;
 
-    private void OnTriggerExit(Collider other)
-    {
-        IsHit = false;
-        trigger.radius = _defaultRadius;
+        private void Awake()
+        {
+            Debugger.I.ValidateSerializeField(trigger, this);
+
+            _defaultRadius = trigger.radius;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            IsHit = true;
+            trigger.radius = exitRadius;
+            Debug.Log("Enter");
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            IsHit = false;
+            trigger.radius = _defaultRadius;
+            Debug.Log("Exit");
+        }
     }
 }

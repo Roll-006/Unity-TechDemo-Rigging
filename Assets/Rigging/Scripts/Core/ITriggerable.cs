@@ -1,4 +1,6 @@
-﻿namespace Rigging.Core
+﻿using Rigging.Demo.Weapons;
+
+namespace Rigging.Core
 {
     public interface ITriggerable
     {
