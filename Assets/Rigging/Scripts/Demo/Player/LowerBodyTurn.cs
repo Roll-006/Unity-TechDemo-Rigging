@@ -16,8 +16,6 @@ namespace Riggin.Demo.Player
         [SerializeField] private float towardSpeed;
         
         private int _lowerBodyTurnLayerIndex;
-        private int _cameraMoveDirectionXIndex;
-        private int _turnSpeedIndex;
 
         void Awake()
         {
@@ -26,12 +24,7 @@ namespace Riggin.Demo.Player
             Debugger.I.ValidateSerializeField(cameraPivotMovement, this);
             Debugger.I.ValidateSerializeField(playerFacing, this);
 
-            _lowerBodyTurnLayerIndex = animator.GetLayerIndex("Lower Body Turn Layer");
-            if (_lowerBodyTurnLayerIndex == -1)
-                throw new InvalidOperationException($"{nameof(_lowerBodyTurnLayerIndex)} の Index の取得に失敗しました。");
-
-            _cameraMoveDirectionXIndex = Animator.StringToHash("CameraMoveDirectionX");
-            _turnSpeedIndex = Animator.StringToHash("TurnSpeed");
+            _lowerBodyTurnLayerIndex = animator.GetLayerIndex(AnimatorLayers.LowerBodyTurnLayer);
         }
 
         void LateUpdate()
@@ -42,8 +35,8 @@ namespace Riggin.Demo.Player
 
         private void UpdateAnimatorParameters()
         {
-            animator.SetFloat(_cameraMoveDirectionXIndex, cameraPivotMovement.Input.x);
-            animator.SetFloat(_turnSpeedIndex, Mathf.Abs(cameraPivotMovement.Input.x) * turnSpeedMultiplier);
+            animator.SetFloat(AnimatorParameters.CameraMoveDirectionX, cameraPivotMovement.Input.x);
+            animator.SetFloat(AnimatorParameters.TurnSpeed, Mathf.Abs(cameraPivotMovement.Input.x) * turnSpeedMultiplier);
         }
 
         private void UpdateLayerWeight()

@@ -1,5 +1,5 @@
 ﻿using Rigging.Core;
-using System;
+using Rigging.Common;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,10 +23,6 @@ namespace Rigging.Demo.Player
 
         private Vector2 _inputAxis;
         private Vector3 _localMoveDirection;
-        private int _isMovingIndex;
-        private int _isSprintingIndex;
-        private int _playerMoveDirectionXIndex;
-        private int _playerMoveDirectionZIndex;
 
         private void Awake()
         {
@@ -35,11 +31,6 @@ namespace Rigging.Demo.Player
             Debugger.I.ValidateSerializeField(sprintAction, this);
             Debugger.I.ValidateSerializeField(animator, this);
             Debugger.I.ValidateSerializeField(rb, this);
-
-            _isMovingIndex = Animator.StringToHash("IsMoving");
-            _isSprintingIndex = Animator.StringToHash("IsSprinting");
-            _playerMoveDirectionXIndex = Animator.StringToHash("PlayerMoveDirectionX");
-            _playerMoveDirectionZIndex = Animator.StringToHash("PlayerMoveDirectionZ");
         }
 
         private void OnEnable()
@@ -128,10 +119,10 @@ namespace Rigging.Demo.Player
 
         private void UpdateAnimatorParameters()
         {
-            animator.SetBool(_isMovingIndex, IsMoving);
-            animator.SetBool(_isSprintingIndex, IsSprinting);
-            animator.SetFloat(_playerMoveDirectionXIndex, _localMoveDirection.x);
-            animator.SetFloat(_playerMoveDirectionZIndex, _localMoveDirection.z);
+            animator.SetBool(AnimatorParameters.IsMoving, IsMoving);
+            animator.SetBool(AnimatorParameters.IsSprinting, IsSprinting);
+            animator.SetFloat(AnimatorParameters.PlayerMoveDirectionX, _localMoveDirection.x);
+            animator.SetFloat(AnimatorParameters.PlayerMoveDirectionZ, _localMoveDirection.z);
         }
     }
 }

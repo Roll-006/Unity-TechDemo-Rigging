@@ -16,6 +16,7 @@ namespace Rigging.Demo.Player
         [SerializeField] private CinemachineActiveController cinemachineActiveController;
         [SerializeField] private AimRigUpdater aimRigUpdater;
         [SerializeField] private WeaponHolder weaponHolder;
+        //[SerializeField] private AimArmBackJudgement aimArmBackJudgement;
         [SerializeField] private Transform gripPivot;
         [SerializeField] private float towardSpeed;
 
@@ -23,10 +24,6 @@ namespace Rigging.Demo.Player
 
         private int _gunLayerIndex;
         private bool _isAimingInput;
-        private int _isAimingIndex;
-        private int _isHitWeaponRayPivotIndex;
-        private int _hasHandgunIndex;
-        private int _hasRifleIndex;
 
         private void Awake()
         {
@@ -39,14 +36,7 @@ namespace Rigging.Demo.Player
             Debugger.I.ValidateSerializeField(weaponHolder, this);
             Debugger.I.ValidateSerializeField(gripPivot, this);
 
-            _gunLayerIndex = animator.GetLayerIndex("Gun Layer");
-            if (_gunLayerIndex == -1)
-                throw new InvalidOperationException($"{nameof(_gunLayerIndex)} の Index の取得に失敗しました。");
-
-            _isAimingIndex = Animator.StringToHash("IsAiming");
-            _isHitWeaponRayPivotIndex = Animator.StringToHash("IsHitWeaponRayPivot");
-            _hasHandgunIndex = Animator.StringToHash("HasHandgun");
-            _hasRifleIndex = Animator.StringToHash("HasRifle");
+            _gunLayerIndex = animator.GetLayerIndex(AnimatorLayers.GunLayer);
         }
         
         private void OnEnable()
@@ -109,11 +99,9 @@ namespace Rigging.Demo.Player
 
         private void UpdateAnimatorParameters()
         {
-
-            animator.SetBool(_isAimingIndex, IsAiming);
-            if (weaponHolder.EquippedWeaponInstance) animator.SetBool(_isHitWeaponRayPivotIndex, weaponHolder.EquippedWeaponInstance.GetComponent<ITriggerable>().RayPivotTrigger.IsHit);
-            animator.SetBool(_hasHandgunIndex, weaponHolder.PendingWeapon ? weaponHolder.PendingWeapon.WeaponType == WeaponType.Handgun : false);
-            animator.SetBool(_hasRifleIndex, weaponHolder.PendingWeapon ? weaponHolder.PendingWeapon.WeaponType == WeaponType.Rifle : false);
+            animator.SetBool(AnimatorParameters.IsAiming, IsAiming);
+            animator.SetBool(AnimatorParameters.HasHandgun, weaponHolder.PendingWeapon ? weaponHolder.PendingWeapon.WeaponType == WeaponType.Handgun : false);
+            animator.SetBool(AnimatorParameters.HasRifle, weaponHolder.PendingWeapon ? weaponHolder.PendingWeapon.WeaponType == WeaponType.Rifle : false);
         }
 
         private void UpdateLayerWeight()

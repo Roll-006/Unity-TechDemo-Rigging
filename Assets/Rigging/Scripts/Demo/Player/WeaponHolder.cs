@@ -1,4 +1,5 @@
 ﻿using Rigging.Core;
+using Rigging.Common;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,11 +16,9 @@ namespace Rigging.Demo.Player
         [SerializeField] private List<WeaponBase> testWeapons;
 
         public WeaponBase EquippedWeapon { get; private set; }
-        public WeaponBase EquippedWeaponInstance { get; private set; }
         public WeaponBase PendingWeapon { get; private set; }
 
-        private int _equipWeaponIndex;
-        private int _unequipWeaponIndex;
+        private WeaponBase _equippedWeaponInstance;
         private bool _isEquipped;
         private int _count;
 
@@ -29,9 +28,6 @@ namespace Rigging.Demo.Player
             Debugger.I.ValidateSerializeField(rightHandGripPivot, this);
             Debugger.I.ValidateSerializeField(leftHandRigHint, this);
             Debugger.I.ValidateSerializeField(leftHandRigTarget, this);
-
-            _equipWeaponIndex = Animator.StringToHash("EquipWeapon");
-            _unequipWeaponIndex = Animator.StringToHash("UnequipWeapon");
         }
 
         private void Update()
@@ -76,10 +72,10 @@ namespace Rigging.Demo.Player
 
             PendingWeapon = weapon;
 
-            animator.SetTrigger(_equipWeaponIndex);
+            animator.SetTrigger(AnimatorParameters.EquipWeapon);
             if (PendingWeapon != EquippedWeapon && EquippedWeapon != null)
             {
-                animator.SetTrigger(_unequipWeaponIndex);
+                animator.SetTrigger(AnimatorParameters.UnequipWeapon);
             }
         }
 
@@ -89,7 +85,7 @@ namespace Rigging.Demo.Player
             if (EquippedWeapon == null) return;
 
             PendingWeapon = null;
-            animator.SetTrigger(_unequipWeaponIndex);
+            animator.SetTrigger(AnimatorParameters.UnequipWeapon);
         }
 
         public void CreateWeapon()
@@ -103,9 +99,9 @@ namespace Rigging.Demo.Player
             leftHandRigTarget.localPosition = EquippedWeapon.Rig.LeftHandRigTargetPosition;
             leftHandRigTarget.localEulerAngles = EquippedWeapon.Rig.LeftHandRigTargetRotation;
 
-            EquippedWeaponInstance = Instantiate(EquippedWeapon, rightHandGripPivot, false);
+            _equippedWeaponInstance = Instantiate(EquippedWeapon, rightHandGripPivot, false);
 
-            var shootable = EquippedWeaponInstance.GetComponent<IShootable>();
+            var shootable = _equippedWeaponInstance.GetComponent<IShootable>();
             if (shootable != null)
             {
                 shootable.AimTarget = aimTarget;
@@ -114,11 +110,11 @@ namespace Rigging.Demo.Player
 
         public void DestroyWeapon()
         {
-            if (EquippedWeaponInstance == null) return;
+            if (_equippedWeaponInstance == null) return;
 
-            Destroy(EquippedWeaponInstance.gameObject);
+            Destroy(_equippedWeaponInstance.gameObject);
 
-            EquippedWeaponInstance = null;
+            _equippedWeaponInstance = null;
             EquippedWeapon = null;
         }
     }

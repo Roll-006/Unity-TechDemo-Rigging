@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Rigging.Demo.Weapons
 {
-    public class Rifle : WeaponBase, IInventoryStorable, IReloadable, IShootable, ITriggerable
+    public class Rifle : WeaponBase, IInventoryStorable, IReloadable, IShootable
     {
         [SerializeField] private WeaponRigData rig;
         [SerializeField, Min(1)] private Vector2Int gridSize;
@@ -11,22 +11,19 @@ namespace Rigging.Demo.Weapons
         [SerializeField] private float initialVelocity;
         [SerializeField] private float range;
         [SerializeField] private Transform rayPivot;
-        [SerializeField] private RayPivotTrigger rayPivotTrigger;
 
-        public override WeaponType WeaponType => WeaponType.Rifle;
-        public override WeaponRigData Rig => rig;
+        override public WeaponType WeaponType => WeaponType.Rifle;
+        override public WeaponRigData Rig => rig;
         public Vector2Int GridSize => gridSize;
         public Sprite Icon => icon;
         public float InitialVelocity => initialVelocity;
         public float Range => range;
         public Transform AimTarget { get; set; }
-        public RayPivotTrigger RayPivotTrigger => rayPivotTrigger;
 
         private void Awake()
         {
             Debugger.I.ValidateSerializeField(icon, this);
             Debugger.I.ValidateSerializeField(rayPivot, this);
-            Debugger.I.ValidateSerializeField(rayPivotTrigger, this);
         }
 
         private void Update()
@@ -34,7 +31,7 @@ namespace Rigging.Demo.Weapons
             UpdateAimTarget();
         }
 
-        public override void OnFire()
+        override public void OnFire()
         {
 
         }
