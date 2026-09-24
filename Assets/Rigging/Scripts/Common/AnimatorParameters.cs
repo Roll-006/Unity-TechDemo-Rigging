@@ -6,6 +6,7 @@ namespace Rigging.Common
     {
         public static readonly int IsMoving = Animator.StringToHash("IsMoving");
         public static readonly int IsSprinting = Animator.StringToHash("IsSprinting");
+        public static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
         public static readonly int IsAiming = Animator.StringToHash("IsAiming");
         public static readonly int HasHandgun = Animator.StringToHash("HasHandgun");
         public static readonly int HasRifle = Animator.StringToHash("HasRifle");
