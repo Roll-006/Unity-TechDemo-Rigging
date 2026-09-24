@@ -68,7 +68,7 @@ namespace Rigging.Core
                     $"max: {max}");
         }
         
-        protected override void OnDispose()
+        override protected void OnDispose()
         {
 
         }

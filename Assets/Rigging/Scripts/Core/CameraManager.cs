@@ -7,7 +7,7 @@ namespace Rigging.Core
     {
         public Camera OutputCamera => CinemachineBrain.GetActiveBrain(CinemachineBrain.ActiveBrainCount - 1).OutputCamera;
 
-        protected override void OnDispose()
+        override protected void OnDispose()
         {
 
         }

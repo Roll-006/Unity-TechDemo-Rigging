@@ -819,14 +819,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4314782477532130775, guid: e97e2e7a39f786c43ba96ba5a9871b7c, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4314782477532130775, guid: e97e2e7a39f786c43ba96ba5a9871b7c, type: 3}
-      propertyPath: Priority.m_Value
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4314782477532130775, guid: e97e2e7a39f786c43ba96ba5a9871b7c, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
       objectReference: {fileID: 1747496510}
@@ -1508,7 +1500,7 @@ MonoBehaviour:
     MinimumOcclusionTime: 0
     CameraRadius: 0.2
     UseFollowTarget:
-      Enabled: 0
+      Enabled: 1
       YOffset: 0
     Strategy: 0
     MaximumEffort: 4
