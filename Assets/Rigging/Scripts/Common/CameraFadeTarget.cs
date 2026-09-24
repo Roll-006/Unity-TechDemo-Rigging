@@ -1,5 +1,4 @@
 ﻿using Rigging.Core;
-using System;
 using UnityEngine;
 
 namespace Rigging.Common
@@ -12,11 +11,8 @@ namespace Rigging.Common
 
         private void Awake()
         {
-            if (renderer == null)
-                throw new InvalidOperationException($"{nameof(renderer)} ({typeof(Renderer).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (targetTransform == null)
-                throw new InvalidOperationException($"{nameof(targetTransform)} ({typeof(Transform).Name}) の取得に失敗しました。SerializeField に登録してください。");
+            Debugger.I.ValidateSerializeField(renderer, this);
+            Debugger.I.ValidateSerializeField(targetTransform, this);
         }
 
         private void Update()

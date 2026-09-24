@@ -1,5 +1,5 @@
 ﻿using Rigging.Core;
-using System;
+using Rigging.Common;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,31 +9,25 @@ namespace Rigging.Demo.Player
     public class WeaponHolder : MonoBehaviour
     {
         [SerializeField] private Animator animator;
+        [SerializeField] private Transform aimTarget;
         [SerializeField] private Transform rightHandGripPivot;
         [SerializeField] private Transform leftHandRigHint;
         [SerializeField] private Transform leftHandRigTarget;
         [SerializeField] private List<WeaponBase> testWeapons;
 
         public WeaponBase EquippedWeapon { get; private set; }
-        public WeaponBase EquippedWeaponInstance { get; private set; }
         public WeaponBase PendingWeapon { get; private set; }
 
+        private WeaponBase _equippedWeaponInstance;
         private bool _isEquipped;
         private int _count;
 
         private void Awake()
         {
-            if (animator == null)
-                throw new InvalidOperationException($"{nameof(animator)} ({typeof(Animator).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (rightHandGripPivot == null)
-                throw new InvalidOperationException($"{nameof(rightHandGripPivot)} ({typeof(Transform).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (leftHandRigHint == null)
-                throw new InvalidOperationException($"{nameof(leftHandRigHint)} ({typeof(Transform).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (leftHandRigTarget == null)
-                throw new InvalidOperationException($"{nameof(leftHandRigTarget)} ({typeof(Transform).Name}) の取得に失敗しました。SerializeField に登録してください。");
+            Debugger.I.ValidateSerializeField(animator, this);
+            Debugger.I.ValidateSerializeField(rightHandGripPivot, this);
+            Debugger.I.ValidateSerializeField(leftHandRigHint, this);
+            Debugger.I.ValidateSerializeField(leftHandRigTarget, this);
         }
 
         private void Update()
@@ -78,10 +72,10 @@ namespace Rigging.Demo.Player
 
             PendingWeapon = weapon;
 
-            animator.SetTrigger("EquipWeapon");
+            animator.SetTrigger(AnimatorParameters.EquipWeapon);
             if (PendingWeapon != EquippedWeapon && EquippedWeapon != null)
             {
-                animator.SetTrigger("UnequipWeapon");
+                animator.SetTrigger(AnimatorParameters.UnequipWeapon);
             }
         }
 
@@ -91,7 +85,7 @@ namespace Rigging.Demo.Player
             if (EquippedWeapon == null) return;
 
             PendingWeapon = null;
-            animator.SetTrigger("UnequipWeapon");
+            animator.SetTrigger(AnimatorParameters.UnequipWeapon);
         }
 
         public void CreateWeapon()
@@ -105,16 +99,22 @@ namespace Rigging.Demo.Player
             leftHandRigTarget.localPosition = EquippedWeapon.Rig.LeftHandRigTargetPosition;
             leftHandRigTarget.localEulerAngles = EquippedWeapon.Rig.LeftHandRigTargetRotation;
 
-            EquippedWeaponInstance = Instantiate(EquippedWeapon, rightHandGripPivot, false);
+            _equippedWeaponInstance = Instantiate(EquippedWeapon, rightHandGripPivot, false);
+
+            var shootable = _equippedWeaponInstance.GetComponent<IShootable>();
+            if (shootable != null)
+            {
+                shootable.AimTarget = aimTarget;
+            }
         }
 
         public void DestroyWeapon()
         {
-            if (EquippedWeaponInstance == null) return;
+            if (_equippedWeaponInstance == null) return;
 
-            Destroy(EquippedWeaponInstance.gameObject);
+            Destroy(_equippedWeaponInstance.gameObject);
 
-            EquippedWeaponInstance = null;
+            _equippedWeaponInstance = null;
             EquippedWeapon = null;
         }
     }

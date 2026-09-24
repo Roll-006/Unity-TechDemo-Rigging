@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Rigging.Core;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Rigging.Common
 {
     public class CameraPivotMovement : MonoBehaviour
     {
         [SerializeField] private InputActionReference actionReference;
-        [SerializeField] private CinemachineCamera cinemachineCamera;
+        [SerializeField] private CinemachineCamera cinemachine;
         [SerializeField, Range(-180f, 180f)] private float maxYaw;
         [SerializeField, Range(-180f, 180f)] private float minYaw;
         [SerializeField, Range(-90f, 90f)] private float maxPitch;
@@ -26,17 +27,10 @@ namespace Rigging.Common
 
         private void Awake()
         {
-            if (actionReference == null)
-                throw new InvalidOperationException($"{nameof(actionReference)} ({typeof(InputActionReference).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (cinemachineCamera == null)
-                throw new InvalidOperationException($"{nameof(cinemachineCamera)} ({typeof(CinemachineCamera).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (minYaw >= maxYaw)
-                throw new ArgumentOutOfRangeException($"{nameof(minYaw)}, {nameof(maxYaw)} の範囲制限が不正な値です。有効範囲は [ {nameof(minYaw)} < {nameof(maxYaw)} ] です。");
-
-            if (minPitch >= maxPitch)
-                throw new ArgumentOutOfRangeException($"{nameof(minPitch)}, {nameof(maxPitch)} の範囲制限が不正な値です。有効範囲は [ {nameof(minPitch)} < {nameof(maxPitch)} ] です。");
+            Debugger.I.ValidateSerializeField(actionReference, this);
+            Debugger.I.ValidateSerializeField(cinemachine, this);
+            Debugger.I.ValidateRange(minYaw, maxYaw);
+            Debugger.I.ValidateRange(minPitch, maxPitch);
         }
 
         private void LateUpdate()
@@ -49,7 +43,7 @@ namespace Rigging.Common
             AddInput();
             ApplyLimits();
 
-            cinemachineCamera.Target.TrackingTarget.transform.rotation = Quaternion.Euler(_axis.y, _axis.x, 0f);
+            cinemachine.Target.TrackingTarget.transform.rotation = Quaternion.Euler(_axis.y, _axis.x, 0f);
         }
 
         private void AddInput()

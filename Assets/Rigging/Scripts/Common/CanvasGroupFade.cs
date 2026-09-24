@@ -1,4 +1,4 @@
-using System;
+using Rigging.Core;
 using UnityEngine;
 
 namespace Rigging.Common
@@ -20,8 +20,7 @@ namespace Rigging.Common
 
         private void Awake()
         {
-            if (canvasGroup == null)
-                throw new InvalidOperationException($"{nameof(canvasGroup)} ({typeof(CanvasGroup).Name}) ‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½BSerializeField ‚É“o˜^‚µ‚Ä‚­‚¾‚³‚¢B");
+            Debugger.I.ValidateSerializeField(canvasGroup, this);
         }
 
         private void Update()

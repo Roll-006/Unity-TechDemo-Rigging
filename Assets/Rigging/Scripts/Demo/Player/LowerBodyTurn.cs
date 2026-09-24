@@ -19,21 +19,12 @@ namespace Riggin.Demo.Player
 
         void Awake()
         {
-            if (animator == null)
-                throw new InvalidOperationException($"{nameof(animator)} ({typeof(Animator).Name}) の取得に失敗しました。SerializeField に登録してください。");
+            Debugger.I.ValidateSerializeField(animator, this);
+            Debugger.I.ValidateSerializeField(playerMovement, this);
+            Debugger.I.ValidateSerializeField(cameraPivotMovement, this);
+            Debugger.I.ValidateSerializeField(playerFacing, this);
 
-            if (playerMovement == null)
-                throw new InvalidOperationException($"{nameof(playerMovement)} ({typeof(PlayerMovement).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (cameraPivotMovement == null)
-                throw new InvalidOperationException($"{nameof(cameraPivotMovement)} ({typeof(CameraPivotMovement).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (playerFacing == null)
-                throw new InvalidOperationException($"{nameof(playerFacing)} ({typeof(PlayerFacing).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            _lowerBodyTurnLayerIndex = animator.GetLayerIndex("Lower Body Turn Layer");
-            if (_lowerBodyTurnLayerIndex == -1)
-                throw new InvalidOperationException($"{nameof(_lowerBodyTurnLayerIndex)} の Index の取得に失敗しました。");
+            _lowerBodyTurnLayerIndex = animator.GetLayerIndex(AnimatorLayers.LowerBodyTurnLayer);
         }
 
         void LateUpdate()
@@ -44,8 +35,8 @@ namespace Riggin.Demo.Player
 
         private void UpdateAnimatorParameters()
         {
-            animator.SetFloat("CameraMoveDirectionX", cameraPivotMovement.Input.x);
-            animator.SetFloat("TurnSpeed", Mathf.Abs(cameraPivotMovement.Input.x) * turnSpeedMultiplier);
+            animator.SetFloat(AnimatorParameters.CameraMoveDirectionX, cameraPivotMovement.Input.x);
+            animator.SetFloat(AnimatorParameters.TurnSpeed, Mathf.Abs(cameraPivotMovement.Input.x) * turnSpeedMultiplier);
         }
 
         private void UpdateLayerWeight()

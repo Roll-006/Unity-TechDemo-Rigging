@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Rigging.Core;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -13,8 +13,7 @@ namespace Riggin.Demo.Player
 
         private void Awake()
         {
-            if (rig == null)
-                throw new InvalidOperationException($"{nameof(rig)} ({typeof(Rig).Name}) の取得に失敗しました。SerializeField に登録してください。");
+            Debugger.I.ValidateSerializeField(rig, this);
         }
 
         private void Update()
