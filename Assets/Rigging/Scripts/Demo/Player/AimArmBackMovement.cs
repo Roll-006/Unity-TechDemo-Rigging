@@ -1,4 +1,3 @@
-using System;
 using Rigging.Core;
 using Rigging.Common;
 using UnityEngine;
@@ -22,11 +21,6 @@ namespace Rigging.Demo.Player
             Debugger.I.ValidateSerializeField(aimArmBackTrigger, this);
             Debugger.I.ValidateSerializeField(aimBackTrigger, this);
             Debugger.I.ValidateSerializeField(spine2Pivot, this);
-        }
-
-        private void FixedUpdate()
-        {
-            
         }
 
         /// <summary>

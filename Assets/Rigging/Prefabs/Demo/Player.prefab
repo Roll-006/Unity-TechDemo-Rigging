@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3015298621225371561}
   m_Layer: 3
-  m_Name: MoveCameraPivot
+  m_Name: StandCameraPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,6 +141,103 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8220980563310491053}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2811060945209350715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 177836498459457184}
+  - component: {fileID: 6259156703564237246}
+  - component: {fileID: 4130514816826903467}
+  m_Layer: 3
+  m_Name: AimBackTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &177836498459457184
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2811060945209350715}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1.1745477e-14, z: 2.4077945e-14, w: 1}
+  m_LocalPosition: {x: 0.0656, y: 0.4083, z: 0.294}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1129366474807563727}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &6259156703564237246
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2811060945209350715}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4130514816826903467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2811060945209350715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d73cf8d64b264a629c9dab0cf40668c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Rigging.Demo.Player.AimTrigger
+--- !u!1 &3104730900675389359
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3368692189598137405}
+  m_Layer: 3
+  m_Name: CrouchCameraPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3368692189598137405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3104730900675389359}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.043634277, y: 1.961098e-12, z: 1.8409126e-12, w: 0.9990476}
+  m_LocalPosition: {x: -0.067, y: 0.788, z: -0.072}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2906248445288140528}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3543940322916620319
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,6 +300,72 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8353929034275076428}
   m_LocalEulerAnglesHint: {x: -130, y: 90, z: 0}
+--- !u!1 &4125035274394312708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1782336663607282585}
+  - component: {fileID: 6450539965219818072}
+  - component: {fileID: 9018697079109168714}
+  m_Layer: 3
+  m_Name: AimArmBackTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1782336663607282585
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4125035274394312708}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1.1745477e-14, z: 2.4077945e-14, w: 1}
+  m_LocalPosition: {x: 0.0089, y: 0.2602999, z: 0.3668}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1129366474807563727}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &6450539965219818072
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4125035274394312708}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &9018697079109168714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4125035274394312708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d73cf8d64b264a629c9dab0cf40668c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Rigging.Demo.Player.AimTrigger
 --- !u!1 &4436461660615779126
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +625,106 @@ MonoBehaviour:
       x: 1
       y: 1
       z: 1
+--- !u!1 &6696748144492766937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1129366474807563727}
+  m_Layer: 3
+  m_Name: AimTriggers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1129366474807563727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6696748144492766937}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2990940900379771316}
+  - {fileID: 1782336663607282585}
+  - {fileID: 177836498459457184}
+  m_Father: {fileID: 8353929034275076428}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7055510312073961077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2990940900379771316}
+  - component: {fileID: 5125467653118380683}
+  - component: {fileID: 1540440896550372012}
+  m_Layer: 3
+  m_Name: AimTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2990940900379771316
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7055510312073961077}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -1.1745477e-14, z: 2.4077945e-14, w: 1}
+  m_LocalPosition: {x: -0.0467, y: 0.1853999, z: 0.613}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1129366474807563727}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &5125467653118380683
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7055510312073961077}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1540440896550372012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7055510312073961077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d73cf8d64b264a629c9dab0cf40668c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Rigging.Demo.Player.AimTrigger
 --- !u!1 &7088964366328728601
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,12 +1248,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8879528566716807029, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
       insertIndex: 0
       addedObject: {fileID: 3015298621225371561}
+    - targetCorrespondingSourceObject: {fileID: 8879528566716807029, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 3368692189598137405}
     - targetCorrespondingSourceObject: {fileID: -6881390770214846263, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6121601642209072469}
     - targetCorrespondingSourceObject: {fileID: -6881390770214846263, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1598040028734645965}
+    - targetCorrespondingSourceObject: {fileID: -6881390770214846263, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1129366474807563727}
     - targetCorrespondingSourceObject: {fileID: 9140253385185518857, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6636028573596938164}
@@ -1046,6 +1315,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4639703979527407717}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4828563178993574136}
   m_SourcePrefab: {fileID: 100100000, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
 --- !u!4 &23827558857878236 stripped
 Transform:
@@ -1448,7 +1720,31 @@ MonoBehaviour:
     m_Active: 1
   - m_Rig: {fileID: 1858193841478837455}
     m_Active: 1
-  m_Effectors: []
+  m_Effectors:
+  - m_Transform: {fileID: 2990940900379771316}
+    m_Style:
+      shape: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+      color: {r: 1, g: 0, b: 0, a: 0.5}
+      size: 0.2
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+    m_Visible: 1
+  - m_Transform: {fileID: 1782336663607282585}
+    m_Style:
+      shape: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+      color: {r: 1, g: 0, b: 0, a: 0.5}
+      size: 0.2
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+    m_Visible: 1
+  - m_Transform: {fileID: 177836498459457184}
+    m_Style:
+      shape: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+      color: {r: 1, g: 0, b: 0, a: 0.5}
+      size: 0.2
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+    m_Visible: 1
 --- !u!114 &8653298901011962525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1494,6 +1790,7 @@ MonoBehaviour:
   playerInput: {fileID: 8653298901011962525}
   moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   sprintAction: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  crouchAction: {fileID: 7040659881675835329, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   animator: {fileID: 145777745517364244}
   rb: {fileID: 4410108411832374052}
   towardSpeed: 5
@@ -1628,6 +1925,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rigging.Common.CinemachineActiveController
   cinemachine: {fileID: 0}
+--- !u!114 &4828563178993574136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6894470543546107092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe416b7804634f94918925d428839bc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Rigging.Demo.Player.AimArmBackJudgement
+  aimTrigger: {fileID: 1540440896550372012}
+  aimArmBackTrigger: {fileID: 9018697079109168714}
+  aimBackTrigger: {fileID: 4130514816826903467}
+  spine2Pivot: {fileID: 8353929034275076428}
 --- !u!4 &6939232428645759581 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5538751756592888872, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}

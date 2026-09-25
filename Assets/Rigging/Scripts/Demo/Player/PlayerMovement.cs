@@ -10,6 +10,7 @@ namespace Rigging.Demo.Player
         [SerializeField] private PlayerInput playerInput;
         [SerializeField] private InputActionReference moveAction;
         [SerializeField] private InputActionReference sprintAction;
+        [SerializeField] private InputActionReference crouchAction;
         [SerializeField] private Animator animator;
         [SerializeField] private Rigidbody rb;
         [SerializeField] private float towardSpeed;
@@ -20,6 +21,7 @@ namespace Rigging.Demo.Player
         public Vector3 MoveDirection { get; private set; }
         public bool IsMoving => MoveDirection.sqrMagnitude > Mathf.Epsilon;
         public bool IsSprinting { get; private set; }
+        public bool IsCrouching { get; private set; }
 
         private Vector2 _inputAxis;
         private Vector3 _localMoveDirection;
@@ -29,6 +31,7 @@ namespace Rigging.Demo.Player
             Debugger.I.ValidateSerializeField(playerInput, this);
             Debugger.I.ValidateSerializeField(moveAction, this);
             Debugger.I.ValidateSerializeField(sprintAction, this);
+            Debugger.I.ValidateSerializeField(crouchAction, this);
             Debugger.I.ValidateSerializeField(animator, this);
             Debugger.I.ValidateSerializeField(rb, this);
         }
@@ -58,6 +61,7 @@ namespace Rigging.Demo.Player
         {
             if (OnMove(context)) return;
             if (OnSprint(context)) return;
+            if (OnCrouch(context)) return;
         }
 
         private bool OnMove(InputAction.CallbackContext context)
@@ -86,6 +90,22 @@ namespace Rigging.Demo.Player
             {
                 case InputActionPhase.Started:
                     IsSprinting = !IsSprinting;
+                    IsCrouching = false;
+                    break;
+            }
+
+            return true;
+        }
+
+        private bool OnCrouch(InputAction.CallbackContext context)
+        {
+            if (context.action != crouchAction.action) return false;
+
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:
+                    IsCrouching = !IsCrouching;
+                    IsSprinting = false;
                     break;
             }
 
@@ -121,6 +141,7 @@ namespace Rigging.Demo.Player
         {
             animator.SetBool(AnimatorParameters.IsMoving, IsMoving);
             animator.SetBool(AnimatorParameters.IsSprinting, IsSprinting);
+            animator.SetBool(AnimatorParameters.IsCrouching, IsCrouching);
             animator.SetFloat(AnimatorParameters.PlayerMoveDirectionX, _localMoveDirection.x);
             animator.SetFloat(AnimatorParameters.PlayerMoveDirectionZ, _localMoveDirection.z);
         }

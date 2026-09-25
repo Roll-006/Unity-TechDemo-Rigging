@@ -150,7 +150,7 @@ MonoBehaviour:
     MinimumOcclusionTime: 0
     CameraRadius: 0.2
     UseFollowTarget:
-      Enabled: 0
+      Enabled: 1
       YOffset: 0
     Strategy: 0
     MaximumEffort: 4
