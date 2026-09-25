@@ -1314,9 +1314,6 @@ PrefabInstance:
       addedObject: {fileID: 1552531042066527616}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4639703979527407717}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 4828563178993574136}
   m_SourcePrefab: {fileID: 100100000, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
 --- !u!4 &23827558857878236 stripped
@@ -1824,10 +1821,11 @@ MonoBehaviour:
   aimGunAction: {fileID: -6834717552555626933, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   fireAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   animator: {fileID: 145777745517364244}
-  cinemachineActiveController: {fileID: 4639703979527407717}
   aimRigUpdater: {fileID: 7216404008027395172}
   weaponHolder: {fileID: 5286044153528273230}
   gripPivot: {fileID: 634774319089298478}
+  aimTrigger: {fileID: 2990940900379771316}
+  spine2Pivot: {fileID: 8353929034275076428}
   towardSpeed: 4
 --- !u!114 &5286044153528273230
 MonoBehaviour:
@@ -1912,19 +1910,6 @@ MonoBehaviour:
   playerFacing: {fileID: 1724535611957470226}
   turnSpeedMultiplier: 0.67
   towardSpeed: 1
---- !u!114 &4639703979527407717
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6894470543546107092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c34f3fa08a9a6d4478bcf75eba813f74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Rigging.Common.CinemachineActiveController
-  cinemachine: {fileID: 0}
 --- !u!114 &4828563178993574136
 MonoBehaviour:
   m_ObjectHideFlags: 0

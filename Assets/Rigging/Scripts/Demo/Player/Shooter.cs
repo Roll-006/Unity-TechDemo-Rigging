@@ -1,7 +1,6 @@
 ﻿using Riggin.Demo.Player;
 using Rigging.Common;
 using Rigging.Core;
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,11 +12,11 @@ namespace Rigging.Demo.Player
         [SerializeField] private InputActionReference aimGunAction;
         [SerializeField] private InputActionReference fireAction;
         [SerializeField] private Animator animator;
-        [SerializeField] private CinemachineActiveController cinemachineActiveController;
         [SerializeField] private AimRigUpdater aimRigUpdater;
         [SerializeField] private WeaponHolder weaponHolder;
-        //[SerializeField] private AimArmBackJudgement aimArmBackJudgement;
         [SerializeField] private Transform gripPivot;
+        [SerializeField] private Transform aimTrigger;
+        [SerializeField] private Transform spine2Pivot;
         [SerializeField] private float towardSpeed;
 
         public bool IsAiming => _isAimingInput && weaponHolder.EquippedWeapon != null;
@@ -31,10 +30,11 @@ namespace Rigging.Demo.Player
             Debugger.I.ValidateSerializeField(aimGunAction, this);
             Debugger.I.ValidateSerializeField(fireAction, this);
             Debugger.I.ValidateSerializeField(animator, this);
-            Debugger.I.ValidateSerializeField(cinemachineActiveController, this);
             Debugger.I.ValidateSerializeField(aimRigUpdater, this);
             Debugger.I.ValidateSerializeField(weaponHolder, this);
             Debugger.I.ValidateSerializeField(gripPivot, this);
+            Debugger.I.ValidateSerializeField(aimTrigger, this);
+            Debugger.I.ValidateSerializeField(spine2Pivot, this);
 
             _gunLayerIndex = animator.GetLayerIndex(AnimatorLayers.GunLayer);
         }
@@ -52,16 +52,14 @@ namespace Rigging.Demo.Player
         private void LateUpdate()
         {
             UpdateAnimatorParameters();
-            UpdateLayerWeight();
+            LayerWeightUpdater.UpdateLayerWeight(animator, _gunLayerIndex, IsActiveLayer(), towardSpeed);
 
             if (IsAiming)
             {
-                cinemachineActiveController.ActivateCinemachine();
                 aimRigUpdater.EnableAimRig();
             }
             else
             {
-                cinemachineActiveController.DeactivateCinemachine();
                 aimRigUpdater.DisableAimRig();
             }
         }
@@ -100,22 +98,28 @@ namespace Rigging.Demo.Player
         private void UpdateAnimatorParameters()
         {
             animator.SetBool(AnimatorParameters.IsAiming, IsAiming);
-            animator.SetBool(AnimatorParameters.HasHandgun, weaponHolder.PendingWeapon ? weaponHolder.PendingWeapon.WeaponType == WeaponType.Handgun : false);
-            animator.SetBool(AnimatorParameters.HasRifle, weaponHolder.PendingWeapon ? weaponHolder.PendingWeapon.WeaponType == WeaponType.Rifle : false);
+            animator.SetBool(AnimatorParameters.CanAim, CanAim());
+            animator.SetBool(AnimatorParameters.HasHandgun, weaponHolder.PendingWeapon != null && weaponHolder.PendingWeapon.WeaponType == WeaponType.Handgun);
+            animator.SetBool(AnimatorParameters.HasRifle, weaponHolder.PendingWeapon != null && weaponHolder.PendingWeapon.WeaponType == WeaponType.Rifle);
         }
 
-        private void UpdateLayerWeight()
-        {
-            var currentLayerWeight = animator.GetLayerWeight(_gunLayerIndex);
-            var targetLayerWeight = IsActiveGunLayer() ? 1f : 0f;
-            var resultLayerWeight = Mathf.MoveTowards(currentLayerWeight, targetLayerWeight, towardSpeed * Time.deltaTime);
-
-            animator.SetLayerWeight(_gunLayerIndex, resultLayerWeight);
-        }
-
-        private bool IsActiveGunLayer()
+        private bool IsActiveLayer()
         {
             return weaponHolder.EquippedWeapon != null || weaponHolder.PendingWeapon != null;
+        }
+
+        private bool CanAim()
+        {
+            var spine2ToAimTrigger = aimTrigger.position - spine2Pivot.position;
+            if (Physics.Raycast(
+                    spine2Pivot.position,
+                    spine2ToAimTrigger.normalized,
+                    spine2ToAimTrigger.magnitude,
+                    ~Layers.Player,
+                    QueryTriggerInteraction.Ignore))
+                return false;
+            
+            return true;
         }
     }
 }
