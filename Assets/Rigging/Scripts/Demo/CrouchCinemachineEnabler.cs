@@ -5,7 +5,7 @@ using Unity.Cinemachine;
 
 namespace Rigging.Demo
 {
-    public class CrouchCameraActiveController : MonoBehaviour
+    public class CrouchCinemachineEnabler : MonoBehaviour
     {
         [SerializeField] private CinemachineCamera cinemachine;
         [SerializeField] private PlayerMovement playerMovement;

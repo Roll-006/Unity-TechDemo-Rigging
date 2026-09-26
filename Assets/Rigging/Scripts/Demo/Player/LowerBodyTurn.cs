@@ -15,6 +15,8 @@ namespace Riggin.Demo.Player
         [SerializeField] private float turnSpeedMultiplier;
         [SerializeField] private float towardSpeed;
         
+        private float TurnSpeed => Mathf.Abs(cameraPivotMovement.Input.x) * turnSpeedMultiplier;
+        
         private int _lowerBodyTurnLayerIndex;
 
         void Awake()
@@ -30,24 +32,15 @@ namespace Riggin.Demo.Player
         void LateUpdate()
         {
             UpdateAnimatorParameters();
-            UpdateLayerWeight();
+            LayerWeightUpdater.UpdateLayerWeight(animator, _lowerBodyTurnLayerIndex, IsActiveLayer(), towardSpeed);
         }
 
         private void UpdateAnimatorParameters()
         {
             animator.SetFloat(AnimatorParameters.CameraMoveDirectionX, cameraPivotMovement.Input.x);
-            animator.SetFloat(AnimatorParameters.TurnSpeed, Mathf.Abs(cameraPivotMovement.Input.x) * turnSpeedMultiplier);
+            animator.SetFloat(AnimatorParameters.TurnSpeed, TurnSpeed);
         }
-
-        private void UpdateLayerWeight()
-        {
-            var currentLayerWeight = animator.GetLayerWeight(_lowerBodyTurnLayerIndex);
-            var targetLayerWeight = IsActiveLayer() ? 1f : 0f;
-            var resultLayerWeight = Mathf.MoveTowards(currentLayerWeight, targetLayerWeight, towardSpeed * Time.deltaTime);
-
-            animator.SetLayerWeight(_lowerBodyTurnLayerIndex, resultLayerWeight);
-        }
-
+        
         private bool IsActiveLayer()
         {
             if (playerMovement.IsMoving) return false;

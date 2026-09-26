@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2072805157242296257}
   - component: {fileID: 6357754640766870003}
   m_Layer: 0
-  m_Name: MoveCamera
+  m_Name: StandMoveCinemachine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
