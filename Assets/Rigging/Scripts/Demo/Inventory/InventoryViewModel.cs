@@ -13,6 +13,12 @@ namespace Rigging.Demo.Inventory
             Model = new InventoryModel();
         }
 
+        public void Initialize(int gridSize, int fixedColumnCount)
+        {
+            Model.GridSize = gridSize;
+            Model.FixedColumnCount = fixedColumnCount;
+        }
+
         public void Dispose()
         {
 

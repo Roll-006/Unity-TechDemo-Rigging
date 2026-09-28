@@ -9,8 +9,6 @@ namespace Rigging.Demo
     {
         [SerializeField] private CinemachineCamera cinemachine;
         [SerializeField] private PlayerMovement playerMovement;
-        
-        private bool _prevCrouching;
 
         private void Awake()
         {

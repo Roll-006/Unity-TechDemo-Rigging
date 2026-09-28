@@ -10,8 +10,6 @@ namespace Rigging.Demo
         [SerializeField] private CinemachineCamera cinemachine;
         [SerializeField] private Shooter shooter;
         
-        private bool _prevCrouching;
-
         private void Awake()
         {
             Debugger.I.ValidateSerializeField(cinemachine, this);

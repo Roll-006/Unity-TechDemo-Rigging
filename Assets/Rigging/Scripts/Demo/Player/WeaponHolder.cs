@@ -15,12 +15,23 @@ namespace Rigging.Demo.Player
         [SerializeField] private Transform leftHandRigTarget;
         [SerializeField] private List<WeaponBase> testWeapons;
 
+        /// <summary>
+        /// 装備している武器 (Hierarchy 上には実在していない)
+        /// </summary>
         public WeaponBase EquippedWeapon { get; private set; }
+        
+        /// <summary>
+        /// 装備することを発注した武器
+        /// </summary>
         public WeaponBase PendingWeapon { get; private set; }
 
+        /// <summary>
+        /// Hierarchy 上に実在する装備している武器
+        /// </summary>
         private WeaponBase _equippedWeaponInstance;
-        private bool _isEquipped;
-        private int _count;
+        
+        private bool _isEquipped; //仮
+        private int _count; //仮
 
         private void Awake()
         {
@@ -32,6 +43,8 @@ namespace Rigging.Demo.Player
 
         private void Update()
         {
+            // 仮の武器選択
+            
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
                 _isEquipped = !_isEquipped;

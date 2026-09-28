@@ -8,7 +8,7 @@ namespace Rigging.Demo
     {
         [SerializeField] private InventoryView inventoryView;
 
-        private InventoryViewModel _inventoryViewModel = new();
+        private readonly InventoryViewModel _inventoryViewModel = new();
 
         private void Awake()
         {

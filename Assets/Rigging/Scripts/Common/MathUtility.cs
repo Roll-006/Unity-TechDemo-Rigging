@@ -2,7 +2,7 @@
 
 namespace Rigging.Common
 {
-    static public class MathUtility
+    public static class MathUtility
     {
         /// <summary>
         /// 二次ベジェ曲線
@@ -12,7 +12,7 @@ namespace Rigging.Common
         /// <param name="c">制御点3</param>
         /// <param name="t">補間係数(0～1)</param>
         /// <returns>補間後の値</returns>
-        static public float QuadraticBezierCurve(float a, float b, float c, float t)
+        public static float QuadraticBezierCurve(float a, float b, float c, float t)
         {
             // 2次ベジェ曲線の公式より (P = (1 - t)^2 * A + 2(1 - t)t * B + t^2 * C)
             var u = 1f - t;
@@ -27,7 +27,7 @@ namespace Rigging.Common
         /// <param name="c">制御点3</param>
         /// <param name="t">補間係数(0～1)</param>
         /// <returns>補間後の値</returns>
-        static public Vector2 QuadraticBezierCurve(Vector2 a, Vector2 b, Vector2 c, float t)
+        public static Vector2 QuadraticBezierCurve(Vector2 a, Vector2 b, Vector2 c, float t)
         {
             // 2次ベジェ曲線の公式より (P = (1 - t)^2 * A + 2(1 - t)t * B + t^2 * C)
             var u = 1f - t;
@@ -42,7 +42,7 @@ namespace Rigging.Common
         /// <param name="c">制御点3</param>
         /// <param name="t">補間係数(0～1)</param>
         /// <returns>補間後の値</returns>
-        static public Vector3 QuadraticBezierCurve(Vector3 a, Vector3 b, Vector3 c, float t)
+        public static Vector3 QuadraticBezierCurve(Vector3 a, Vector3 b, Vector3 c, float t)
         {
             // 2次ベジェ曲線の公式より (P = (1 - t)^2 * A + 2(1 - t)t * B + t^2 * C)
             var u = 1f - t;

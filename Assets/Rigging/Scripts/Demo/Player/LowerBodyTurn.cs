@@ -1,10 +1,8 @@
 ﻿using Rigging.Core;
 using Rigging.Common;
-using Rigging.Demo.Player;
-using System;
 using UnityEngine;
 
-namespace Riggin.Demo.Player
+namespace Rigging.Demo.Player
 {
     public class LowerBodyTurn : MonoBehaviour
     {

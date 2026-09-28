@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-namespace Riggin.Demo.Player
+namespace Rigging.Demo.Player
 {
     public class AimRigUpdater : MonoBehaviour
     {

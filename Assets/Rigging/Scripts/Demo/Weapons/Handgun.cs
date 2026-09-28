@@ -1,10 +1,12 @@
 ﻿using Rigging.Core;
+using Rigging.Demo.Reticle;
 using UnityEngine;
 
 namespace Rigging.Demo.Weapons
 {
     public class Handgun : WeaponBase, IInventoryStorable, IReloadable, IShootable
     {
+        [SerializeField] private ReticleData reticleData;
         [SerializeField] private WeaponRigData rig;
         [SerializeField, Min(1)] private Vector2Int gridSize;
         [SerializeField] private Sprite icon;
@@ -12,10 +14,11 @@ namespace Rigging.Demo.Weapons
         [SerializeField] private float range;
         [SerializeField] private Transform rayPivot;
 
-        override public WeaponType WeaponType => WeaponType.Handgun;
-        override public WeaponRigData Rig => rig;
+        public override WeaponType WeaponType => WeaponType.Handgun;
+        public override WeaponRigData Rig => rig;
         public Vector2Int GridSize => gridSize;
         public Sprite Icon => icon;
+        public ReticleData ReticleData => reticleData;
         public float InitialVelocity => initialVelocity;
         public float Range => range;
         public Transform AimTarget { get; set; }
@@ -31,7 +34,7 @@ namespace Rigging.Demo.Weapons
             UpdateAimTarget();
         }
 
-        override public void OnFire()
+        public override void OnFire()
         {
             
         }

@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Rigging.Core
+﻿namespace Rigging.Core
 {
     public abstract class WeaponBase : ItemBase
     {

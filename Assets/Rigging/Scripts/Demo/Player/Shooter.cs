@@ -1,5 +1,4 @@
-﻿using Riggin.Demo.Player;
-using Rigging.Common;
+﻿using Rigging.Common;
 using Rigging.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;

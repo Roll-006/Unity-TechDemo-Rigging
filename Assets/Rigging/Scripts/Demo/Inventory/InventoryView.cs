@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Rigging.Core;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,18 +13,13 @@ namespace Rigging.Demo.Inventory
         [SerializeField] private InventoryCell cell;
 
         private InventoryViewModel _viewModel;
-        private List<InventoryCell> _cells = new();
+        private readonly List<InventoryCell> _cells = new();
 
         private void Awake()
         {
-            if (gridLayoutGroup == null)
-                throw new InvalidOperationException($"{nameof(gridLayoutGroup)} ({typeof(GridLayoutGroup).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (grid == null)
-                throw new InvalidOperationException($"{nameof(grid)} ({typeof(Transform).Name}) の取得に失敗しました。SerializeField に登録してください。");
-
-            if (cell == null)
-                throw new InvalidOperationException($"{nameof(cell)} ({typeof(InventoryCell).Name}) の取得に失敗しました。SerializeField に登録してください。");
+            Debugger.I.ValidateSerializeField(gridLayoutGroup, this);
+            Debugger.I.ValidateSerializeField(grid, this);
+            Debugger.I.ValidateSerializeField(cell, this);
         }
 
         private void OnEnable()
@@ -40,10 +35,7 @@ namespace Rigging.Demo.Inventory
         public void SetViewModel(InventoryViewModel viewModel)
         {
             _viewModel = viewModel;
-
-            _viewModel.Model.GridSize = gridSize;
-            _viewModel.Model.FixedColumnCount = gridLayoutGroup.constraintCount;
-
+            _viewModel.Initialize(gridSize, gridLayoutGroup.constraintCount);
             ApplyGridSize(_viewModel.Model);
         }
 
