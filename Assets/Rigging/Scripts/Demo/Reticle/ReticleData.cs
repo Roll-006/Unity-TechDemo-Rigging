@@ -1,10 +1,13 @@
 using System;
+using UnityEngine;
 
 namespace Rigging.Demo.Reticle
 {
     [Serializable]
     public struct ReticleData
     {
+        public ReticleShapeType ShapeType;
+        public GameObject ReticlePrefab;
         public float MinSize;
         public float MiddleSize;
         public float MaxSize;

@@ -4,33 +4,38 @@ using UnityEngine;
 
 namespace Rigging.Demo.Weapons
 {
-    public class Rifle : WeaponBase, IInventoryStorable, IReloadable, IShootable
+    public class Rifle : WeaponBase, IShootable, IReloadable, IReticleProvider, IInventoryStorable
     {
-        [SerializeField] private ReticleData reticleData;
         [SerializeField] private WeaponRigData rig;
-        [SerializeField, Min(1)] private Vector2Int gridSize;
-        [SerializeField] private Sprite icon;
         [SerializeField] private float initialVelocity;
         [SerializeField] private float range;
         [SerializeField] private Transform rayPivot;
+        [SerializeField] private ReticleData reticleData;
+        [SerializeField, Min(1)] private Vector2Int gridSize;
+        [SerializeField] private Sprite icon;
 
         public override WeaponType WeaponType => WeaponType.Rifle;
         public override WeaponRigData Rig => rig;
-        public Vector2Int GridSize => gridSize;
-        public Sprite Icon => icon;
-        public ReticleData ReticleData => reticleData;
         public float InitialVelocity => initialVelocity;
         public float Range => range;
         public Transform AimTarget { get; set; }
+        public ReticleData ReticleData => reticleData;
+        public float CurrentReticleSize { get; private set; }
+        public bool IsEnlarge { get; private set; }
+        public Vector2Int GridSize => gridSize;
+        public Sprite Icon => icon;
 
         private void Awake()
         {
             Debugger.I.ValidateSerializeField(icon, this);
             Debugger.I.ValidateSerializeField(rayPivot, this);
+            
+            CurrentReticleSize = ReticleData.MaxSize;
         }
 
         private void Update()
         {
+            UpdateReticle();
             UpdateAimTarget();
         }
 
@@ -42,6 +47,21 @@ namespace Rigging.Demo.Weapons
         public void OnReload()
         {
 
+        }
+        
+        public void OnEnlargeReticle()
+        {
+            IsEnlarge = true;
+        }
+
+        public void OnReduceReticle()
+        {
+            IsEnlarge = false;
+        }
+        
+        public void UpdateReticle()
+        {
+            CurrentReticleSize = ReticleUpdater.CalcReticleSize(CurrentReticleSize, reticleData, IsEnlarge);
         }
 
         public void UpdateAimTarget()

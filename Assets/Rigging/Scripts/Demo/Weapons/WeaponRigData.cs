@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Rigging.Core
+namespace Rigging.Demo.Weapons
 {
     [Serializable]
     public struct WeaponRigData

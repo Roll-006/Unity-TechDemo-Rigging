@@ -1,5 +1,7 @@
-﻿using Rigging.Common;
+﻿using System;
+using Rigging.Common;
 using Rigging.Core;
+using Rigging.Demo.Weapons;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,7 +21,9 @@ namespace Rigging.Demo.Player
         [SerializeField] private float towardSpeed;
 
         public bool IsAiming => _isAimingInput && weaponHolder.EquippedWeapon != null;
+        public bool WasAiming { get; private set; }
 
+        private IReticleProvider _reticleProvider;
         private int _gunLayerIndex;
         private bool _isAimingInput;
 
@@ -46,6 +50,11 @@ namespace Rigging.Demo.Player
         private void OnDisable()
         {
             playerInput.onActionTriggered -= OnActionTriggered;
+        }
+
+        private void Update()
+        {
+            WasAiming = IsAiming;
         }
 
         private void LateUpdate()
@@ -77,6 +86,10 @@ namespace Rigging.Demo.Player
             {
                 case InputActionPhase.Started:
                     _isAimingInput = true;
+                    break;
+                
+                case InputActionPhase.Performed:
+                    WasAiming = false;
                     break;
                     
                 case InputActionPhase.Canceled:

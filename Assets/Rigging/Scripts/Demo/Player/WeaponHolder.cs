@@ -1,4 +1,5 @@
-﻿using Rigging.Core;
+﻿using System;
+using Rigging.Core;
 using Rigging.Common;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,7 +29,9 @@ namespace Rigging.Demo.Player
         /// <summary>
         /// Hierarchy 上に実在する装備している武器
         /// </summary>
-        private WeaponBase _equippedWeaponInstance;
+        public WeaponBase EquippedWeaponInstance { get; private set; }
+        
+        public event Action<WeaponBase> EquippedWeaponInstanceChanged;
         
         private bool _isEquipped; //仮
         private int _count; //仮
@@ -112,23 +115,27 @@ namespace Rigging.Demo.Player
             leftHandRigTarget.localPosition = EquippedWeapon.Rig.LeftHandRigTargetPosition;
             leftHandRigTarget.localEulerAngles = EquippedWeapon.Rig.LeftHandRigTargetRotation;
 
-            _equippedWeaponInstance = Instantiate(EquippedWeapon, rightHandGripPivot, false);
+            EquippedWeaponInstance = Instantiate(EquippedWeapon, rightHandGripPivot, false);
 
-            var shootable = _equippedWeaponInstance.GetComponent<IShootable>();
+            var shootable = EquippedWeaponInstance.GetComponent<IShootable>();
             if (shootable != null)
             {
                 shootable.AimTarget = aimTarget;
             }
+            
+            EquippedWeaponInstanceChanged?.Invoke(EquippedWeaponInstance);
         }
 
         public void DestroyWeapon()
         {
-            if (_equippedWeaponInstance == null) return;
+            if (EquippedWeaponInstance == null) return;
 
-            Destroy(_equippedWeaponInstance.gameObject);
+            Destroy(EquippedWeaponInstance.gameObject);
 
-            _equippedWeaponInstance = null;
+            EquippedWeaponInstance = null;
             EquippedWeapon = null;
+            
+            EquippedWeaponInstanceChanged?.Invoke(EquippedWeaponInstance);
         }
     }
 }

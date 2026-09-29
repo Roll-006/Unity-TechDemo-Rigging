@@ -20,6 +20,7 @@ namespace Rigging.Common
         [SerializeField] private float speed;
 
         public bool IsMoving => Input.sqrMagnitude > Mathf.Epsilon;
+        public float InputMagnitude => Input.magnitude;
         public Vector2 Input { get; private set; }
 
         private Vector2 _axis;
@@ -50,7 +51,6 @@ namespace Rigging.Common
             Input = actionReference.action.ReadValue<Vector2>();
             Input *= new Vector2(isInvertYaw ? -1 : 1, isInvertPitch ? -1 : 1);
             _axis += Input * speed;
-
         }
 
         private void ApplyLimits()

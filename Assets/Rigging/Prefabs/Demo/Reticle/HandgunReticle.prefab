@@ -383,6 +383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rigging.Demo.Reticle.HandgunReticle
   rectTransform: {fileID: 2795039655903820427}
+  canvasGroup: {fileID: 814789442977860094}
   left: {fileID: 126675480741337326}
   right: {fileID: 6705686860461396466}
   top: {fileID: 1462351653185083346}
