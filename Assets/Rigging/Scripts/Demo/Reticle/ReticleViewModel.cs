@@ -1,5 +1,4 @@
 using System;
-using Rigging.Common;
 using Rigging.Core;
 using Rigging.Demo.Player;
 using UnityEngine;
@@ -8,60 +7,81 @@ namespace Rigging.Demo.Reticle
 {
     public class ReticleViewModel : IDisposable
     {
-        public event Action<GameObject> ReticleChanged;
+        /// <summary>
+        /// レティクル生成イベント
+        /// </summary>
+        public event Action<GameObject> ReticleCreateChanged;
+        
+        /// <summary>
+        /// レティクルサイズの変更。
+        /// </summary>
         public event Action<float> ReticleSizeChanged;
+        
+        /// <summary>
+        /// レティクルアルファ値の変更。
+        /// </summary>
         public event Action<float> ReticleAlphaChanged;
         
         private WeaponHolder _weaponHolder;
         private Shooter _shooter;
-        private PlayerMovement _playerMovement;
-        private CameraPivotMovement _cameraPivotMovement;
         private IReticleProvider _reticleProvider;
 
-        private void OnWeaponInstanceChanged(WeaponBase equippedWeaponInstance)
-        {
-            if (equippedWeaponInstance == null)
-            {
-                _reticleProvider = null;
-                ReticleChanged?.Invoke(null);
-                return;
-            }
-
-            _reticleProvider = equippedWeaponInstance.GetComponent<IReticleProvider>();
-
-            if (_reticleProvider == null) return;
-
-            ReticleChanged?.Invoke(_reticleProvider.ReticleData.ReticlePrefab);
-        }
-
-        public void Initialize(WeaponHolder weaponHolder, Shooter shooter, PlayerMovement playerMovement, CameraPivotMovement cameraPivotMovement)
+        public void Initialize(WeaponHolder weaponHolder, Shooter shooter)
         {
             _weaponHolder = weaponHolder;
             _shooter = shooter;
-            _playerMovement = playerMovement;
-            _cameraPivotMovement = cameraPivotMovement;
-            _weaponHolder.EquippedWeaponInstanceChanged += OnWeaponInstanceChanged;
+            
+            _weaponHolder.EquippedWeaponInstanceChanged += OnInvokeReticle;
+            _shooter.AimInputThisFrameChanged += OnOpaqueReticle;
+            _shooter.ReleaseInputThisFrameChanged += OnTransparentReticle;
         }
 
         public void Dispose()
         {
-            _weaponHolder.EquippedWeaponInstanceChanged -= OnWeaponInstanceChanged;
+            _weaponHolder.EquippedWeaponInstanceChanged -= OnInvokeReticle;
+            _shooter.AimInputThisFrameChanged -= OnOpaqueReticle;
+            _shooter.ReleaseInputThisFrameChanged -= OnTransparentReticle;
         }
 
         public void Update()
         {
             if (_reticleProvider == null) return;
-            
             ReticleSizeChanged?.Invoke(_reticleProvider.CurrentReticleSize);
-            StartReticle();
+        }
+
+        /// <summary>
+        /// レティクルの生成を通知する。
+        /// </summary>
+        /// <param name="equippedWeaponInstance">Hierarchy 上に実在する装備している武器</param>
+        private void OnInvokeReticle(WeaponBase equippedWeaponInstance)
+        {
+            if (equippedWeaponInstance == null)
+            {
+                _reticleProvider = null;
+                ReticleCreateChanged?.Invoke(null);
+                return;
+            }
+
+            _reticleProvider = equippedWeaponInstance.GetComponent<IReticleProvider>();
+            if (_reticleProvider == null) return;
+
+            ReticleCreateChanged?.Invoke(_reticleProvider.ReticleData.ReticlePrefab);
+        }
+
+        /// <summary>
+        /// 不透明にする。
+        /// </summary>
+        private void OnOpaqueReticle()
+        {
+            ReticleAlphaChanged?.Invoke(1f);
         }
         
-        private void StartReticle()
+        /// <summary>
+        /// 透過させる。
+        /// </summary>
+        private void OnTransparentReticle()
         {
-            if (!_shooter.IsAiming) return;
-            if (_shooter.WasAiming) return;
-            
-            ReticleAlphaChanged?.Invoke(1f);
+            ReticleAlphaChanged?.Invoke(0f);
         }
     }
 }

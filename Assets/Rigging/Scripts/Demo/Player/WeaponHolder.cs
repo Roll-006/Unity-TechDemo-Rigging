@@ -38,10 +38,10 @@ namespace Rigging.Demo.Player
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(animator, this);
-            Debugger.I.ValidateSerializeField(rightHandGripPivot, this);
-            Debugger.I.ValidateSerializeField(leftHandRigHint, this);
-            Debugger.I.ValidateSerializeField(leftHandRigTarget, this);
+            Debugger.ValidateSerializeField(animator, this);
+            Debugger.ValidateSerializeField(rightHandGripPivot, this);
+            Debugger.ValidateSerializeField(leftHandRigHint, this);
+            Debugger.ValidateSerializeField(leftHandRigTarget, this);
         }
 
         private void Update()

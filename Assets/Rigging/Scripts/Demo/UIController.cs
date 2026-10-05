@@ -14,8 +14,6 @@ namespace Rigging.Demo
         [SerializeField] private Transform reticleParent;
         [SerializeField] private WeaponHolder weaponHolder;
         [SerializeField] private Shooter shooter;
-        [SerializeField] private PlayerMovement playerMovement;
-        [SerializeField] private CameraPivotMovement cameraPivotMovement;
 
         private GameObject _reticle;
         private readonly InventoryViewModel _inventoryViewModel = new();
@@ -23,17 +21,15 @@ namespace Rigging.Demo
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(inventoryView, this);
-            Debugger.I.ValidateSerializeField(reticleParent, this);
-            Debugger.I.ValidateSerializeField(weaponHolder, this);
-            Debugger.I.ValidateSerializeField(shooter, this);
-            Debugger.I.ValidateSerializeField(playerMovement, this);
-            Debugger.I.ValidateSerializeField(cameraPivotMovement, this);
+            Debugger.ValidateSerializeField(inventoryView, this);
+            Debugger.ValidateSerializeField(reticleParent, this);
+            Debugger.ValidateSerializeField(weaponHolder, this);
+            Debugger.ValidateSerializeField(shooter, this);
 
             inventoryView.SetViewModel(_inventoryViewModel);
             
-            _reticleViewModel.ReticleChanged += CreateReticle;
-            _reticleViewModel.Initialize(weaponHolder, shooter, playerMovement, cameraPivotMovement);
+            _reticleViewModel.ReticleCreateChanged += CreateReticleCreate;
+            _reticleViewModel.Initialize(weaponHolder, shooter);
         }
 
         private void Update()
@@ -44,11 +40,11 @@ namespace Rigging.Demo
         private void OnDestroy()
         {
             _inventoryViewModel.Dispose();
+            _reticleViewModel.ReticleCreateChanged -= CreateReticleCreate;
             _reticleViewModel.Dispose();
-            _reticleViewModel.ReticleChanged -= CreateReticle;
         }
 
-        private void CreateReticle(GameObject reticlePrefab)
+        private void CreateReticleCreate(GameObject reticlePrefab)
         {
             if (reticlePrefab != null)
             {

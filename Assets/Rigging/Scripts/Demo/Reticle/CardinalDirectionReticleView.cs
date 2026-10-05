@@ -7,8 +7,8 @@ namespace Rigging.Demo.Reticle
     {
         [SerializeField] private RectTransform rectTransform;
         [SerializeField] private CanvasGroup canvasGroup;
-        [SerializeField] private float transparentSpeed;
         [SerializeField] private float opaqueSpeed;
+        [SerializeField] private float transparentSpeed;
         [SerializeField] private RectTransform left;
         [SerializeField] private RectTransform right;
         [SerializeField] private RectTransform top;
@@ -19,8 +19,8 @@ namespace Rigging.Demo.Reticle
         
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(rectTransform, this);
-            Debugger.I.ValidateSerializeField(canvasGroup, this);
+            Debugger.ValidateSerializeField(rectTransform, this);
+            Debugger.ValidateSerializeField(canvasGroup, this);
         }
 
         private void OnEnable()

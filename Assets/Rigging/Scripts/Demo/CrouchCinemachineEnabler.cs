@@ -12,8 +12,8 @@ namespace Rigging.Demo
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(cinemachine, this);
-            Debugger.I.ValidateSerializeField(playerMovement, this);
+            Debugger.ValidateSerializeField(cinemachine, this);
+            Debugger.ValidateSerializeField(playerMovement, this);
         }
 
         private void Update()

@@ -28,12 +28,12 @@ namespace Rigging.Demo.Player
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(playerInput, this);
-            Debugger.I.ValidateSerializeField(moveAction, this);
-            Debugger.I.ValidateSerializeField(sprintAction, this);
-            Debugger.I.ValidateSerializeField(crouchAction, this);
-            Debugger.I.ValidateSerializeField(animator, this);
-            Debugger.I.ValidateSerializeField(rb, this);
+            Debugger.ValidateSerializeField(playerInput, this);
+            Debugger.ValidateSerializeField(moveAction, this);
+            Debugger.ValidateSerializeField(sprintAction, this);
+            Debugger.ValidateSerializeField(crouchAction, this);
+            Debugger.ValidateSerializeField(animator, this);
+            Debugger.ValidateSerializeField(rb, this);
         }
 
         private void OnEnable()

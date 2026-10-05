@@ -17,10 +17,10 @@ namespace Rigging.Demo.Player
         
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(aimTrigger, this);
-            Debugger.I.ValidateSerializeField(aimArmBackTrigger, this);
-            Debugger.I.ValidateSerializeField(aimBackTrigger, this);
-            Debugger.I.ValidateSerializeField(spine2Pivot, this);
+            Debugger.ValidateSerializeField(aimTrigger, this);
+            Debugger.ValidateSerializeField(aimArmBackTrigger, this);
+            Debugger.ValidateSerializeField(aimBackTrigger, this);
+            Debugger.ValidateSerializeField(spine2Pivot, this);
         }
 
         /// <summary>

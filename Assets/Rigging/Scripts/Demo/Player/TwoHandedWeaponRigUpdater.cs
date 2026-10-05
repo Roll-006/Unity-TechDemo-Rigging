@@ -13,7 +13,7 @@ namespace Rigging.Demo.Player
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(rig, this);
+            Debugger.ValidateSerializeField(rig, this);
         }
 
         private void Update()

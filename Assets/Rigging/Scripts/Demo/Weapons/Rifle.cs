@@ -27,8 +27,8 @@ namespace Rigging.Demo.Weapons
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(icon, this);
-            Debugger.I.ValidateSerializeField(rayPivot, this);
+            Debugger.ValidateSerializeField(icon, this);
+            Debugger.ValidateSerializeField(rayPivot, this);
             
             CurrentReticleSize = ReticleData.MaxSize;
         }

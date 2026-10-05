@@ -12,9 +12,9 @@ namespace Rigging.Demo.Player.State
         
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            _playerMovement = Debugger.I.ValidateComponent<PlayerMovement>(animator);
-            _playerFacing = Debugger.I.ValidateComponent<PlayerFacing>(animator);
-            _aimArmBackMovement = Debugger.I.ValidateComponent<AimArmBackMovement>(animator);
+            _playerMovement = Debugger.ValidateComponent<PlayerMovement>(animator);
+            _playerFacing = Debugger.ValidateComponent<PlayerFacing>(animator);
+            _aimArmBackMovement = Debugger.ValidateComponent<AimArmBackMovement>(animator);
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

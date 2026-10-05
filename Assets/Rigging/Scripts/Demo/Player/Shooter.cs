@@ -15,13 +15,24 @@ namespace Rigging.Demo.Player
         [SerializeField] private Animator animator;
         [SerializeField] private AimRigUpdater aimRigUpdater;
         [SerializeField] private WeaponHolder weaponHolder;
+        [SerializeField] private PlayerMovement playerMovement;
+        [SerializeField] private CameraPivotMovement cameraPivotMovement;
         [SerializeField] private Transform gripPivot;
         [SerializeField] private Transform aimTrigger;
         [SerializeField] private Transform spine2Pivot;
         [SerializeField] private float towardSpeed;
 
         public bool IsAiming => _isAimingInput && weaponHolder.EquippedWeapon != null;
-        public bool WasAiming { get; private set; }
+        
+        /// <summary>
+        /// このフレームでエイム状態になった。
+        /// </summary>
+        public event Action AimInputThisFrameChanged;
+        
+        /// <summary>
+        /// このフレームでエイム状態を解除した。
+        /// </summary>
+        public event Action ReleaseInputThisFrameChanged;
 
         private IReticleProvider _reticleProvider;
         private int _gunLayerIndex;
@@ -29,15 +40,17 @@ namespace Rigging.Demo.Player
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(playerInput, this);
-            Debugger.I.ValidateSerializeField(aimGunAction, this);
-            Debugger.I.ValidateSerializeField(fireAction, this);
-            Debugger.I.ValidateSerializeField(animator, this);
-            Debugger.I.ValidateSerializeField(aimRigUpdater, this);
-            Debugger.I.ValidateSerializeField(weaponHolder, this);
-            Debugger.I.ValidateSerializeField(gripPivot, this);
-            Debugger.I.ValidateSerializeField(aimTrigger, this);
-            Debugger.I.ValidateSerializeField(spine2Pivot, this);
+            Debugger.ValidateSerializeField(playerInput, this);
+            Debugger.ValidateSerializeField(aimGunAction, this);
+            Debugger.ValidateSerializeField(fireAction, this);
+            Debugger.ValidateSerializeField(animator, this);
+            Debugger.ValidateSerializeField(aimRigUpdater, this);
+            Debugger.ValidateSerializeField(weaponHolder, this);
+            Debugger.ValidateSerializeField(playerMovement, this);
+            Debugger.ValidateSerializeField(cameraPivotMovement, this);
+            Debugger.ValidateSerializeField(gripPivot, this);
+            Debugger.ValidateSerializeField(aimTrigger, this);
+            Debugger.ValidateSerializeField(spine2Pivot, this);
 
             _gunLayerIndex = animator.GetLayerIndex(AnimatorLayers.GunLayer);
         }
@@ -54,7 +67,7 @@ namespace Rigging.Demo.Player
 
         private void Update()
         {
-            WasAiming = IsAiming;
+            UpdateReticleSize();
         }
 
         private void LateUpdate()
@@ -86,13 +99,11 @@ namespace Rigging.Demo.Player
             {
                 case InputActionPhase.Started:
                     _isAimingInput = true;
-                    break;
-                
-                case InputActionPhase.Performed:
-                    WasAiming = false;
+                    if (IsAiming) AimInputThisFrameChanged?.Invoke();
                     break;
                     
                 case InputActionPhase.Canceled:
+                    if (IsAiming) ReleaseInputThisFrameChanged?.Invoke();
                     _isAimingInput = false;
                     break;
             }
@@ -132,6 +143,15 @@ namespace Rigging.Demo.Player
                 return false;
             
             return true;
+        }
+
+        private void UpdateReticleSize()
+        {
+            if (!IsAiming) return;
+            if (playerMovement.IsMoving)
+            {
+                
+            }
         }
     }
 }

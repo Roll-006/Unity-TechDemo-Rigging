@@ -11,8 +11,8 @@ namespace Rigging.Common
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(renderer, this);
-            Debugger.I.ValidateSerializeField(targetTransform, this);
+            Debugger.ValidateSerializeField(renderer, this);
+            Debugger.ValidateSerializeField(targetTransform, this);
         }
 
         private void Update()

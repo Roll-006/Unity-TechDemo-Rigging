@@ -9,7 +9,7 @@ namespace Rigging.Demo.Player.State
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            _playerFacing = Debugger.I.ValidateComponent<PlayerFacing>(animator);
+            _playerFacing = Debugger.ValidateComponent<PlayerFacing>(animator);
 
             animator.GetComponent<PlayerMovement>()?.StopSprint();
         }

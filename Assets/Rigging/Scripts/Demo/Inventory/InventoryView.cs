@@ -17,9 +17,9 @@ namespace Rigging.Demo.Inventory
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(gridLayoutGroup, this);
-            Debugger.I.ValidateSerializeField(grid, this);
-            Debugger.I.ValidateSerializeField(cell, this);
+            Debugger.ValidateSerializeField(gridLayoutGroup, this);
+            Debugger.ValidateSerializeField(grid, this);
+            Debugger.ValidateSerializeField(cell, this);
         }
 
         private void OnEnable()

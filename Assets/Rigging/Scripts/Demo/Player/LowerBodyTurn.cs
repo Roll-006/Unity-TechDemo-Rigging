@@ -19,10 +19,10 @@ namespace Rigging.Demo.Player
 
         void Awake()
         {
-            Debugger.I.ValidateSerializeField(animator, this);
-            Debugger.I.ValidateSerializeField(playerMovement, this);
-            Debugger.I.ValidateSerializeField(cameraPivotMovement, this);
-            Debugger.I.ValidateSerializeField(playerFacing, this);
+            Debugger.ValidateSerializeField(animator, this);
+            Debugger.ValidateSerializeField(playerMovement, this);
+            Debugger.ValidateSerializeField(cameraPivotMovement, this);
+            Debugger.ValidateSerializeField(playerFacing, this);
 
             _lowerBodyTurnLayerIndex = animator.GetLayerIndex(AnimatorLayers.LowerBodyTurnLayer);
         }

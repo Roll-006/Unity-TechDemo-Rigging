@@ -6,6 +6,9 @@ namespace Rigging.Demo.Inventory
     {
         public InventoryModel Model { get; private set; }
 
+        /// <summary>
+        /// Model が変更された
+        /// </summary>
         public event Action<InventoryModel> ModelChanged;
 
         public InventoryViewModel()

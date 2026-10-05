@@ -27,10 +27,10 @@ namespace Rigging.Common
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(actionReference, this);
-            Debugger.I.ValidateSerializeField(cinemachine, this);
-            Debugger.I.ValidateRange(minYaw, maxYaw);
-            Debugger.I.ValidateRange(minPitch, maxPitch);
+            Debugger.ValidateSerializeField(actionReference, this);
+            Debugger.ValidateSerializeField(cinemachine, this);
+            Debugger.ValidateRange(minYaw, maxYaw);
+            Debugger.ValidateRange(minPitch, maxPitch);
         }
 
         private void LateUpdate()

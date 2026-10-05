@@ -10,7 +10,7 @@ namespace Rigging.Common
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(cinemachine, this);
+            Debugger.ValidateSerializeField(cinemachine, this);
         }
 
         public void ActivateCinemachine()
