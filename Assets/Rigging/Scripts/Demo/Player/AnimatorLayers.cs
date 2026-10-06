@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Rigging.Demo.Player
 {
     public static class AnimatorLayers
