@@ -1,5 +1,6 @@
 using Rigging.Core;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Rigging.Demo.Reticle
 {
@@ -9,12 +10,12 @@ namespace Rigging.Demo.Reticle
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private float opaqueSpeed;
         [SerializeField] private float transparentSpeed;
+        [SerializeField] private Image center;
         [SerializeField] private RectTransform left;
         [SerializeField] private RectTransform right;
         [SerializeField] private RectTransform top;
         [SerializeField] private RectTransform bottom;
 
-        private ReticleViewModel _viewModel;
         private float _targetAlpha;
         
         private void Awake()
@@ -33,20 +34,7 @@ namespace Rigging.Demo.Reticle
             UpdateAlpha();
         }
 
-        private void OnDisable()
-        {
-            _viewModel.ReticleSizeChanged -= OnSetReticleSize;
-            _viewModel.ReticleAlphaChanged -= OnSetAlpha;
-        }
-
-        public void SetViewModel(ReticleViewModel viewModel)
-        {
-            _viewModel = viewModel;
-            _viewModel.ReticleSizeChanged += OnSetReticleSize;
-            _viewModel.ReticleAlphaChanged += OnSetAlpha;
-        }
-
-        public void OnSetReticleSize(float size)
+        public void SetReticleSize(float size)
         {
             rectTransform.sizeDelta = new Vector2(size, size);
             
@@ -56,12 +44,17 @@ namespace Rigging.Demo.Reticle
             if (bottom != null) bottom.anchoredPosition = new Vector2(0f, -bottom.sizeDelta.y / 2f);
         }
 
-        public void OnSetAlpha(float alpha)
+        public void SetTargetAlpha(float alpha)
         {
             _targetAlpha = alpha;
         }
 
-        private void UpdateAlpha()
+        public void SetMinReticleSize(bool isMinReticleSize)
+        {
+            if (center != null) center.enabled = isMinReticleSize;
+        }
+
+        public void UpdateAlpha()
         {
             if (Mathf.Abs(_targetAlpha - canvasGroup.alpha) <= Mathf.Epsilon) return;
             

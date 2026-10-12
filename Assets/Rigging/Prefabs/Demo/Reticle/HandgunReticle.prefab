@@ -341,7 +341,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 98.3, y: 100}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &814789442977860094
 CanvasGroup:
@@ -384,8 +384,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Rigging.Demo.Reticle.HandgunReticle
   rectTransform: {fileID: 2795039655903820427}
   canvasGroup: {fileID: 814789442977860094}
-  transparentSpeed: 20
   opaqueSpeed: 40
+  transparentSpeed: 20
+  center: {fileID: 2476731857386252427}
   left: {fileID: 126675480741337326}
   right: {fileID: 6705686860461396466}
   top: {fileID: 1462351653185083346}

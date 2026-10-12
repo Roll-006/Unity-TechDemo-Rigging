@@ -18,7 +18,7 @@ namespace Rigging.Demo
 
         private void Update()
         {
-            cinemachine.enabled = shooter.IsAiming;
+            cinemachine.enabled = shooter.IsAiming.CurrentValue;
         }
     }
 }

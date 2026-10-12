@@ -10,7 +10,7 @@ namespace Rigging.Demo.Weapons
         [SerializeField] private float initialVelocity;
         [SerializeField] private float range;
         [SerializeField] private Transform rayPivot;
-        [SerializeField] private ReticleData reticleData;
+        [SerializeField] private ReticleModel reticleModel;
         [SerializeField, Min(1)] private Vector2Int gridSize;
         [SerializeField] private Sprite icon;
 
@@ -19,9 +19,8 @@ namespace Rigging.Demo.Weapons
         public float InitialVelocity => initialVelocity;
         public float Range => range;
         public Transform AimTarget { get; set; }
-        public ReticleData ReticleData => reticleData;
-        public float CurrentReticleSize { get; private set; }
-        public bool IsEnlarge { get; private set; }
+        public ReticleModel ReticleModel => reticleModel;
+        public ReticleEnlargeState ReticleEnlargeState { private set; get; }
         public Vector2Int GridSize => gridSize;
         public Sprite Icon => icon;
 
@@ -29,8 +28,11 @@ namespace Rigging.Demo.Weapons
         {
             Debugger.ValidateSerializeField(icon, this);
             Debugger.ValidateSerializeField(rayPivot, this);
+        }
 
-            CurrentReticleSize = ReticleData.MaxSize;
+        private void Start()
+        {
+            ReticleModel.CurrentSize.Value = ReticleModel.MaxSize;
         }
 
         private void Update()
@@ -48,20 +50,30 @@ namespace Rigging.Demo.Weapons
         {
 
         }
-        
+
         public void OnEnlargeReticle()
         {
-            IsEnlarge = true;
+            ReticleEnlargeState =  ReticleEnlargeState.Enlarge;
+
+            if (ReticleModel.CurrentSize.Value < ReticleModel.MiddleSize)
+            {
+                ReticleModel.CurrentSize.Value = ReticleModel.MiddleSize;
+            }
         }
 
         public void OnReduceReticle()
         {
-            IsEnlarge = false;
+            ReticleEnlargeState =  ReticleEnlargeState.Reduce;
+        }
+
+        public void OnStopReticle()
+        {
+            ReticleEnlargeState =  ReticleEnlargeState.Stop;
         }
 
         public void UpdateReticle()
         {
-            CurrentReticleSize = ReticleUpdater.CalcReticleSize(CurrentReticleSize, reticleData, IsEnlarge);
+            ReticleUpdater.CalcReticleSize(ReticleModel, ReticleEnlargeState);
         }
 
         public void UpdateAimTarget()

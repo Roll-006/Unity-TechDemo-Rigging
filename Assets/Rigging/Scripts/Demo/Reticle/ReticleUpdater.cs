@@ -7,61 +7,32 @@ namespace Rigging.Demo.Reticle
         /// <summary>
         /// レティクルのサイズを計算する。
         /// </summary>
-        /// <param name="currentSize">現在のレティクルサイズ</param>
-        /// <param name="data">レティクルデータ</param>
-        /// <param name="isEnlarge">拡大するかどうか</param>
-        /// <returns>レティクルサイズ</returns>
-        public static float CalcReticleSize(float currentSize, ReticleData data, bool isEnlarge)
+        /// <param name="model">レティクルモデル</param>
+        /// <param name="reticleEnlargeState">レティクルの拡大状態</param>
+        public static void CalcReticleSize(ReticleModel model, ReticleEnlargeState reticleEnlargeState)
         {
-            if (currentSize >= data.MaxSize && isEnlarge) return data.MaxSize;
-            if (currentSize <= data.MinSize && !isEnlarge) return data.MinSize;
+            if (reticleEnlargeState == ReticleEnlargeState.Stop) return;
+
+            var isEnlarge = reticleEnlargeState == ReticleEnlargeState.Enlarge;
+            
+            if (model.CurrentSize.CurrentValue >= model.MaxSize && isEnlarge) return;
+            if (model.CurrentSize.CurrentValue <= model.MinSize && !isEnlarge) return;
         
             var isSecondStep = isEnlarge
-                ? currentSize >= data.MiddleSize
-                : currentSize > data.MiddleSize;
+                ? model.CurrentSize.CurrentValue >= model.MiddleSize
+                : model.CurrentSize.CurrentValue > model.MiddleSize;
 
             var target = isSecondStep
-                ? (isEnlarge ? data.MaxSize : data.MiddleSize)
-                : (isEnlarge ? data.MiddleSize : data.MinSize);
+                ? (isEnlarge ? model.MaxSize : model.MiddleSize)
+                : (isEnlarge ? model.MiddleSize : model.MinSize);
 
             var speed = isSecondStep
-                ? (isEnlarge ? data.SecondStepEnlargeSpeed : data.SecondStepReduceSpeed)
-                : (isEnlarge ? data.FirstStepEnlargeSpeed : data.FirstStepReduceSpeed);
+                ? (isEnlarge ? model.SecondStepEnlargeSpeed : model.SecondStepReduceSpeed)
+                : (isEnlarge ? model.FirstStepEnlargeSpeed : model.FirstStepReduceSpeed);
 
-            return Mathf.MoveTowards(currentSize, target, speed * Time.deltaTime);
-        }
-        
-        public static void UpdateReticle(ReticleData data)
-        {
-            switch (data.ShapeType)
-            {
-                case ReticleShapeType.Square:
-                    UpdateSquareReticle(data);
-                    break;
-                
-                case ReticleShapeType.Circle:
-                    UpdateCircleReticle(data);
-                    break;
-                
-                case ReticleShapeType.Capsule:
-                    UpdateCapsuleReticle(data);
-                    break;
-            }
-        }
-        
-        private static void UpdateSquareReticle(ReticleData data)
-        {
-            
-        }
+            model.CurrentSize.Value = Mathf.MoveTowards(model.CurrentSize.CurrentValue, target, speed * Time.deltaTime);
 
-        private static void UpdateCircleReticle(ReticleData data)
-        {
-            
-        }
-        
-        private static void UpdateCapsuleReticle(ReticleData data)
-        {
-            
+            model.IsReticleClosed.Value = model.CurrentSize.Value - model.MinSize <= Mathf.Epsilon;
         }
     }
 }

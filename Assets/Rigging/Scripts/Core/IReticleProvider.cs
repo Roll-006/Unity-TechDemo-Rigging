@@ -7,9 +7,8 @@ namespace Rigging.Core
     /// </summary>
     public interface IReticleProvider
     {
-        public ReticleData ReticleData { get; }
-        public float CurrentReticleSize { get; }
-        public bool IsEnlarge { get; }
+        public ReticleModel ReticleModel { get; }
+        public ReticleEnlargeState ReticleEnlargeState { get; }
 
         /// <summary>
         /// レティクルを拡大する。
@@ -20,6 +19,11 @@ namespace Rigging.Core
         /// レティクルを縮小する。
         /// </summary>
         public void OnReduceReticle();
+        
+        /// <summary>
+        /// レティクルを停止する。
+        /// </summary>
+        public void OnStopReticle();
         
         /// <summary>
         /// レティクルを更新する。

@@ -1,11 +1,13 @@
-using Rigging.Demo.Reticle;
-
 namespace Rigging.Core
 {
     public interface IReticleView
     {
-        public void SetViewModel(ReticleViewModel viewModel);
-        public void OnSetReticleSize(float size);
-        public void OnSetAlpha(float alpha);
+        public void SetReticleSize(float size);
+        
+        public void SetTargetAlpha(float alpha);
+        
+        public void SetMinReticleSize(bool isMinReticleSize);
+
+        public void UpdateAlpha();
     }
 }

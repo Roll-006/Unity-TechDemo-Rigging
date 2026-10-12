@@ -2,6 +2,7 @@
 using Rigging.Core;
 using Rigging.Common;
 using System.Collections.Generic;
+using R3;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -31,8 +32,12 @@ namespace Rigging.Demo.Player
         /// </summary>
         public WeaponBase EquippedWeaponInstance { get; private set; }
         
-        public event Action<WeaponBase> EquippedWeaponInstanceChanged;
+        /// <summary>
+        /// Hierarchy 上に実在する装備している武器が変化したことを通知する。 (T: WeaponBase)
+        /// </summary>
+        public ReadOnlyReactiveProperty<WeaponBase> EquippedWeaponInstanceChanged => _equippedWeaponInstanceChanged;
         
+        private readonly ReactiveProperty<WeaponBase> _equippedWeaponInstanceChanged = new ReactiveProperty<WeaponBase>();
         private bool _isEquipped; //仮
         private int _count; //仮
 
@@ -80,6 +85,11 @@ namespace Rigging.Demo.Player
             }
         }
 
+        private void OnDestroy()
+        {
+            _equippedWeaponInstanceChanged.Dispose();
+        }
+
         public void OnEquipWeapon(WeaponBase weapon)
         {
             if (weapon == null) return;
@@ -123,7 +133,7 @@ namespace Rigging.Demo.Player
                 shootable.AimTarget = aimTarget;
             }
             
-            EquippedWeaponInstanceChanged?.Invoke(EquippedWeaponInstance);
+            _equippedWeaponInstanceChanged.Value = EquippedWeaponInstance;
         }
 
         public void DestroyWeapon()
@@ -135,7 +145,7 @@ namespace Rigging.Demo.Player
             EquippedWeaponInstance = null;
             EquippedWeapon = null;
             
-            EquippedWeaponInstanceChanged?.Invoke(EquippedWeaponInstance);
+            _equippedWeaponInstanceChanged.Value = EquippedWeaponInstance;
         }
     }
 }
