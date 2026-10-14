@@ -9,7 +9,7 @@ namespace Rigging.Common
         /// <summary>
         /// 直角二等辺三角形の隣辺の1つの長さを取得する。
         /// </summary>
-        /// <param name="hypotenuse">斜辺</param>
+        /// <param name="hypotenuse">斜辺の長さ (Range: hypotenuse > 0)</param>
         /// <returns>隣辺の1つの長さ</returns>
         public static float GetIsoscelesRightTriangleLegLength(float hypotenuse)
         {
@@ -23,7 +23,7 @@ namespace Rigging.Common
         /// <param name="a">制御点1</param>
         /// <param name="b">制御点2</param>
         /// <param name="c">制御点3</param>
-        /// <param name="t">補間係数(0～1)</param>
+        /// <param name="t">補間係数 (Range: 0～1)</param>
         /// <returns>補間後の値</returns>
         public static float QuadraticBezierCurve(float a, float b, float c, float t)
         {
@@ -38,7 +38,7 @@ namespace Rigging.Common
         /// <param name="a">制御点1</param>
         /// <param name="b">制御点2</param>
         /// <param name="c">制御点3</param>
-        /// <param name="t">補間係数(0～1)</param>
+        /// <param name="t">補間係数 (Range: 0～1)</param>
         /// <returns>補間後の値</returns>
         public static Vector2 QuadraticBezierCurve(Vector2 a, Vector2 b, Vector2 c, float t)
         {
@@ -53,7 +53,7 @@ namespace Rigging.Common
         /// <param name="a">制御点1</param>
         /// <param name="b">制御点2</param>
         /// <param name="c">制御点3</param>
-        /// <param name="t">補間係数(0～1)</param>
+        /// <param name="t">補間係数 (Range: 0～1)</param>
         /// <returns>補間後の値</returns>
         public static Vector3 QuadraticBezierCurve(Vector3 a, Vector3 b, Vector3 c, float t)
         {

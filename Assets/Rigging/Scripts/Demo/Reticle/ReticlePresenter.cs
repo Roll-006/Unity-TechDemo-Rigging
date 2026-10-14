@@ -16,9 +16,13 @@ namespace Rigging.Demo.Reticle
         public void OnCreateReticle(Shooter shooter, ReticleModel model, IReticleView view)
         {
             model.CurrentSize.Subscribe(view.SetReticleSize).AddTo(this);
-            model.IsReticleClosed.Subscribe(view.SetMinReticleSize).AddTo(this);
+            model.IsReticleClosed.Subscribe(view.SetEnableCenterPoint).AddTo(this);
+            model.ObstaclePosition.Subscribe(view.SetPositionObstacleReticle).AddTo(this);
+            shooter.IsAiming.Subscribe(view.SetAllowToUseObstacleReticle).AddTo(this);
             
-            shooter.IsAiming.Skip(1).Subscribe(isAiming =>
+            view.SetObstacleReticleSize(model.ObstacleSize);
+            
+            shooter.IsAiming.Subscribe(isAiming =>
             {
                 view.SetTargetAlpha(isAiming ? 1f : 0f);
             }).AddTo(this);

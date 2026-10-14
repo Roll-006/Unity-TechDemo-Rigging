@@ -127,6 +127,7 @@ namespace Rigging.Demo.Player
 
             EquippedWeaponInstance = Instantiate(EquippedWeapon, rightHandGripPivot, false);
 
+            // TODO: 設計変更候補
             var shootable = EquippedWeaponInstance.GetComponent<IShootable>();
             if (shootable != null)
             {

@@ -5,18 +5,20 @@ using UnityEngine;
 
 namespace Rigging.Demo.Reticle
 {
-    public class ReticleLifecycleNotifier : MonoBehaviour
+    /// <summary>
+    /// レティクルの生成を通知する。
+    /// </summary>
+    public class ReticleCreationNotifier : MonoBehaviour
     {
         [SerializeField] private WeaponHolder weaponHolder;
         
         /// <summary>
-        /// レティクルライフサイクル通知 (T: ReticleModel)
+        /// レティクルの生成通知
         /// </summary>
-        public ReadOnlyReactiveProperty<ReticleModel> ReticleLifecycle => _reticleLifecycle;
+        public ReadOnlyReactiveProperty<ReticleModel> CreateReticle => _createReticle;
         
-        private readonly ReactiveProperty<ReticleModel> _reticleLifecycle = new ReactiveProperty<ReticleModel>();
+        private readonly ReactiveProperty<ReticleModel> _createReticle = new ReactiveProperty<ReticleModel>();
         private IReticleProvider _reticleProvider;
-        private GameObject _previousReticlePrefab;
         
         private void Awake()
         {
@@ -28,29 +30,25 @@ namespace Rigging.Demo.Reticle
             weaponHolder.EquippedWeaponInstanceChanged
                 .Skip(1)
                 .Where(x => x != null)
-                .Subscribe(OnCreateReticle)
+                .Subscribe(OnNotifyCreateReticle)
                 .AddTo(this);
         }
 
         private void OnDestroy()
         {
-            _reticleLifecycle.Dispose();
+            _createReticle.Dispose();
         }
         
         /// <summary>
         /// レティクルの生成を通知する。
         /// </summary>
         /// <param name="equippedWeaponInstance">Hierarchy 上に実在する装備している武器</param>
-        private void OnCreateReticle(WeaponBase equippedWeaponInstance)
+        private void OnNotifyCreateReticle(WeaponBase equippedWeaponInstance)
         {
             _reticleProvider = equippedWeaponInstance.GetComponent<IReticleProvider>();
             if (_reticleProvider == null) return;
             
-            // 以前再生されていたレティクルと同じ場合は再生成しない
-            if (_previousReticlePrefab == _reticleProvider.ReticleModel.ReticlePrefab) return;
-            
-            _previousReticlePrefab = _reticleProvider.ReticleModel.ReticlePrefab;
-            _reticleLifecycle.Value = _reticleProvider.ReticleModel;
+            _createReticle.Value = _reticleProvider.ReticleModel;
         }
     }
 }

@@ -27,12 +27,12 @@ namespace Rigging.Demo.Player
             rig.weight = Mathf.MoveTowards(rig.weight, targetRigWeight, towardSpeed * Time.deltaTime);
         }
 
-        public void EnableTwoHandedWeaponRig()
+        public void OnEnableTwoHandedWeaponRig()
         {
             _isEnable = true;
         }
 
-        public void DisableTwoHandedWeaponRig()
+        public void OnDisableTwoHandedWeaponRig()
         {
             _isEnable = false;
         }

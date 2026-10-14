@@ -179,9 +179,19 @@ MonoBehaviour:
     LeftHandRigHintPosition: {x: 0.096, y: -0.04, z: 0.18}
     LeftHandRigTargetPosition: {x: -0.0055506, y: 0.02513298, z: 0.0692343}
     LeftHandRigTargetRotation: {x: 7.282, y: -155.581, z: 13.942}
-  gridSize: {x: 2, y: 2}
-  icon: {fileID: 21300000, guid: 16d016fdf7b90e847b47534152bdb11f, type: 3}
   initialVelocity: 98
   range: 50
   rayPivot: {fileID: 3180035533931379729}
-  rayPivotTrigger: {fileID: 0}
+  reticleModel:
+    ReticleShapeType: 0
+    ReticlePrefab: {fileID: 7875297149783155948, guid: 10ae7edbe15718c4a97086caf976df74, type: 3}
+    MinSize: 40
+    MiddleSize: 80
+    MaxSize: 130
+    ObstacleSize: 250
+    FirstStepEnlargeSpeed: 140
+    FirstStepReduceSpeed: 140
+    SecondStepEnlargeSpeed: 60
+    SecondStepReduceSpeed: 60
+  gridSize: {x: 2, y: 2}
+  icon: {fileID: 21300000, guid: 16d016fdf7b90e847b47534152bdb11f, type: 3}

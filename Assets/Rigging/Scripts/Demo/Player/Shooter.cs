@@ -1,8 +1,6 @@
-﻿using System;
-using R3;
+﻿using R3;
 using Rigging.Common;
 using Rigging.Core;
-using Rigging.Demo.Reticle;
 using Rigging.Demo.Weapons;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,7 +13,6 @@ namespace Rigging.Demo.Player
         [SerializeField] private InputActionReference aimGunAction;
         [SerializeField] private InputActionReference fireAction;
         [SerializeField] private Animator animator;
-        [SerializeField] private AimRigUpdater aimRigUpdater;
         [SerializeField] private WeaponHolder weaponHolder;
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private CameraPivotMovement cameraPivotMovement;
@@ -28,6 +25,7 @@ namespace Rigging.Demo.Player
         
         private readonly ReactiveProperty<bool> _isAiming = new ReactiveProperty<bool>();
         private IReticleProvider _reticleProvider;
+        private IShootable _shootableWeapon;
         private int _gunLayerIndex;
         private bool _isAimingInput;
 
@@ -37,7 +35,6 @@ namespace Rigging.Demo.Player
             Debugger.ValidateSerializeField(aimGunAction, this);
             Debugger.ValidateSerializeField(fireAction, this);
             Debugger.ValidateSerializeField(animator, this);
-            Debugger.ValidateSerializeField(aimRigUpdater, this);
             Debugger.ValidateSerializeField(weaponHolder, this);
             Debugger.ValidateSerializeField(playerMovement, this);
             Debugger.ValidateSerializeField(cameraPivotMovement, this);
@@ -53,7 +50,12 @@ namespace Rigging.Demo.Player
             weaponHolder.EquippedWeaponInstanceChanged
                 .Skip(1)
                 .Where(x => x != null)
-                .Subscribe(GetReticleProvider)
+                .Subscribe(ChangeReticleProvider)
+                .AddTo(this);
+            
+            weaponHolder.EquippedWeaponInstanceChanged
+                .Skip(1)
+                .Subscribe(ChangeShootableWeapon)
                 .AddTo(this);
             
             IsAiming
@@ -79,6 +81,7 @@ namespace Rigging.Demo.Player
 
         private void Update()
         {
+            _isAiming.Value = _isAimingInput && _shootableWeapon != null;
             UpdateReticleSize();
         }
 
@@ -86,15 +89,6 @@ namespace Rigging.Demo.Player
         {
             UpdateAnimatorParameters();
             LayerWeightUpdater.UpdateLayerWeight(animator, _gunLayerIndex, IsActiveLayer(), towardSpeed);
-
-            if (IsAiming.CurrentValue)
-            {
-                aimRigUpdater.EnableAimRig();
-            }
-            else
-            {
-                aimRigUpdater.DisableAimRig();
-            }
         }
 
         private void OnActionTriggered(InputAction.CallbackContext context)
@@ -111,12 +105,12 @@ namespace Rigging.Demo.Player
             {
                 case InputActionPhase.Started:
                     _isAimingInput = true;
-                    if (_isAimingInput && weaponHolder.EquippedWeapon != null) _isAiming.Value = true;
+                    _isAiming.Value = _isAimingInput && _shootableWeapon != null;
                     break;
                     
                 case InputActionPhase.Canceled:
-                    if (_isAimingInput && weaponHolder.EquippedWeapon != null) _isAiming.Value = false;
                     _isAimingInput = false;
+                    _isAiming.Value = false;
                     break;
             }
 
@@ -182,9 +176,23 @@ namespace Rigging.Demo.Player
             _reticleProvider.ReticleModel.CurrentSize.Value = _reticleProvider.ReticleModel.MaxSize;
         }
 
-        private void GetReticleProvider(WeaponBase equippedWeaponInstance)
+        /// <summary>
+        /// レティクルを持つオブジェクトを武器着脱時に変更する。
+        /// </summary>
+        /// <param name="equippedWeaponInstance">Hierarchy 上に実在する装備している武器</param>
+        private void ChangeReticleProvider(WeaponBase equippedWeaponInstance)
         {
             _reticleProvider = equippedWeaponInstance.GetComponent<IReticleProvider>();
+        }
+
+        /// <summary>
+        /// 撃つことが可能な武器を着脱時に変更する。
+        /// </summary>
+        /// <param name="equippedWeaponInstance">Hierarchy 上に実在する装備している武器</param>
+        private void ChangeShootableWeapon(WeaponBase equippedWeaponInstance)
+        {
+            _shootableWeapon = equippedWeaponInstance != null ? equippedWeaponInstance.GetComponent<IShootable>() : null;
+            Debug.Log($"_shootable: {_shootableWeapon}");
         }
     }
 }

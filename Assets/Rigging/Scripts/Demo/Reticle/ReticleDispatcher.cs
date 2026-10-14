@@ -11,15 +11,24 @@ namespace Rigging.Demo.Reticle
     /// </summary>
     public class ReticleDispatcher : MonoBehaviour
     {
-        [SerializeField] private ReticleLifecycleNotifier lifecycleNotifier;
+        [SerializeField] private ReticleCreationNotifier creationNotifier;
         [SerializeField] private ReticlePresenter presenter;
+        [SerializeField] private RectTransform rootRectTransform;
         [SerializeField] private Shooter shooter;
 
         private GameObject _reticle;
-        
+
+        private void Awake()
+        {
+            Debugger.ValidateSerializeField(creationNotifier, this);
+            Debugger.ValidateSerializeField(presenter, this);
+            Debugger.ValidateSerializeField(rootRectTransform, this);
+            Debugger.ValidateSerializeField(shooter, this);
+        }
+
         private void Start()
         {
-            lifecycleNotifier.ReticleLifecycle
+            creationNotifier.CreateReticle
                 .Where(x => x != null)
                 .Subscribe(Dispatch)
                 .AddTo(this);
@@ -37,6 +46,7 @@ namespace Rigging.Demo.Reticle
                        throw new InvalidOperationException($"{model.ReticlePrefab.name} に {nameof(IReticleView)} を継承してください。");
             
             presenter.OnCreateReticle(shooter, model, view);
+            view.Initialize(rootRectTransform);
         }
     }
 }

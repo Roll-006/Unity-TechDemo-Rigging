@@ -234,12 +234,12 @@ MonoBehaviour:
   reticleModel:
     ReticleShapeType: 1
     ReticlePrefab: {fileID: 7875297149783155948, guid: cb08fa50bb613ee4eba357367c2429be, type: 3}
-    IsEnlarge: 0
-    MinSize: 60
-    MiddleSize: 110
-    MaxSize: 150
-    FirstStepEnlargeSpeed: 120
-    FirstStepReduceSpeed: 120
+    MinSize: 40
+    MiddleSize: 80
+    MaxSize: 130
+    ObstacleSize: 250
+    FirstStepEnlargeSpeed: 140
+    FirstStepReduceSpeed: 140
     SecondStepEnlargeSpeed: 60
     SecondStepReduceSpeed: 60
   gridSize: {x: 2, y: 2}

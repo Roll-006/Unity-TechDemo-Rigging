@@ -87,6 +87,9 @@ namespace Rigging.Demo.Weapons
             // 武器からのレイ
             var weaponRay = new Ray(rayPivot.position, direction);
             AimTarget.position = Physics.Raycast(weaponRay, out var weaponTarget) ? weaponTarget.point : obstaclePosition;
+            
+            // 障害物と衝突した場合座標を通知
+            ReticleModel.ObstaclePosition.Value = AimTarget.position != obstaclePosition ? AimTarget.position : null;
         }
     }
 }
