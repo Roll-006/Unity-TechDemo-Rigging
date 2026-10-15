@@ -19,13 +19,8 @@ namespace Rigging.Demo.Reticle
             
             model.CurrentSize.Subscribe(view.SetReticleSize).AddTo(this);
             model.IsReticleClosed.Subscribe(view.EnableCenterPoint).AddTo(this);
-            model.ObstaclePosition.Subscribe(view.ActivateObstacleReticle).AddTo(this);
-            shooter.IsAiming.Subscribe(view.AllowToUseObstacleReticle).AddTo(this);
-            
-            shooter.IsAiming
-                .Where(isAiming => !isAiming)
-                .Subscribe(view.DeactivateObstacleReticle)
-                .AddTo(this);
+            model.ObstaclePosition.Subscribe(view.SetObstaclePosition).AddTo(this);
+            shooter.IsAiming.Subscribe(view.SetAimState).AddTo(this);
             
             shooter.IsAiming.Subscribe(isAiming =>
             {

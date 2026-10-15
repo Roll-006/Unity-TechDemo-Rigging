@@ -30,8 +30,9 @@ namespace Rigging.Demo.Reticle
         [SerializeField] private Color obstacleColor;
 
         private RectTransform _rootRectTransform;
+        private bool _isHitObstacle;
         private float _targetAlpha;
-        private bool _isAllowToUseObstacleReticle;
+        private bool _isAiming;
         
         private void Awake()
         {
@@ -48,6 +49,7 @@ namespace Rigging.Demo.Reticle
         private void Update()
         {
             UpdateAlpha();
+            ActivateObstacleReticle();
         }
         
         public void Initialize(RectTransform rootRectTransform)
@@ -75,39 +77,42 @@ namespace Rigging.Demo.Reticle
             if (center != null) center.enabled = isReticleClosed;
         }
         
-        public void AllowToUseObstacleReticle(bool isAiming)
+        public void SetAimState(bool isAiming)
         {
-            _isAllowToUseObstacleReticle = isAiming;
+            _isAiming = isAiming;
         }
         
-        public void DeactivateObstacleReticle(bool isAiming)
+        public void SetObstaclePosition(Vector3? obstaclePosition)
         {
-            obstacleReticleRectTransform.gameObject.SetActive(false);
-        }
-        
-        public void ActivateObstacleReticle(Vector3? obstaclePosition)
-        {
-            if (obstaclePosition.HasValue)
+            _isHitObstacle = obstaclePosition.HasValue;
+            
+            if (_isHitObstacle)
             {
-                if (!_isAllowToUseObstacleReticle) return;
-                
-                obstacleReticleRectTransform.gameObject.SetActive(true);
-                
-                foreach (var image in images) image.color = obstacleColor;
-                
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(
                     _rootRectTransform,
                     CameraManager.I.OutputCamera.WorldToScreenPoint(obstaclePosition.Value),
                     null,
                     out var localPosition
                 );
-                
+
                 obstacleReticleRectTransform.anchoredPosition = localPosition;
+            }
+        }
+
+        public void ActivateObstacleReticle()
+        {
+            if (_isAiming && _isHitObstacle)
+            {
+                if (obstacleReticleRectTransform.gameObject.activeSelf) return;
+                
+                obstacleReticleRectTransform.gameObject.SetActive(true);
+                foreach (var image in images) image.color = obstacleColor;
             }
             else
             {
-                obstacleReticleRectTransform.gameObject.SetActive(false);
+                if (!obstacleReticleRectTransform.gameObject.activeSelf) return;
                 
+                obstacleReticleRectTransform.gameObject.SetActive(false);
                 foreach (var image in images) image.color = Color.white;
             }
         }

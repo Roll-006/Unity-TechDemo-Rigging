@@ -192,7 +192,6 @@ namespace Rigging.Demo.Player
         private void ChangeShootableWeapon(WeaponBase equippedWeaponInstance)
         {
             _shootableWeapon = equippedWeaponInstance != null ? equippedWeaponInstance.GetComponent<IShootable>() : null;
-            Debug.Log($"_shootable: {_shootableWeapon}");
         }
     }
 }

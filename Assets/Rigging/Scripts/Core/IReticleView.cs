@@ -15,7 +15,7 @@ namespace Rigging.Core
         /// <summary>
         /// 障害物用レティクルの表示サイズを設定する。
         /// </summary>
-        /// <param name="size"></param>
+        /// <param name="size">障害物用レティクルサイズ</param>
         public void SetObstacleReticleSize(float size);
         
         /// <summary>
@@ -31,23 +31,25 @@ namespace Rigging.Core
         public void EnableCenterPoint(bool isReticleClosed);
         
         /// <summary>
-        /// 障害物用レティクルの使用を許可するかを設定する。
+        /// エイム状態を設定する。
         /// </summary>
         /// <param name="isAiming">エイム状態かどうか</param>
-        public void AllowToUseObstacleReticle(bool isAiming);
+        public void SetAimState(bool isAiming);
+        
+        /// <summary>
+        /// 障害物と衝突した座標を設定する。
+        /// </summary>
+        /// <param name="obstaclePosition">障害物と衝突した座標</param>
+        public void SetObstaclePosition(Vector3? obstaclePosition);
         
         /// <summary>
         /// 障害物用レティクルを非アクティブ化する。
         /// </summary>
-        /// <param name="isAiming">非アクティブ化するかどうか</param>
-        public void DeactivateObstacleReticle(bool isAiming);
-        
-        /// <summary>
-        /// 障害物用レティクルに座標を設定する。
-        /// </summary>
-        /// <param name="obstaclePosition">障害物と衝突した座標</param>
-        public void ActivateObstacleReticle(Vector3? obstaclePosition);
+        public void ActivateObstacleReticle();
 
+        /// <summary>
+        /// アルファ地を更新する。
+        /// </summary>
         public void UpdateAlpha();
     }
 }
