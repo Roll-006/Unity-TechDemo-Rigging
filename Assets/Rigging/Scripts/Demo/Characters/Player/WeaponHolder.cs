@@ -1,12 +1,11 @@
-﻿using System;
-using Rigging.Core;
+﻿using Rigging.Core;
 using Rigging.Common;
 using System.Collections.Generic;
 using R3;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Rigging.Demo.Player
+namespace Rigging.Demo.Characters.Player
 {
     public class WeaponHolder : MonoBehaviour
     {

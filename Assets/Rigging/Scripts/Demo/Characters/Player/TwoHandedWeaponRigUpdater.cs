@@ -1,29 +1,19 @@
-﻿using R3;
-using Rigging.Core;
+﻿using Rigging.Core;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-namespace Rigging.Demo.Player
+namespace Rigging.Demo.Characters.Player
 {
-    public class AimRigUpdater : MonoBehaviour
+    public class TwoHandedWeaponRigUpdater : MonoBehaviour
     {
         [SerializeField] private Rig rig;
         [SerializeField] private float towardSpeed;
-        [SerializeField] private Shooter shooter;
-        
+
         private bool _isEnable;
 
         private void Awake()
         {
             Debugger.ValidateSerializeField(rig, this);
-            Debugger.ValidateSerializeField(shooter, this);
-        }
-
-        private void Start()
-        {
-            shooter.IsAiming
-                .Subscribe(OnEnableAimRig)
-                .AddTo(this);
         }
 
         private void Update()
@@ -37,9 +27,14 @@ namespace Rigging.Demo.Player
             rig.weight = Mathf.MoveTowards(rig.weight, targetRigWeight, towardSpeed * Time.deltaTime);
         }
 
-        private void OnEnableAimRig(bool isAiming)
+        public void OnEnableTwoHandedWeaponRig()
         {
-            _isEnable = isAiming;
+            _isEnable = true;
+        }
+
+        public void OnDisableTwoHandedWeaponRig()
+        {
+            _isEnable = false;
         }
     }
 }

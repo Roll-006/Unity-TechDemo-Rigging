@@ -5,7 +5,7 @@ using Rigging.Demo.Weapons;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Rigging.Demo.Player
+namespace Rigging.Demo.Characters.Player
 {
     public class Shooter : MonoBehaviour
     {

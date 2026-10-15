@@ -10,5 +10,6 @@ namespace Rigging.Common
         public static readonly int Player = LayerMask.GetMask("Player");
         public static readonly int Water = LayerMask.GetMask("Water");
         public static readonly int UI = LayerMask.GetMask("UI");
+        public static readonly int Walkable = LayerMask.GetMask("Walkable");
     }
 }

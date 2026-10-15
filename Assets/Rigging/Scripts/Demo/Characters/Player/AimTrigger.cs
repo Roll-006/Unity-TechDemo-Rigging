@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Rigging.Demo.Player
+namespace Rigging.Demo.Characters.Player
 {
     public class AimTrigger : MonoBehaviour
     {

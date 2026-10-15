@@ -1,7 +1,7 @@
 ﻿using Rigging.Core;
 using UnityEngine;
 
-namespace Rigging.Demo.Player
+namespace Rigging.Demo.Characters.Player
 {
     public class PlayerFacing : MonoBehaviour
     {

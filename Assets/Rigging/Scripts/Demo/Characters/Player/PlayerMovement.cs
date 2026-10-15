@@ -3,7 +3,7 @@ using Rigging.Common;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Rigging.Demo.Player
+namespace Rigging.Demo.Characters.Player
 {
     public class PlayerMovement : MonoBehaviour
     {

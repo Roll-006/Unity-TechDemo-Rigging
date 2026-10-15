@@ -1,4 +1,4 @@
-namespace Rigging.Demo.Player
+namespace Rigging.Demo.Characters.Player
 {
     public static class AnimatorLayers
     {

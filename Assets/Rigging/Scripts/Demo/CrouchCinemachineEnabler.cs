@@ -1,5 +1,5 @@
 ﻿using Rigging.Core;
-using Rigging.Demo.Player;
+using Rigging.Demo.Characters.Player;
 using UnityEngine;
 using Unity.Cinemachine;
 

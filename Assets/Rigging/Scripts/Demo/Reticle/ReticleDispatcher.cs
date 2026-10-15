@@ -1,7 +1,7 @@
 using System;
 using R3;
 using Rigging.Core;
-using Rigging.Demo.Player;
+using Rigging.Demo.Characters.Player;
 using UnityEngine;
 
 namespace Rigging.Demo.Reticle
