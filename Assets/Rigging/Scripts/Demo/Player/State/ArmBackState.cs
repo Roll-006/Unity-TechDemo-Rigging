@@ -1,5 +1,4 @@
 ﻿using Rigging.Core;
-using Rigging.Common;
 using UnityEngine;
 
 namespace Rigging.Demo.Player.State
@@ -11,14 +10,14 @@ namespace Rigging.Demo.Player.State
         private AimArmBackMovement _aimArmBackMovement;
         private bool _wasNotifiedTrigger;
         
-        override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            _playerMovement = Debugger.I.ValidateComponent<PlayerMovement>(animator);
-            _playerFacing = Debugger.I.ValidateComponent<PlayerFacing>(animator);
-            _aimArmBackMovement = Debugger.I.ValidateComponent<AimArmBackMovement>(animator);
+            _playerMovement = Debugger.ValidateComponent<PlayerMovement>(animator);
+            _playerFacing = Debugger.ValidateComponent<PlayerFacing>(animator);
+            _aimArmBackMovement = Debugger.ValidateComponent<AimArmBackMovement>(animator);
         }
 
-        override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             _playerMovement.StopSprint();
             _playerFacing.SyncCameraForward();
@@ -26,7 +25,7 @@ namespace Rigging.Demo.Player.State
             if (_aimArmBackMovement.ExtendArm(animator, _aimArmBackMovement.AimBackTrigger, _aimArmBackMovement.AimArmBackTrigger, _wasNotifiedTrigger)) _wasNotifiedTrigger = true;
         }
 
-        override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             _wasNotifiedTrigger = false;
         }

@@ -20,7 +20,7 @@ namespace Rigging.Common
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(canvasGroup, this);
+            Debugger.ValidateSerializeField(canvasGroup, this);
         }
 
         private void Update()

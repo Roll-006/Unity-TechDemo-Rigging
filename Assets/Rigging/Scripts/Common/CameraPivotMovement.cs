@@ -2,7 +2,6 @@
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace Rigging.Common
 {
@@ -21,16 +20,17 @@ namespace Rigging.Common
         [SerializeField] private float speed;
 
         public bool IsMoving => Input.sqrMagnitude > Mathf.Epsilon;
+        public float InputMagnitude => Input.magnitude;
         public Vector2 Input { get; private set; }
 
         private Vector2 _axis;
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(actionReference, this);
-            Debugger.I.ValidateSerializeField(cinemachine, this);
-            Debugger.I.ValidateRange(minYaw, maxYaw);
-            Debugger.I.ValidateRange(minPitch, maxPitch);
+            Debugger.ValidateSerializeField(actionReference, this);
+            Debugger.ValidateSerializeField(cinemachine, this);
+            Debugger.ValidateRange(minYaw, maxYaw);
+            Debugger.ValidateRange(minPitch, maxPitch);
         }
 
         private void LateUpdate()
@@ -51,7 +51,6 @@ namespace Rigging.Common
             Input = actionReference.action.ReadValue<Vector2>();
             Input *= new Vector2(isInvertYaw ? -1 : 1, isInvertPitch ? -1 : 1);
             _axis += Input * speed;
-
         }
 
         private void ApplyLimits()

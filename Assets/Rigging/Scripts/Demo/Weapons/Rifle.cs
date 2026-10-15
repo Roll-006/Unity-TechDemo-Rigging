@@ -1,37 +1,47 @@
 ﻿using Rigging.Core;
+using Rigging.Demo.Reticle;
 using UnityEngine;
 
 namespace Rigging.Demo.Weapons
 {
-    public class Rifle : WeaponBase, IInventoryStorable, IReloadable, IShootable
+    public class Rifle : WeaponBase, IShootable, IReloadable, IReticleProvider, IInventoryStorable
     {
         [SerializeField] private WeaponRigData rig;
-        [SerializeField, Min(1)] private Vector2Int gridSize;
-        [SerializeField] private Sprite icon;
         [SerializeField] private float initialVelocity;
         [SerializeField] private float range;
         [SerializeField] private Transform rayPivot;
+        [SerializeField] private ReticleModel reticleModel;
+        [SerializeField, Min(1)] private Vector2Int gridSize;
+        [SerializeField] private Sprite icon;
 
-        override public WeaponType WeaponType => WeaponType.Rifle;
-        override public WeaponRigData Rig => rig;
-        public Vector2Int GridSize => gridSize;
-        public Sprite Icon => icon;
+        public override WeaponType WeaponType => WeaponType.Rifle;
+        public override WeaponRigData Rig => rig;
         public float InitialVelocity => initialVelocity;
         public float Range => range;
         public Transform AimTarget { get; set; }
+        public ReticleModel ReticleModel => reticleModel;
+        public ReticleEnlargeState ReticleEnlargeState { private set; get; }
+        public Vector2Int GridSize => gridSize;
+        public Sprite Icon => icon;
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(icon, this);
-            Debugger.I.ValidateSerializeField(rayPivot, this);
+            Debugger.ValidateSerializeField(icon, this);
+            Debugger.ValidateSerializeField(rayPivot, this);
+        }
+        
+        private void Start()
+        {
+            ReticleModel.CurrentSize.Value = ReticleModel.MaxSize;
         }
 
         private void Update()
         {
+            UpdateReticle();
             UpdateAimTarget();
         }
 
-        override public void OnFire()
+        public override void OnFire()
         {
 
         }
@@ -39,6 +49,31 @@ namespace Rigging.Demo.Weapons
         public void OnReload()
         {
 
+        }
+        
+        public void OnEnlargeReticle()
+        {
+            ReticleEnlargeState =  ReticleEnlargeState.Enlarge;
+            
+            if (ReticleModel.CurrentSize.Value < ReticleModel.MiddleSize)
+            {
+                ReticleModel.CurrentSize.Value = ReticleModel.MiddleSize;
+            }
+        }
+
+        public void OnReduceReticle()
+        {
+            ReticleEnlargeState =  ReticleEnlargeState.Reduce;
+        }
+
+        public void OnStopReticle()
+        {
+            ReticleEnlargeState =  ReticleEnlargeState.Stop;
+        }
+        
+        public void UpdateReticle()
+        {
+            ReticleUpdater.CalcReticleSize(ReticleModel, ReticleEnlargeState);
         }
 
         public void UpdateAimTarget()
@@ -52,6 +87,9 @@ namespace Rigging.Demo.Weapons
             // 武器からのレイ
             var weaponRay = new Ray(rayPivot.position, direction);
             AimTarget.position = Physics.Raycast(weaponRay, out var weaponTarget) ? weaponTarget.point : obstaclePosition;
+            
+            // 障害物と衝突した場合座標を通知
+            ReticleModel.ObstaclePosition.Value = Vector3.Distance(AimTarget.position, obstaclePosition) > 0.1f ? AimTarget.position : null;
         }
     }
 }

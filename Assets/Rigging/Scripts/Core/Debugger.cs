@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Rigging.Core
 {
-    public class Debugger : Singleton<Debugger>
+    public static class Debugger
     {
         /// <summary>
         /// SerializeField にオブジェクトが登録されているか検証する。
@@ -11,15 +11,15 @@ namespace Rigging.Core
         /// <param name="field">検証するフィールド</param>
         /// <param name="owner">field を所持する Component</param>
         /// <typeparam name="T">field の型</typeparam>
-        /// <typeparam name="U">owner の型</typeparam>
+        /// <typeparam name="TU">owner の型</typeparam>
         /// <exception cref="InvalidOperationException">field が null の場合にスローされます。</exception>
-        public void ValidateSerializeField<T, U>(T field, U owner)
+        public static void ValidateSerializeField<T, TU>(T field, TU owner)
             where T : UnityEngine.Object
-            where U : Component
+            where TU : Component
         {
             if (field == null)
                 throw new InvalidOperationException(
-                    $"{typeof(U).Name} のSerializeField に {typeof(T).Name} を登録してください。\n" + 
+                    $"{typeof(TU).Name} のSerializeField に {typeof(T).Name} を登録してください。\n" + 
                     $"GameObject: {owner.gameObject.name}\n");
         }
 
@@ -30,7 +30,7 @@ namespace Rigging.Core
         /// <typeparam name="T">追加しているか検証するコンポーネントの型</typeparam>
         /// <returns>追加した Component</returns>
         /// <exception cref="InvalidOperationException">Component が追加されていなかった場合にスローされます。</exception>
-        public T ValidateComponent<T>(GameObject gameObject)
+        public static T ValidateComponent<T>(GameObject gameObject)
             where T : Component
         {
             return gameObject.GetComponent<T>() ?? 
@@ -44,7 +44,7 @@ namespace Rigging.Core
         /// <typeparam name="T">追加しているか検証するコンポーネントの型</typeparam>
         /// <returns>追加した Component</returns>
         /// <exception cref="InvalidOperationException">Component が追加されていなかった場合にスローされます。</exception>
-        public T  ValidateComponent<T>(Component component)
+        public static T  ValidateComponent<T>(Component component)
             where T : Component
         {
             return component.GetComponent<T>() ?? 
@@ -58,7 +58,7 @@ namespace Rigging.Core
         /// <param name="max">最大値</param>
         /// <typeparam name="T">検証する値の型</typeparam>
         /// <exception cref="ArgumentOutOfRangeException">min が max 以上であった場合にスローされます。</exception>
-        public void ValidateRange<T>(T min, T max)
+        public static void ValidateRange<T>(T min, T max)
             where T : IComparable<T>
         {
             if (min.CompareTo(max) >= 0)
@@ -66,11 +66,6 @@ namespace Rigging.Core
                     "範囲制限が不正な値です。有効範囲は [ min < max ] です。\n" +
                     $"min: {min}\n" + 
                     $"max: {max}");
-        }
-        
-        override protected void OnDispose()
-        {
-
         }
     }
 }

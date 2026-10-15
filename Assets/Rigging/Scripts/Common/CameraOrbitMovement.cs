@@ -20,9 +20,9 @@ namespace Rigging.Common
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(thirdPersonFollow, this);
-            Debugger.I.ValidateSerializeField(cinemachine, this);
-            Debugger.I.ValidateRange(minPitch, maxPitch);
+            Debugger.ValidateSerializeField(thirdPersonFollow, this);
+            Debugger.ValidateSerializeField(cinemachine, this);
+            Debugger.ValidateRange(minPitch, maxPitch);
 
             _defaultCameraDistance = thirdPersonFollow.CameraDistance;
             _defaultShoulderOffsetZ = thirdPersonFollow.ShoulderOffset.z;

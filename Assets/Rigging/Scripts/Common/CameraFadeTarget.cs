@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Rigging.Common
 {
+    /// <summary>
+    /// カメラが接近した際に描画を停止する。
+    /// </summary>
     public class CameraFadeTarget : MonoBehaviour
     {
         [SerializeField] private new Renderer renderer;
@@ -11,8 +14,8 @@ namespace Rigging.Common
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(renderer, this);
-            Debugger.I.ValidateSerializeField(targetTransform, this);
+            Debugger.ValidateSerializeField(renderer, this);
+            Debugger.ValidateSerializeField(targetTransform, this);
         }
 
         private void Update()

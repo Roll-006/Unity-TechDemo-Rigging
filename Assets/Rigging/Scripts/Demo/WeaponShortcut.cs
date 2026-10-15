@@ -14,7 +14,7 @@ namespace Rigging.Demo
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(weaponHolder, this);
+            Debugger.ValidateSerializeField(weaponHolder, this);
         }
 
         public void EquipWeapon()

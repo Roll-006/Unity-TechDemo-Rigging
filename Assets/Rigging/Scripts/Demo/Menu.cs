@@ -15,9 +15,9 @@ namespace Rigging.Demo
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(menuAction, this);
-            Debugger.I.ValidateSerializeField(canvasGroup, this);
-            Debugger.I.ValidateSerializeField(canvasGroupFade, this);
+            Debugger.ValidateSerializeField(menuAction, this);
+            Debugger.ValidateSerializeField(canvasGroup, this);
+            Debugger.ValidateSerializeField(canvasGroupFade, this);
         }
 
         private void Start()

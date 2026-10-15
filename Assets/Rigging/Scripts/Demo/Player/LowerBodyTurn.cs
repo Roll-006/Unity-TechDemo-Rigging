@@ -1,10 +1,8 @@
 ﻿using Rigging.Core;
 using Rigging.Common;
-using Rigging.Demo.Player;
-using System;
 using UnityEngine;
 
-namespace Riggin.Demo.Player
+namespace Rigging.Demo.Player
 {
     public class LowerBodyTurn : MonoBehaviour
     {
@@ -21,10 +19,10 @@ namespace Riggin.Demo.Player
 
         void Awake()
         {
-            Debugger.I.ValidateSerializeField(animator, this);
-            Debugger.I.ValidateSerializeField(playerMovement, this);
-            Debugger.I.ValidateSerializeField(cameraPivotMovement, this);
-            Debugger.I.ValidateSerializeField(playerFacing, this);
+            Debugger.ValidateSerializeField(animator, this);
+            Debugger.ValidateSerializeField(playerMovement, this);
+            Debugger.ValidateSerializeField(cameraPivotMovement, this);
+            Debugger.ValidateSerializeField(playerFacing, this);
 
             _lowerBodyTurnLayerIndex = animator.GetLayerIndex(AnimatorLayers.LowerBodyTurnLayer);
         }

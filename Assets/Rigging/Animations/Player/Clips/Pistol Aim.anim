@@ -55012,7 +55012,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: DisableTwoHandedWeaponRig
+    functionName: OnDisableTwoHandedWeaponRig
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-namespace Riggin.Demo.Player
+namespace Rigging.Demo.Player
 {
     public class TwoHandedWeaponRigUpdater : MonoBehaviour
     {
@@ -13,7 +13,7 @@ namespace Riggin.Demo.Player
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(rig, this);
+            Debugger.ValidateSerializeField(rig, this);
         }
 
         private void Update()
@@ -27,12 +27,12 @@ namespace Riggin.Demo.Player
             rig.weight = Mathf.MoveTowards(rig.weight, targetRigWeight, towardSpeed * Time.deltaTime);
         }
 
-        public void EnableTwoHandedWeaponRig()
+        public void OnEnableTwoHandedWeaponRig()
         {
             _isEnable = true;
         }
 
-        public void DisableTwoHandedWeaponRig()
+        public void OnDisableTwoHandedWeaponRig()
         {
             _isEnable = false;
         }

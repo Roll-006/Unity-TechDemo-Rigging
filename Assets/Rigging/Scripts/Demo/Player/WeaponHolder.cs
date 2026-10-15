@@ -1,6 +1,8 @@
-﻿using Rigging.Core;
+﻿using System;
+using Rigging.Core;
 using Rigging.Common;
 using System.Collections.Generic;
+using R3;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,23 +17,42 @@ namespace Rigging.Demo.Player
         [SerializeField] private Transform leftHandRigTarget;
         [SerializeField] private List<WeaponBase> testWeapons;
 
+        /// <summary>
+        /// 装備している武器 (Hierarchy 上には実在していない)
+        /// </summary>
         public WeaponBase EquippedWeapon { get; private set; }
+        
+        /// <summary>
+        /// 装備することを発注した武器
+        /// </summary>
         public WeaponBase PendingWeapon { get; private set; }
 
-        private WeaponBase _equippedWeaponInstance;
-        private bool _isEquipped;
-        private int _count;
+        /// <summary>
+        /// Hierarchy 上に実在する装備している武器
+        /// </summary>
+        public WeaponBase EquippedWeaponInstance { get; private set; }
+        
+        /// <summary>
+        /// Hierarchy 上に実在する装備している武器が変化したことを通知する。 (T: WeaponBase)
+        /// </summary>
+        public ReadOnlyReactiveProperty<WeaponBase> EquippedWeaponInstanceChanged => _equippedWeaponInstanceChanged;
+        
+        private readonly ReactiveProperty<WeaponBase> _equippedWeaponInstanceChanged = new ReactiveProperty<WeaponBase>();
+        private bool _isEquipped; //仮
+        private int _count; //仮
 
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(animator, this);
-            Debugger.I.ValidateSerializeField(rightHandGripPivot, this);
-            Debugger.I.ValidateSerializeField(leftHandRigHint, this);
-            Debugger.I.ValidateSerializeField(leftHandRigTarget, this);
+            Debugger.ValidateSerializeField(animator, this);
+            Debugger.ValidateSerializeField(rightHandGripPivot, this);
+            Debugger.ValidateSerializeField(leftHandRigHint, this);
+            Debugger.ValidateSerializeField(leftHandRigTarget, this);
         }
 
         private void Update()
         {
+            // 仮の武器選択
+            
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
                 _isEquipped = !_isEquipped;
@@ -62,6 +83,11 @@ namespace Rigging.Demo.Player
             {
                 _count = 3;
             }
+        }
+
+        private void OnDestroy()
+        {
+            _equippedWeaponInstanceChanged.Dispose();
         }
 
         public void OnEquipWeapon(WeaponBase weapon)
@@ -99,23 +125,28 @@ namespace Rigging.Demo.Player
             leftHandRigTarget.localPosition = EquippedWeapon.Rig.LeftHandRigTargetPosition;
             leftHandRigTarget.localEulerAngles = EquippedWeapon.Rig.LeftHandRigTargetRotation;
 
-            _equippedWeaponInstance = Instantiate(EquippedWeapon, rightHandGripPivot, false);
+            EquippedWeaponInstance = Instantiate(EquippedWeapon, rightHandGripPivot, false);
 
-            var shootable = _equippedWeaponInstance.GetComponent<IShootable>();
+            // TODO: 設計変更候補
+            var shootable = EquippedWeaponInstance.GetComponent<IShootable>();
             if (shootable != null)
             {
                 shootable.AimTarget = aimTarget;
             }
+            
+            _equippedWeaponInstanceChanged.Value = EquippedWeaponInstance;
         }
 
         public void DestroyWeapon()
         {
-            if (_equippedWeaponInstance == null) return;
+            if (EquippedWeaponInstance == null) return;
 
-            Destroy(_equippedWeaponInstance.gameObject);
+            Destroy(EquippedWeaponInstance.gameObject);
 
-            _equippedWeaponInstance = null;
+            EquippedWeaponInstance = null;
             EquippedWeapon = null;
+            
+            _equippedWeaponInstanceChanged.Value = EquippedWeaponInstance;
         }
     }
 }

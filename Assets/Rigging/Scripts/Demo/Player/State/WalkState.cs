@@ -7,19 +7,19 @@ namespace Rigging.Demo.Player.State
     {
         private PlayerFacing _playerFacing;
 
-        override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            _playerFacing = Debugger.I.ValidateComponent<PlayerFacing>(animator);
+            _playerFacing = Debugger.ValidateComponent<PlayerFacing>(animator);
 
             animator.GetComponent<PlayerMovement>()?.StopSprint();
         }
 
-        override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             _playerFacing.SyncCameraForward();
         }
 
-        override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
         }
     }

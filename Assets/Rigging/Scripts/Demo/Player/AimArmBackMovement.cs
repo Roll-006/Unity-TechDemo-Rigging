@@ -1,3 +1,4 @@
+using System;
 using Rigging.Core;
 using Rigging.Common;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Rigging.Demo.Player
         [SerializeField] private AimTrigger aimArmBackTrigger;
         [SerializeField] private AimTrigger aimBackTrigger;
         [SerializeField] private Transform spine2Pivot;
+        [SerializeField, Tooltip("AimTrigger の radius より大きくある必要あり。")] private float extendArmTriggerRadius;
         
         public AimTrigger AimTrigger => aimTrigger;
         public AimTrigger AimArmBackTrigger => aimArmBackTrigger;
@@ -17,10 +19,20 @@ namespace Rigging.Demo.Player
         
         private void Awake()
         {
-            Debugger.I.ValidateSerializeField(aimTrigger, this);
-            Debugger.I.ValidateSerializeField(aimArmBackTrigger, this);
-            Debugger.I.ValidateSerializeField(aimBackTrigger, this);
-            Debugger.I.ValidateSerializeField(spine2Pivot, this);
+            Debugger.ValidateSerializeField(aimTrigger, this);
+            Debugger.ValidateSerializeField(aimArmBackTrigger, this);
+            Debugger.ValidateSerializeField(aimBackTrigger, this);
+            Debugger.ValidateSerializeField(spine2Pivot, this);
+            
+            var backArmTriggerRadius = Debugger.ValidateComponent<SphereCollider>(aimTrigger).radius;
+            if (extendArmTriggerRadius <= backArmTriggerRadius)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(extendArmTriggerRadius), 
+                    $"不正な値です。有効範囲は [ {nameof(aimTrigger)} の radius < {nameof(extendArmTriggerRadius)} ] です。\n" +
+                    $"{nameof(aimTrigger)} の radius: {backArmTriggerRadius}\n" + 
+                    $"{nameof(extendArmTriggerRadius)}: {extendArmTriggerRadius}");
+            }
         }
 
         /// <summary>
@@ -54,7 +66,7 @@ namespace Rigging.Demo.Player
             if (Physics.CheckCapsule(
                     currentAimTrigger.transform.position,
                     targetAimTrigger.transform.position,
-                    0.1f,
+                    extendArmTriggerRadius,
                     ~Layers.Player,
                     QueryTriggerInteraction.Ignore))
                 return false;
@@ -69,7 +81,6 @@ namespace Rigging.Demo.Player
                 return false;
             
             animator.SetTrigger(AnimatorParameters.ExtendArm);
-            
             return true;
         }
     }
