@@ -30,11 +30,11 @@ namespace Rigging.Demo.Reticle
         {
             creationNotifier.CreateReticle
                 .Where(x => x != null)
-                .Subscribe(Dispatch)
+                .Subscribe(OnDispatch)
                 .AddTo(this);
         }
 
-        private void Dispatch(ReticleModel model)
+        private void OnDispatch(ReticleModel model)
         {
             if (_reticle != null)
             {

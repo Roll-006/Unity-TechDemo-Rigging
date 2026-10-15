@@ -39,11 +39,23 @@ namespace Rigging.Demo.Reticle
             Debugger.ValidateSerializeField(canvasGroup, this);
             
             obstacleReticleRectTransform.gameObject.SetActive(false);
+            
+            Debug.Log("生成されました。");
         }
 
         private void OnEnable()
         {
             canvasGroup.alpha = 0f;
+        }
+
+        private void OnDisable()
+        {
+            Debug.Log("非アクティブ化されました。");
+        }
+
+        private void OnDestroy()
+        {
+            Debug.Log("削除されました。");
         }
 
         private void Update()
@@ -71,17 +83,17 @@ namespace Rigging.Demo.Reticle
             _targetAlpha = alpha;
         }
 
-        public void SetEnableCenterPoint(bool isReticleClosed)
+        public void EnableCenterPoint(bool isReticleClosed)
         {
             if (center != null) center.enabled = isReticleClosed;
         }
 
-        public void SetAllowToUseObstacleReticle(bool isAiming)
+        public void AllowToUseObstacleReticle(bool isAiming)
         {
             _isAllowToUseObstacleReticle = isAiming;
         }
         
-        public void SetPositionObstacleReticle(Vector3? obstaclePosition)
+        public void ActivateObstacleReticle(Vector3? obstaclePosition)
         {
             if (obstaclePosition.HasValue && _isAllowToUseObstacleReticle)
             {
@@ -100,10 +112,17 @@ namespace Rigging.Demo.Reticle
             }
             else
             {
-                obstacleReticleRectTransform.gameObject.SetActive(false);
+                //obstacleReticleRectTransform.gameObject.SetActive(false);
                 
                 foreach (var image in images) image.color = Color.white;
             }
+        }
+
+        public void DeactivateObstacleReticle(bool isAiming)
+        {
+            Debug.Log($"削除前 obstacleReticleRectTransform: {obstacleReticleRectTransform}");
+            obstacleReticleRectTransform.gameObject.SetActive(false);
+            Debug.Log($"削除後 obstacleReticleRectTransform: {obstacleReticleRectTransform}");
         }
         
         public void UpdateAlpha()

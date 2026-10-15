@@ -106,14 +106,11 @@ namespace Rigging.Demo.Player
                 case InputActionPhase.Started:
                     _isAimingInput = true;
                     _isAiming.Value = _isAimingInput && _shootableWeapon != null;
-                    
-                    if (!IsAiming.CurrentValue) Debug.Log($"IsAiming.CurrentValue: {IsAiming.CurrentValue}");
                     break;
                     
                 case InputActionPhase.Canceled:
                     _isAimingInput = false;
                     _isAiming.Value = false;
-                    Debug.Log($"IsAiming.CurrentValue: {IsAiming.CurrentValue}");
                     break;
             }
 

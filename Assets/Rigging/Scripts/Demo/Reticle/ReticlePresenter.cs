@@ -15,12 +15,17 @@ namespace Rigging.Demo.Reticle
         /// <param name="view">生成されたレティクルの View</param>
         public void OnCreateReticle(Shooter shooter, ReticleModel model, IReticleView view)
         {
-            model.CurrentSize.Subscribe(view.SetReticleSize).AddTo(this);
-            model.IsReticleClosed.Subscribe(view.SetEnableCenterPoint).AddTo(this);
-            model.ObstaclePosition.Subscribe(view.SetPositionObstacleReticle).AddTo(this);
-            shooter.IsAiming.Subscribe(view.SetAllowToUseObstacleReticle).AddTo(this);
-            
             view.SetObstacleReticleSize(model.ObstacleSize);
+            
+            model.CurrentSize.Subscribe(view.SetReticleSize).AddTo(this);
+            model.IsReticleClosed.Subscribe(view.EnableCenterPoint).AddTo(this);
+            model.ObstaclePosition.Subscribe(view.ActivateObstacleReticle).AddTo(this);
+            shooter.IsAiming.Subscribe(view.AllowToUseObstacleReticle).AddTo(this);
+            
+            shooter.IsAiming
+                .Where(isAiming => !isAiming)
+                .Subscribe(view.DeactivateObstacleReticle)
+                .AddTo(this);
             
             shooter.IsAiming.Subscribe(isAiming =>
             {

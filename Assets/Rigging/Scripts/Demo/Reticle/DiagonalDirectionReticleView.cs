@@ -70,17 +70,22 @@ namespace Rigging.Demo.Reticle
             _targetAlpha = alpha;
         }
         
-        public void SetEnableCenterPoint(bool isReticleClosed)
+        public void EnableCenterPoint(bool isReticleClosed)
         {
             if (center != null) center.enabled = isReticleClosed;
         }
         
-        public void SetAllowToUseObstacleReticle(bool isAiming)
+        public void AllowToUseObstacleReticle(bool isAiming)
         {
             _isAllowToUseObstacleReticle = isAiming;
         }
         
-        public void SetPositionObstacleReticle(Vector3? obstaclePosition)
+        public void DeactivateObstacleReticle(bool isAiming)
+        {
+            obstacleReticleRectTransform.gameObject.SetActive(false);
+        }
+        
+        public void ActivateObstacleReticle(Vector3? obstaclePosition)
         {
             if (obstaclePosition.HasValue)
             {
