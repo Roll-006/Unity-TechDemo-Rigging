@@ -67,7 +67,7 @@ namespace Rigging.Demo.Characters.Player
                     currentAimTrigger.transform.position,
                     targetAimTrigger.transform.position,
                     extendArmTriggerRadius,
-                    ~Layers.Player,
+                    ~LayerMasks.Player,
                     QueryTriggerInteraction.Ignore))
                 return false;
             
@@ -76,7 +76,7 @@ namespace Rigging.Demo.Characters.Player
                     spine2Pivot.position,
                     spine2ToTarget.normalized,
                     spine2ToTarget.magnitude,
-                    ~Layers.Player,
+                    ~LayerMasks.Player,
                     QueryTriggerInteraction.Ignore))
                 return false;
             

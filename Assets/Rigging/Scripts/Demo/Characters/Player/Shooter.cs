@@ -144,7 +144,7 @@ namespace Rigging.Demo.Characters.Player
                     spine2Pivot.position,
                     spine2ToAimTrigger.normalized,
                     spine2ToAimTrigger.magnitude,
-                    ~Layers.Player,
+                    ~LayerMasks.Player,
                     QueryTriggerInteraction.Ignore))
                 return false;
             
