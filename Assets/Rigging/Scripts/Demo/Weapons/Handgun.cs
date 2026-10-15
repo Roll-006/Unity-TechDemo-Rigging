@@ -89,7 +89,7 @@ namespace Rigging.Demo.Weapons
             AimTarget.position = Physics.Raycast(weaponRay, out var weaponTarget) ? weaponTarget.point : obstaclePosition;
             
             // 障害物と衝突した場合座標を通知
-            ReticleModel.ObstaclePosition.Value = AimTarget.position != obstaclePosition ? AimTarget.position : null;
+            ReticleModel.ObstaclePosition.Value = Vector3.Distance(AimTarget.position, obstaclePosition) > 0.1f ? AimTarget.position : null;
         }
     }
 }
