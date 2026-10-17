@@ -1,6 +1,6 @@
-﻿using Rigging.Demo.Weapons;
+﻿using Rigging.Demo.Items;
 
-namespace Rigging.Core
+namespace Rigging.Demo.Weapons
 {
     public abstract class WeaponBase : ItemBase
     {

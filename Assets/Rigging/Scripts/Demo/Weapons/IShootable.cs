@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Rigging.Core
+namespace Rigging.Demo.Weapons
 {
     /// <summary>
     /// 撃つことが可能なオブジェクト

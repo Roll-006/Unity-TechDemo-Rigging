@@ -1,8 +1,9 @@
 ﻿using Rigging.Core;
 using Rigging.Demo.Characters.Player;
+using Rigging.Demo.Weapons;
 using UnityEngine;
 
-namespace Rigging.Demo
+namespace Rigging.Demo.Shortcut
 {
     public class WeaponShortcut : MonoBehaviour, IShortcut
     {

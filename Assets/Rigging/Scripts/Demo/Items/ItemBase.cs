@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Rigging.Core
+namespace Rigging.Demo.Items
 {
     public class ItemBase : MonoBehaviour
     {

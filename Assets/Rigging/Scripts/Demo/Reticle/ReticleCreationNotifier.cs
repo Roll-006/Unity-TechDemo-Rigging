@@ -1,6 +1,7 @@
 using R3;
 using Rigging.Core;
 using Rigging.Demo.Characters.Player;
+using Rigging.Demo.Weapons;
 using UnityEngine;
 
 namespace Rigging.Demo.Reticle

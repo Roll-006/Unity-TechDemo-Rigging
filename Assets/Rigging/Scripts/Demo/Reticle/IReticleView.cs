@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Rigging.Core
+namespace Rigging.Demo.Reticle
 {
     public interface IReticleView
     {

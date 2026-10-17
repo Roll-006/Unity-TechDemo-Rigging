@@ -2,6 +2,7 @@
 using Rigging.Common;
 using System.Collections.Generic;
 using R3;
+using Rigging.Demo.Weapons;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

@@ -1,6 +1,4 @@
-using Rigging.Demo.Reticle;
-
-namespace Rigging.Core
+namespace Rigging.Demo.Reticle
 {
     /// <summary>
     /// レティクルを持つオブジェクト

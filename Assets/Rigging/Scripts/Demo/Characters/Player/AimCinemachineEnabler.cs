@@ -1,9 +1,8 @@
 using Rigging.Core;
-using Rigging.Demo.Characters.Player;
 using UnityEngine;
 using Unity.Cinemachine;
 
-namespace Rigging.Demo
+namespace Rigging.Demo.Characters.Player
 {
     public class AimCinemachineEnabler : MonoBehaviour
     {

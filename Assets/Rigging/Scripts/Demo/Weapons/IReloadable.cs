@@ -1,4 +1,4 @@
-namespace Rigging.Core
+namespace Rigging.Demo.Weapons
 {
     /// <summary>
     /// リロード可能なオブジェクト

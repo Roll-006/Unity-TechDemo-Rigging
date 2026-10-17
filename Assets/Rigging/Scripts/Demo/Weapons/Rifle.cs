@@ -1,4 +1,5 @@
 ﻿using Rigging.Core;
+using Rigging.Demo.Inventory;
 using Rigging.Demo.Reticle;
 using UnityEngine;
 

@@ -1,4 +1,4 @@
-﻿namespace Rigging.Core
+﻿namespace Rigging.Demo.Shortcut
 {
     public interface IShortcut
     {

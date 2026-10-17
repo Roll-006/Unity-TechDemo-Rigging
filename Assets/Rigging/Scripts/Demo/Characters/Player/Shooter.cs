@@ -1,6 +1,7 @@
 ﻿using R3;
 using Rigging.Common;
 using Rigging.Core;
+using Rigging.Demo.Reticle;
 using Rigging.Demo.Weapons;
 using UnityEngine;
 using UnityEngine.InputSystem;
