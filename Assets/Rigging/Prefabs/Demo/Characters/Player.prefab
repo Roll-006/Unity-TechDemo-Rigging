@@ -1547,7 +1547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.BoneRenderer
   boneShape: 1
   drawBones: 1
-  drawTripods: 1
+  drawTripods: 0
   boneSize: 0.5
   tripodSize: 2
   boneColor: {r: 0, g: 0, b: 1, a: 0.5}
@@ -1701,7 +1701,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f3d27fb556f464cb89f070864f54b54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Rigging::Rigging.Demo.Characters.LandingDetector
-  rayDistance: 1
+  rayDistance: 0.4
+  rayOffset: 0.1
   effectiveLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -1720,7 +1721,10 @@ MonoBehaviour:
   animator: {fileID: 145777745517364244}
   landingDetector: {fileID: 3013723064189833041}
   distanceFootToGround: 0.11
-  maxRootBoneDownDistance: 1
+  maxBodyDownDistance: 0.6
+  bodySmoothTime: 0.1
+  footSmoothTime: 0.1
+  rotateSpeed: 3
   footRayOffset: 1
   toeRayOffset: 1
 --- !u!114 &8744046751771125862

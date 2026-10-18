@@ -337,11 +337,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &695418098 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2906248445288140528, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
-  m_PrefabInstance: {fileID: 4545392555473253895}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &867660340
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,14 +1101,6 @@ PrefabInstance:
       propertyPath: cameraPivotMovement
       value: 
       objectReference: {fileID: 4738799521552467489}
-    - target: {fileID: 3013723064189833041, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
-      propertyPath: rayOffset
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3013723064189833041, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
-      propertyPath: rayDistance
-      value: 0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 5241849588253093215, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
@@ -1173,42 +1160,6 @@ PrefabInstance:
     - target: {fileID: 6894470543546107092, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8851300468419097096, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
-      propertyPath: dampTime
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8851300468419097096, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
-      propertyPath: rootBone
-      value: 
-      objectReference: {fileID: 695418098}
-    - target: {fileID: 8851300468419097096, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
-      propertyPath: rotateSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8851300468419097096, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
-      propertyPath: bodyDampTime
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8851300468419097096, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
-      propertyPath: footDampTime
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8851300468419097096, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
-      propertyPath: debugLeftPivot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8851300468419097096, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
-      propertyPath: debugLeftGround
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8851300468419097096, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
-      propertyPath: debugRightPivot
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8851300468419097096, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
-      propertyPath: debugRightGround
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
