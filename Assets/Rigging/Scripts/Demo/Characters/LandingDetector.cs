@@ -29,6 +29,7 @@ namespace Rigging.Demo.Characters
         private void CheckLanding()
         {
             IsLanding = Physics.Raycast(transform.position + Vector3.up * rayOffset, Vector3.down, rayDistance, effectiveLayers);
+            Debug.DrawLine(transform.position + Vector3.up * rayOffset, transform.position + Vector3.down * rayDistance, Color.yellow);
         }
     }
 }

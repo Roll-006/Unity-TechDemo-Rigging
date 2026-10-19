@@ -7,6 +7,24 @@ using Vector3 = UnityEngine.Vector3;
 namespace Rigging.Demo.Characters
 {
     /// <summary>
+    /// IKの片足情報
+    /// </summary>
+    public class IKFootData
+    {
+        public AvatarIKGoal IKGoal;
+        public Vector3 CurrentFootPosition;
+        public Vector3 FootVelocity;
+        public Quaternion CurrentFootRotation;
+        public RaycastHit FootFlotationHitInfo;
+        public RaycastHit FootPenetrationHitInfo;
+        public float LegLength;
+        public float DistanceFootToToe;
+        public bool IsFootFloating;
+        public bool IsFootPenetrating;
+        public float Weight;
+    }
+    
+    /// <summary>
     /// 人型モデルの足首をIKにより地面に設置させる。
     /// </summary>
     public class IKHumanoidFootPlacement : MonoBehaviour
@@ -24,23 +42,11 @@ namespace Rigging.Demo.Characters
         
         [SerializeField, Min(0f), Tooltip("つま先が埋まっても Ray を飛ばすために始点の高さをずらす値")]
         private float toeRayOffset;
-
+        
+        private readonly IKFootData _leftFootData = new();
+        private readonly IKFootData _rightFootData = new();
         private float _currentBodyDownOffset;
         private float _bodyDownVelocity;
-        private Vector3 _currentLeftFootPosition;
-        private Vector3 _leftFootVelocity;
-        private Vector3 _currentRightFootPosition;
-        private Vector3 _rightFootVelocity;
-        private Quaternion _currentLeftFootRotation;
-        private Quaternion _currentRightFootRotation;
-        private RaycastHit _leftFootFlotationHitInfo;
-        private RaycastHit _rightFootFlotationHitInfo;
-        private float _leftLegLength;
-        private float _rightLegLength;
-        private float _distanceLeftFootToLeftToe;
-        private float _distanceRightFootToRightToe;
-        private bool _isLeftFootFloating;
-        private bool _isRightFootFloating;
 
         private void Awake()
         {
@@ -50,10 +56,12 @@ namespace Rigging.Demo.Characters
 
         private void Start()
         {
-            _leftLegLength = GetLegLength(HumanBodyBones.LeftUpperLeg, HumanBodyBones.LeftLowerLeg, HumanBodyBones.LeftFoot);
-            _rightLegLength = GetLegLength(HumanBodyBones.RightUpperLeg, HumanBodyBones.RightLowerLeg, HumanBodyBones.RightFoot);
-            _distanceLeftFootToLeftToe = GetDistanceFootToToe(HumanBodyBones.LeftFoot, HumanBodyBones.LeftToes);
-            _distanceRightFootToRightToe = GetDistanceFootToToe(HumanBodyBones.RightFoot, HumanBodyBones.RightToes);
+            _leftFootData.IKGoal = AvatarIKGoal.LeftFoot;
+            _rightFootData.IKGoal = AvatarIKGoal.RightFoot;
+            _leftFootData.LegLength = GetLegLength(HumanBodyBones.LeftUpperLeg, HumanBodyBones.LeftLowerLeg, HumanBodyBones.LeftFoot);
+            _rightFootData.LegLength = GetLegLength(HumanBodyBones.RightUpperLeg, HumanBodyBones.RightLowerLeg, HumanBodyBones.RightFoot);
+            _leftFootData.DistanceFootToToe = GetDistanceFootToToe(HumanBodyBones.LeftFoot, HumanBodyBones.LeftToes);
+            _rightFootData.DistanceFootToToe = GetDistanceFootToToe(HumanBodyBones.RightFoot, HumanBodyBones.RightToes);
         }
 
         private void OnAnimatorIK(int layerIndex)
@@ -61,8 +69,10 @@ namespace Rigging.Demo.Characters
             if (!landingDetector.IsLanding) return;
             
             DownBody();
-            FootIK(AvatarIKGoal.LeftFoot);
-            FootIK(AvatarIKGoal.RightFoot);
+            _leftFootData.Weight = animator.GetFloat(AnimatorParameters.IKLeftFootWeight);
+            _rightFootData.Weight = animator.GetFloat(AnimatorParameters.IKRightFootWeight);
+            FootIK(_leftFootData);
+            FootIK(_rightFootData);
         }
 
         /// <summary>
@@ -94,28 +104,21 @@ namespace Rigging.Demo.Characters
         /// <summary>
         /// FootIK を行う。
         /// </summary>
-        /// <param name="foot">足首の IKGoal</param>
-        private void FootIK(AvatarIKGoal foot)
+        /// <param name="ikFootData">IK の片足情報</param>
+        private void FootIK(IKFootData ikFootData)
         {
-            if (foot != AvatarIKGoal.LeftFoot && foot != AvatarIKGoal.RightFoot) return;
-
-            var isLeftFoot = foot == AvatarIKGoal.LeftFoot;
-            var weight = animator.GetFloat(isLeftFoot ? AnimatorParameters.IKLeftFootWeight : AnimatorParameters.IKRightFootWeight);
-            var flotationHitInfo = isLeftFoot ? _leftFootFlotationHitInfo : _rightFootFlotationHitInfo;
-            var isFloating = isLeftFoot ? _isLeftFootFloating : _isRightFootFloating;
+            animator.SetIKPositionWeight(ikFootData.IKGoal, ikFootData.Weight);
+            animator.SetIKRotationWeight(ikFootData.IKGoal, ikFootData.Weight);
             
-            animator.SetIKPositionWeight(foot, weight);
-            animator.SetIKRotationWeight(foot, weight);
-            
-            if (IsFootPenetrating(foot, out var penetrationHitInfo))
+            if (IsFootPenetrating(ikFootData.IKGoal, out var penetrationHitInfo))
             {
-                PlaceFoot(foot, penetrationHitInfo);
-                RotateFoot(foot, penetrationHitInfo);
+                PlaceFoot(ikFootData, penetrationHitInfo);
+                RotateFoot(ikFootData, penetrationHitInfo);
             }
-            else if (!isFloating)
+            else if (!ikFootData.IsFootFloating)
             {
-                PlaceFoot(foot, flotationHitInfo);
-                RotateFoot(foot, flotationHitInfo);
+                PlaceFoot(ikFootData, ikFootData.FootFlotationHitInfo);
+                RotateFoot(ikFootData, ikFootData.FootFlotationHitInfo);
             }
         }
 
@@ -138,13 +141,12 @@ namespace Rigging.Demo.Characters
         /// <summary>
         /// つま先が地面にめり込んでいるかどうか。
         /// </summary>
-        /// <param name="foot">足首の IKGoal</param>
+        /// <param name="ikFootData">IK の片足情報</param>
         /// <param name="hitInfo">足首の光線衝突情報</param>
         /// <returns>true: めり込んでいる, false: めり込んでいない</returns>
-        private bool IsToePenetrating(AvatarIKGoal foot, out RaycastHit hitInfo)
+        private bool IsToePenetrating(IKFootData ikFootData, out RaycastHit hitInfo)
         {
-            var distanceFootToToe = foot == AvatarIKGoal.LeftFoot ? _distanceLeftFootToLeftToe : _distanceRightFootToRightToe;
-            var toePosition = animator.GetIKPosition(foot) + animator.GetIKRotation(foot) * Vector3.forward * distanceFootToToe;
+            var toePosition = animator.GetIKPosition(ikFootData.IKGoal) + animator.GetIKRotation(ikFootData.IKGoal) * Vector3.forward * ikFootData.DistanceFootToToe;
             var ray = new Ray(toePosition + Vector3.up * toeRayOffset, Vector3.down);
             
             if (!Physics.Raycast(ray, out hitInfo, toeRayOffset, ~LayerMasks.Player)) return false;
@@ -176,13 +178,13 @@ namespace Rigging.Demo.Characters
         /// </summary>
         private void DownBody()
         {
-            _isLeftFootFloating = IsFootFloating(AvatarIKGoal.LeftFoot, out _leftFootFlotationHitInfo);
-            _isRightFootFloating = IsFootFloating(AvatarIKGoal.RightFoot, out _rightFootFlotationHitInfo);
-            var isLeftFootPenetrating = IsFootPenetrating(AvatarIKGoal.LeftFoot, out var leftPenetrationHitInfo);
-            var isRightFootPenetrating = IsFootPenetrating(AvatarIKGoal.RightFoot, out var rightPenetrationHitInfo);
+            _leftFootData.IsFootFloating = IsFootFloating(AvatarIKGoal.LeftFoot, out _leftFootData.FootFlotationHitInfo);
+            _rightFootData.IsFootFloating = IsFootFloating(AvatarIKGoal.RightFoot, out _rightFootData.FootFlotationHitInfo);
+            _leftFootData.IsFootPenetrating = IsFootPenetrating(AvatarIKGoal.LeftFoot, out _leftFootData.FootPenetrationHitInfo);
+            _rightFootData.IsFootPenetrating = IsFootPenetrating(AvatarIKGoal.RightFoot, out _rightFootData.FootPenetrationHitInfo);
 
-            var leftDownDistance = GetRequiredBodyDownDistance(HumanBodyBones.LeftUpperLeg, _leftLegLength, isLeftFootPenetrating, leftPenetrationHitInfo, _isLeftFootFloating, _leftFootFlotationHitInfo);
-            var rightDownDistance = GetRequiredBodyDownDistance(HumanBodyBones.RightUpperLeg, _rightLegLength, isRightFootPenetrating, rightPenetrationHitInfo, _isRightFootFloating, _rightFootFlotationHitInfo);
+            var leftDownDistance = GetRequiredBodyDownDistance(HumanBodyBones.LeftUpperLeg, _leftFootData);
+            var rightDownDistance = GetRequiredBodyDownDistance(HumanBodyBones.RightUpperLeg, _rightFootData);
             
             // 両足から下げる距離が長い方を選択する (最大距離あり)
             var downDistance = Mathf.Min(Mathf.Max(leftDownDistance, rightDownDistance), maxBodyDownDistance);
@@ -197,24 +199,20 @@ namespace Rigging.Demo.Characters
         /// 胴体を下げるために必要な距離を取得する。
         /// </summary>
         /// <param name="upperLeg">太もものボーン</param>
-        /// <param name="legLength">脚の長さ</param>
-        /// <param name="isPenetrating">足首が地面にめり込んでいるかどうか</param>
-        /// <param name="penetrationHitInfo">足首の光線とめり込んだ地面との衝突情報</param>
-        /// <param name="isFloating">足首が空中に浮いているかどうか</param>
-        /// <param name="flotationHitInfo">足首の光線と足首下の地面との衝突情報</param>
+        /// <param name="ikFootData">IK の片足情報</param>
         /// <returns>胴体を下げる距離</returns>
-        private float GetRequiredBodyDownDistance(HumanBodyBones upperLeg, float legLength, bool isPenetrating, in RaycastHit penetrationHitInfo, bool isFloating, in RaycastHit flotationHitInfo)
+        private float GetRequiredBodyDownDistance(HumanBodyBones upperLeg, IKFootData ikFootData)
         {
             // 足を設置する位置を取得
             Vector3 target;
-            if (isPenetrating) target = penetrationHitInfo.point + new Vector3(0f, distanceFootToGround, 0f);
-            else if (!isFloating) target = flotationHitInfo.point + new Vector3(0f, distanceFootToGround, 0f);
+            if (ikFootData.IsFootPenetrating) target = ikFootData.FootPenetrationHitInfo.point + new Vector3(0f, distanceFootToGround, 0f);
+            else if (!ikFootData.IsFootFloating) target = ikFootData.FootFlotationHitInfo.point + new Vector3(0f, distanceFootToGround, 0f);
             else return 0f;
 
             var targetToUpperLeg = animator.GetBoneTransform(upperLeg).position - target;
 
             // 脚が届く場合は胴体を下げない
-            var legSqrLength = legLength * legLength;
+            var legSqrLength = ikFootData.LegLength * ikFootData.LegLength;
             var excess = targetToUpperLeg.sqrMagnitude - legSqrLength;
             if (excess <= Mathf.Epsilon) return 0f;
             
@@ -232,49 +230,32 @@ namespace Rigging.Demo.Characters
         /// <summary>
         /// 足首を設置する。
         /// </summary>
-        /// <param name="foot">足首の IKGoal</param>
+        /// <param name="ikFootData">IK の片足情報</param>
         /// <param name="footHitInfo">足首の光線衝突情報</param>
-        private void PlaceFoot(AvatarIKGoal foot, RaycastHit footHitInfo)
+        private void PlaceFoot(IKFootData ikFootData, RaycastHit footHitInfo)
         {
-            if (foot == AvatarIKGoal.LeftFoot)
-            {
-                var target = footHitInfo.point + new Vector3(0f, distanceFootToGround, 0f);
-                _currentLeftFootPosition = Vector3.SmoothDamp(_currentLeftFootPosition, target, ref _leftFootVelocity, footSmoothTime);
-                animator.SetIKPosition(foot, _currentLeftFootPosition);
-            }
-            else
-            {
-                var target = footHitInfo.point + new Vector3(0f, distanceFootToGround, 0f);
-                _currentRightFootPosition = Vector3.SmoothDamp(_currentRightFootPosition, target, ref _rightFootVelocity, footSmoothTime);
-                animator.SetIKPosition(foot, _currentRightFootPosition);
-            }
+            var target = footHitInfo.point + new Vector3(0f, distanceFootToGround, 0f);
+            ikFootData.CurrentFootPosition = Vector3.SmoothDamp(ikFootData.CurrentFootPosition, target, ref ikFootData.FootVelocity, footSmoothTime);
+            animator.SetIKPosition(ikFootData.IKGoal, ikFootData.CurrentFootPosition);
         }
 
         /// <summary>
         /// 足首を回転させる。
         /// </summary>
-        /// <param name="foot">足首の IKGoal</param>
+        /// <param name="ikFootData">IK の片足情報</param>
         /// <param name="footHitInfo">足首の光線衝突情報</param>
-        private void RotateFoot(AvatarIKGoal foot, RaycastHit footHitInfo)
+        private void RotateFoot(IKFootData ikFootData, RaycastHit footHitInfo)
         {
             // つま先が埋まった場合は Foot -> Toe のベクトルを進行方向とする
             // そうでない場合は Foot の進行方向を維持するために地面に投影する
-            var forward = IsToePenetrating(foot, out var toeHitInfo) ? 
+            var forward = IsToePenetrating(ikFootData, out var toeHitInfo) ? 
                 (toeHitInfo.point - footHitInfo.point + new Vector3(0f, distanceFootToGround, 0f)).normalized : 
-                Vector3.ProjectOnPlane(animator.GetIKRotation(foot) * Vector3.forward, footHitInfo.normal);
+                Vector3.ProjectOnPlane(animator.GetIKRotation(ikFootData.IKGoal) * Vector3.forward, footHitInfo.normal);
 
             if (forward.sqrMagnitude <= Mathf.Epsilon) return;
-
-            if (foot == AvatarIKGoal.LeftFoot)
-            {
-                _currentLeftFootRotation = Quaternion.Slerp(_currentLeftFootRotation, Quaternion.LookRotation(forward, footHitInfo.normal), rotateSpeed * Time.deltaTime);
-                animator.SetIKRotation(foot, _currentLeftFootRotation);
-            }
-            else
-            {
-                _currentRightFootRotation = Quaternion.Slerp(_currentRightFootRotation, Quaternion.LookRotation(forward, footHitInfo.normal), rotateSpeed * Time.deltaTime);
-                animator.SetIKRotation(foot, _currentRightFootRotation);
-            }
+            
+            ikFootData.CurrentFootRotation = Quaternion.Slerp(ikFootData.CurrentFootRotation, Quaternion.LookRotation(forward, footHitInfo.normal), rotateSpeed * Time.deltaTime);
+            animator.SetIKRotation(ikFootData.IKGoal, ikFootData.CurrentFootRotation);
         }
     }
 }
