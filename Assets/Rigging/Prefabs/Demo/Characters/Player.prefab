@@ -827,15 +827,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.639
+      value: -2.517
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.226
+      value: 5.39
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.52
+      value: -4.474
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 517dd5808e697b4419bdc53950350b6d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1722,9 +1722,9 @@ MonoBehaviour:
   landingDetector: {fileID: 3013723064189833041}
   distanceFootToGround: 0.11
   maxBodyDownDistance: 0.6
+  maxFootUpDistance: 0.5
   bodySmoothTime: 0.1
-  footSmoothTime: 0.1
-  rotateSpeed: 3
+  rotateSpeed: 4
   footRayOffset: 1
   toeRayOffset: 1
 --- !u!114 &8744046751771125862
