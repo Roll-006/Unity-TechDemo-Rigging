@@ -50,11 +50,11 @@ namespace Rigging.Demo.Characters.Player
         {
             rb.angularVelocity = Vector3.zero;
             UpdateMoveDirection();
+            UpdateAnimatorParameters();
         }
 
         private void LateUpdate()
         {
-            UpdateAnimatorParameters();
         }
 
         private void OnActionTriggered(InputAction.CallbackContext context)
