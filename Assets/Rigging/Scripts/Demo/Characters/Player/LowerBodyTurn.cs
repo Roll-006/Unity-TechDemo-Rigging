@@ -27,7 +27,7 @@ namespace Rigging.Demo.Characters.Player
             _lowerBodyTurnLayerIndex = animator.GetLayerIndex(AnimatorLayers.LowerBodyTurnLayer);
         }
 
-        void LateUpdate()
+        private void Update()
         {
             UpdateAnimatorParameters();
             LayerWeightUpdater.UpdateLayerWeight(animator, _lowerBodyTurnLayerIndex, IsActiveLayer(), towardSpeed);

@@ -18,7 +18,7 @@ namespace Rigging.Demo.Reticle
         /// </summary>
         public ReadOnlyReactiveProperty<ReticleModel> CreateReticle => _createReticle;
         
-        private readonly ReactiveProperty<ReticleModel> _createReticle = new ReactiveProperty<ReticleModel>();
+        private readonly ReactiveProperty<ReticleModel> _createReticle = new();
         private IReticleProvider _reticleProvider;
         
         private void Awake()

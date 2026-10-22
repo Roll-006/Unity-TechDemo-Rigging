@@ -24,7 +24,7 @@ namespace Rigging.Demo.Characters.Player
         
         public ReadOnlyReactiveProperty<bool> IsAiming => _isAiming;
         
-        private readonly ReactiveProperty<bool> _isAiming = new ReactiveProperty<bool>();
+        private readonly ReactiveProperty<bool> _isAiming = new();
         private IReticleProvider _reticleProvider;
         private IShootable _shootableWeapon;
         private int _gunLayerIndex;
@@ -84,10 +84,6 @@ namespace Rigging.Demo.Characters.Player
         {
             _isAiming.Value = _isAimingInput && _shootableWeapon != null;
             UpdateReticleSize();
-        }
-
-        private void LateUpdate()
-        {
             UpdateAnimatorParameters();
             LayerWeightUpdater.UpdateLayerWeight(animator, _gunLayerIndex, IsActiveLayer(), towardSpeed);
         }

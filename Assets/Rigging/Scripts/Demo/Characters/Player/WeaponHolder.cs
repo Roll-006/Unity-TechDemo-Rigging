@@ -37,7 +37,7 @@ namespace Rigging.Demo.Characters.Player
         /// </summary>
         public ReadOnlyReactiveProperty<WeaponBase> EquippedWeaponInstanceChanged => _equippedWeaponInstanceChanged;
         
-        private readonly ReactiveProperty<WeaponBase> _equippedWeaponInstanceChanged = new ReactiveProperty<WeaponBase>();
+        private readonly ReactiveProperty<WeaponBase> _equippedWeaponInstanceChanged = new();
         private bool _isEquipped; //仮
         private int _count; //仮
 

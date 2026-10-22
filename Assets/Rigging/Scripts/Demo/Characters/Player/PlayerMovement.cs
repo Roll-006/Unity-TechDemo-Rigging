@@ -53,10 +53,6 @@ namespace Rigging.Demo.Characters.Player
             UpdateAnimatorParameters();
         }
 
-        private void LateUpdate()
-        {
-        }
-
         private void OnActionTriggered(InputAction.CallbackContext context)
         {
             if (OnMove(context)) return;
