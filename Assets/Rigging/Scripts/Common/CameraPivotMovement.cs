@@ -17,7 +17,8 @@ namespace Rigging.Common
         [SerializeField] private bool isWrapPitch;
         [SerializeField] private bool isInvertYaw;
         [SerializeField] private bool isInvertPitch;
-        [SerializeField] private float speed;
+        [SerializeField, Min(0f)] private float speedMagnitude;
+        [SerializeField, Min(0f)] private float maxSpeed;
 
         public bool IsMoving => Input.sqrMagnitude > Mathf.Epsilon;
         public float InputMagnitude => Input.magnitude;
@@ -49,8 +50,13 @@ namespace Rigging.Common
         private void AddInput()
         {
             Input = actionReference.action.ReadValue<Vector2>();
-            Input *= new Vector2(isInvertYaw ? -1 : 1, isInvertPitch ? -1 : 1);
-            _axis += Input * speed;
+            Input *= new Vector2(isInvertYaw ? -1 : 1, isInvertPitch ? -1 : 1) * speedMagnitude;
+            if (Input.magnitude > maxSpeed)
+            {
+                Input = Vector3.ClampMagnitude(Input, maxSpeed);
+            }
+            
+            _axis += Input;
         }
 
         private void ApplyLimits()

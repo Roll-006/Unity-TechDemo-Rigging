@@ -817,6 +817,14 @@ PrefabInstance:
       propertyPath: shooter
       value: 
       objectReference: {fileID: 1856760816}
+    - target: {fileID: 3867537863675057479, guid: e97e2e7a39f786c43ba96ba5a9871b7c, type: 3}
+      propertyPath: maxSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3867537863675057479, guid: e97e2e7a39f786c43ba96ba5a9871b7c, type: 3}
+      propertyPath: speedMagnitude
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 4314782477532130775, guid: e97e2e7a39f786c43ba96ba5a9871b7c, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
@@ -824,6 +832,10 @@ PrefabInstance:
     - target: {fileID: 6255124276319622896, guid: e97e2e7a39f786c43ba96ba5a9871b7c, type: 3}
       propertyPath: m_Name
       value: AimCinemachine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6255124276319622896, guid: e97e2e7a39f786c43ba96ba5a9871b7c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8817421600428069655, guid: e97e2e7a39f786c43ba96ba5a9871b7c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -894,6 +906,14 @@ PrefabInstance:
       propertyPath: Damping.z
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 2072805157242296257, guid: 3416e75eb5b0c9e46bb54b998a4cb270, type: 3}
+      propertyPath: maxSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2072805157242296257, guid: 3416e75eb5b0c9e46bb54b998a4cb270, type: 3}
+      propertyPath: speedMagnitude
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 4116673809246748041, guid: 3416e75eb5b0c9e46bb54b998a4cb270, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.897
@@ -937,6 +957,10 @@ PrefabInstance:
     - target: {fileID: 4787159221097678706, guid: 3416e75eb5b0c9e46bb54b998a4cb270, type: 3}
       propertyPath: m_Name
       value: StandMoveCinemachine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7249355740588753254, guid: 3416e75eb5b0c9e46bb54b998a4cb270, type: 3}
+      propertyPath: IgnoreTag
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1249,6 +1273,18 @@ PrefabInstance:
     - target: {fileID: 7613308356249809052, guid: 89e895559e21cea489a3bc853def1b66, type: 3}
       propertyPath: m_Name
       value: CrouchMoveCinemachine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613308356249809052, guid: 89e895559e21cea489a3bc853def1b66, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9063524962197223532, guid: 89e895559e21cea489a3bc853def1b66, type: 3}
+      propertyPath: maxSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9063524962197223532, guid: 89e895559e21cea489a3bc853def1b66, type: 3}
+      propertyPath: speedMagnitude
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
