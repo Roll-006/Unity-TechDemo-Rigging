@@ -10,17 +10,17 @@ namespace Rigging.Demo.Reticle
         /// <summary>
         /// 現在のレティクルサイズ
         /// </summary>
-        public ReactiveProperty<float> CurrentSize = new ReactiveProperty<float>();
+        public ReactiveProperty<float> CurrentSize = new();
         
         /// <summary>
         /// レティクルが完全に閉じたかどうか
         /// </summary>
-        public ReactiveProperty<bool> IsReticleClosed = new ReactiveProperty<bool>();
+        public ReactiveProperty<bool> IsReticleClosed = new();
         
         /// <summary>
         /// 障害物の座標
         /// </summary>
-        public ReactiveProperty<Vector3?> ObstaclePosition = new ReactiveProperty<Vector3?>();
+        public ReactiveProperty<Vector3?> ObstaclePosition = new();
         
         /// <summary>
         /// レティクルの図形の種類

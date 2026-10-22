@@ -28,7 +28,7 @@ namespace Rigging.Common
             _defaultShoulderOffsetZ = thirdPersonFollow.ShoulderOffset.z;
         }
 
-        public void LateUpdate()
+        private void LateUpdate()
         {
             UpdateCameraDistance();
         }

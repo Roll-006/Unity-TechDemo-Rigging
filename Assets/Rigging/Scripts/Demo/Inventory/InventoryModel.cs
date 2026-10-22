@@ -1,5 +1,4 @@
-﻿using Rigging.Core;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Rigging.Demo.Inventory
 {

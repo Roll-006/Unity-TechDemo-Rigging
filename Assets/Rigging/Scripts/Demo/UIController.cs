@@ -1,7 +1,5 @@
 using Rigging.Core;
 using Rigging.Demo.Inventory;
-using Rigging.Demo.Player;
-using Rigging.Demo.Reticle;
 using UnityEngine;
 
 namespace Rigging.Demo

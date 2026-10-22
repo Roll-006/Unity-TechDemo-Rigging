@@ -19,5 +19,7 @@ namespace Rigging.Common
         public static readonly int PlayerMoveDirectionX = Animator.StringToHash("PlayerMoveDirectionX");
         public static readonly int PlayerMoveDirectionZ = Animator.StringToHash("PlayerMoveDirectionZ");
         public static readonly int CameraMoveDirectionX = Animator.StringToHash("CameraMoveDirectionX");
+        public static readonly int IKLeftFootWeight = Animator.StringToHash("IKLeftFootWeight");
+        public static readonly int IKRightFootWeight = Animator.StringToHash("IKRightFootWeight");
     }
 }
