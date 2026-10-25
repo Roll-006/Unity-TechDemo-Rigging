@@ -31,13 +31,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7613308356249809052}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.04363431, y: -0.000000003384408, z: -1.4781708e-10, w: 0.9990476}
+  m_LocalRotation: {x: -0.043636803, y: 0, z: 0, w: 0.99904746}
   m_LocalPosition: {x: 0.553, y: 0.9058354, z: -1.0632336}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -4.97, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -5.002, y: 0, z: 0}
 --- !u!114 &1873173029750183873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625c14eee3ad46c99df7c7c891ef668a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineThirdPersonFollow
-  Damping: {x: 0.1, y: 0.5, z: 0.3}
+  Damping: {x: 0.1, y: 0.1, z: 0.3}
   ShoulderOffset: {x: 0.62, y: -1, z: 0}
   VerticalArmLength: 1.2
   CameraSide: 1
@@ -178,15 +178,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Rigging.CameraPivotController
   actionReference: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   cinemachine: {fileID: 1873173029750183873}
-  maxYaw: 180
-  minYaw: -180
-  maxPitch: 50
-  minPitch: -40
-  isWrapYaw: 1
-  isWrapPitch: 0
+  shareAxis: {fileID: 0}
+  limitData:
+    MaxYaw: 180
+    MinYaw: -180
+    MaxPitch: 50
+    MinPitch: -40
+    IsWrapYaw: 1
+    IsWrapPitch: 0
   isInvertYaw: 0
   isInvertPitch: 1
-  speed: 0.3
+  speedMagnitude: 0.3
+  maxSpeed: 10
 --- !u!114 &390201972410187617
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1955,7 +1955,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Riggin.Demo.Player.LowerBodyTurn
   animator: {fileID: 145777745517364244}
   playerMovement: {fileID: 8744046751771125862}
-  cameraPivotMovement: {fileID: 0}
+  cameraPivotMovements:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   playerFacing: {fileID: 1724535611957470226}
   turnSpeedMultiplier: 0.67
   towardSpeed: 1

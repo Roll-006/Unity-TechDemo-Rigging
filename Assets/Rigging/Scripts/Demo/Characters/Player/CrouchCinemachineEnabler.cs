@@ -1,4 +1,5 @@
-﻿using Rigging.Core;
+﻿using Rigging.Common;
+using Rigging.Core;
 using UnityEngine;
 using Unity.Cinemachine;
 
