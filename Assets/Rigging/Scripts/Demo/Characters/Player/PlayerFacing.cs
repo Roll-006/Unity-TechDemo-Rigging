@@ -6,6 +6,7 @@ namespace Rigging.Demo.Characters.Player
     public class PlayerFacing : MonoBehaviour
     {
         [SerializeField] private PlayerMovement playerMovement;
+        [SerializeField] private new Rigidbody rigidbody;
         [SerializeField] private float towardSpeed;
 
         public bool IsSyncCameraForward { get; private set; }
@@ -15,6 +16,7 @@ namespace Rigging.Demo.Characters.Player
         private void Awake()
         {
             Debugger.ValidateSerializeField(playerMovement, this);
+            Debugger.ValidateSerializeField(rigidbody, this);
         }
 
         private void Start()
@@ -40,14 +42,15 @@ namespace Rigging.Demo.Characters.Player
         private void UpdateFacingDirection()
         {
             var targetFacingDirection = IsSyncCameraForward ? GetMoveCameraForward() : playerMovement.MoveDirection;
+            if (targetFacingDirection.sqrMagnitude <= Mathf.Epsilon) return;
 
             _currentFacingDirection = Vector3.RotateTowards(_currentFacingDirection, targetFacingDirection, towardSpeed * Time.deltaTime, 0f);
-            transform.LookAt(transform.position + _currentFacingDirection);
+            rigidbody.MoveRotation(Quaternion.LookRotation(_currentFacingDirection, Vector3.up));
         }
 
         private Vector3 GetMoveCameraForward()
         {
-            var forward = CameraManager.I.OutputCamera.transform.forward;
+            var forward = CameraManager.I.ActiveCinemachine.transform.forward;
             forward.y = 0f;
             return forward.normalized;
         }

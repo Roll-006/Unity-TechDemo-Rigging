@@ -195,15 +195,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Rigging.CameraPivotController
   actionReference: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   cinemachine: {fileID: 4314782477532130775}
-  maxYaw: 180
-  minYaw: -180
-  maxPitch: 50
-  minPitch: -40
-  isWrapYaw: 1
-  isWrapPitch: 0
+  shareAxis: {fileID: 0}
+  limitData:
+    MaxYaw: 180
+    MinYaw: -180
+    MaxPitch: 50
+    MinPitch: -40
+    IsWrapYaw: 1
+    IsWrapPitch: 0
   isInvertYaw: 0
   isInvertPitch: 1
-  speed: 0.3
+  speedMagnitude: 0.3
+  maxSpeed: 4
 --- !u!114 &294939600622848295
 MonoBehaviour:
   m_ObjectHideFlags: 0

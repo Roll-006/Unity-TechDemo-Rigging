@@ -18,6 +18,19 @@ namespace Rigging.Common
         }
         
         /// <summary>
+        /// ラップした値を取得する。
+        /// </summary>
+        /// <param name="value">ラップする値</param>
+        /// <param name="min">最小値</param>
+        /// <param name="max">最大値</param>
+        /// <returns>ラップした値</returns>
+        public static float Wrap(float value, float min, float max)
+        {
+            var range = max - min;
+            return min + Mathf.Repeat(value - min, range);
+        }
+        
+        /// <summary>
         /// 二次ベジェ曲線
         /// </summary>
         /// <param name="a">制御点1</param>

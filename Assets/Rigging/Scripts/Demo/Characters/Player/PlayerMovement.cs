@@ -12,7 +12,7 @@ namespace Rigging.Demo.Characters.Player
         [SerializeField] private InputActionReference sprintAction;
         [SerializeField] private InputActionReference crouchAction;
         [SerializeField] private Animator animator;
-        [SerializeField] private Rigidbody rb;
+        [SerializeField] private new Rigidbody rigidbody;
         [SerializeField] private float towardSpeed;
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Rigging.Demo.Characters.Player
             Debugger.ValidateSerializeField(sprintAction, this);
             Debugger.ValidateSerializeField(crouchAction, this);
             Debugger.ValidateSerializeField(animator, this);
-            Debugger.ValidateSerializeField(rb, this);
+            Debugger.ValidateSerializeField(rigidbody, this);
         }
 
         private void OnEnable()
@@ -48,7 +48,7 @@ namespace Rigging.Demo.Characters.Player
 
         private void Update()
         {
-            rb.angularVelocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
             UpdateMoveDirection();
             UpdateAnimatorParameters();
         }
@@ -115,7 +115,7 @@ namespace Rigging.Demo.Characters.Player
 
         private void UpdateMoveDirection()
         {
-            var cameraTransform = CameraManager.I.OutputCamera.transform;
+            var cameraTransform = CameraManager.I.ActiveCinemachine.transform;
 
             var cameraForward = cameraTransform.forward;
             var cameraRight = cameraTransform.right;

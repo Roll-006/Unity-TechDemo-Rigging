@@ -1,3 +1,5 @@
+using R3;
+using Rigging.Common;
 using Rigging.Core;
 using UnityEngine;
 using Unity.Cinemachine;
@@ -15,9 +17,16 @@ namespace Rigging.Demo.Characters.Player
             Debugger.ValidateSerializeField(shooter, this);
         }
 
-        private void Update()
+        private void Start()
         {
-            cinemachine.enabled = shooter.IsAiming.CurrentValue;
+            shooter.IsAiming
+                .Subscribe(OnEnableCinemachine)
+                .AddTo(this);
+        }
+
+        private void OnEnableCinemachine(bool isAiming)
+        {
+            cinemachine.enabled = isAiming;
         }
     }
 }

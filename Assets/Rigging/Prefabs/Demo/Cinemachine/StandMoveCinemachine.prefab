@@ -14,7 +14,9 @@ GameObject:
   - component: {fileID: 7249355740588753254}
   - component: {fileID: 181975366397097448}
   - component: {fileID: 2072805157242296257}
+  - component: {fileID: 2823591376887249076}
   - component: {fileID: 6357754640766870003}
+  - component: {fileID: 4781728538411369530}
   m_Layer: 0
   m_Name: StandMoveCinemachine
   m_TagString: Untagged
@@ -92,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625c14eee3ad46c99df7c7c891ef668a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineThirdPersonFollow
-  Damping: {x: 0.1, y: 0.5, z: 0.3}
+  Damping: {x: 0.3, y: 0, z: 0.3}
   ShoulderOffset: {x: 0.62, y: -1, z: 0}
   VerticalArmLength: 1.2
   CameraSide: 1
@@ -177,15 +179,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Rigging.CameraPivotController
   actionReference: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   cinemachine: {fileID: 119289889014276628}
-  maxYaw: 180
-  minYaw: -180
-  maxPitch: 50
-  minPitch: -40
-  isWrapYaw: 1
-  isWrapPitch: 0
+  shareAxis: {fileID: 2823591376887249076}
+  limitData:
+    MaxYaw: 180
+    MinYaw: -180
+    MaxPitch: 50
+    MinPitch: -40
+    IsWrapYaw: 1
+    IsWrapPitch: 0
   isInvertYaw: 0
   isInvertPitch: 1
-  speed: 0.3
+  speedMagnitude: 0.3
+  maxSpeed: 10
+--- !u!114 &2823591376887249076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4787159221097678706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cea27d4006c45fe8ee07b9b0f0c59f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rigging::Rigging.Common.CameraPivotAxis
 --- !u!114 &6357754640766870003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,3 +223,19 @@ MonoBehaviour:
   cinemachine: {fileID: 119289889014276628}
   maxPitch: 50
   minPitch: -40
+--- !u!114 &4781728538411369530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4787159221097678706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0779fbb286884f4aa9f19514a535b06e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rigging::Rigging.Demo.Characters.Player.StandCinemachineEnabler
+  cinemachine: {fileID: 119289889014276628}
+  otherCinemachines:
+  - {fileID: 0}
+  - {fileID: 0}

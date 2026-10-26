@@ -1,4 +1,5 @@
-﻿using Rigging.Core;
+﻿using System.Collections.Generic;
+using Rigging.Core;
 using Rigging.Common;
 using UnityEngine;
 
@@ -8,12 +9,23 @@ namespace Rigging.Demo.Characters.Player
     {
         [SerializeField] private Animator animator;
         [SerializeField] private PlayerMovement playerMovement;
-        [SerializeField] private CameraPivotMovement cameraPivotMovement;
+        [SerializeField] private List<CameraPivotMovement> cameraPivotMovements;
         [SerializeField] private PlayerFacing playerFacing;
         [SerializeField] private float turnSpeedMultiplier;
         [SerializeField] private float towardSpeed;
-        
-        private float TurnSpeed => Mathf.Abs(cameraPivotMovement.Input.x) * turnSpeedMultiplier;
+
+        private float TurnSpeed
+        {
+            get
+            {
+                foreach (var cameraPivotMovement in cameraPivotMovements)
+                {
+                    if (!cameraPivotMovement.enabled) continue;
+                    return Mathf.Abs(cameraPivotMovement.Input.x) * turnSpeedMultiplier;
+                }
+                return 0f;
+            }
+        }
         
         private int _lowerBodyTurnLayerIndex;
 
@@ -21,7 +33,6 @@ namespace Rigging.Demo.Characters.Player
         {
             Debugger.ValidateSerializeField(animator, this);
             Debugger.ValidateSerializeField(playerMovement, this);
-            Debugger.ValidateSerializeField(cameraPivotMovement, this);
             Debugger.ValidateSerializeField(playerFacing, this);
 
             _lowerBodyTurnLayerIndex = animator.GetLayerIndex(AnimatorLayers.LowerBodyTurnLayer);
@@ -35,15 +46,25 @@ namespace Rigging.Demo.Characters.Player
 
         private void UpdateAnimatorParameters()
         {
-            animator.SetFloat(AnimatorParameters.CameraMoveDirectionX, cameraPivotMovement.Input.x);
+            foreach (var cameraPivotMovement in cameraPivotMovements)
+            {
+                if (!cameraPivotMovement.enabled) continue;
+                animator.SetFloat(AnimatorParameters.CameraMoveDirectionX, cameraPivotMovement.Input.x);
+            }
+            
             animator.SetFloat(AnimatorParameters.TurnSpeed, TurnSpeed);
         }
         
         private bool IsActiveLayer()
         {
             if (playerMovement.IsMoving) return false;
-            if (!cameraPivotMovement.IsMoving) return false;
             if (!playerFacing.IsSyncCameraForward) return false;
+
+            foreach (var cameraPivotMovement in cameraPivotMovements)
+            {
+                if (!cameraPivotMovement.enabled) continue;
+                if (!cameraPivotMovement.IsMoving) return false;
+            }
 
             return true;
         }
