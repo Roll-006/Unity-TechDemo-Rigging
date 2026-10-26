@@ -20,11 +20,13 @@ namespace Rigging.Demo.Characters.Player
         [SerializeField] private Transform gripPivot;
         [SerializeField] private Transform aimTrigger;
         [SerializeField] private Transform spine2Pivot;
+        [SerializeField] private Transform aimCameraPivot;
         [SerializeField] private float towardSpeed;
         
         public ReadOnlyReactiveProperty<bool> IsAiming => _isAiming;
         
         private readonly ReactiveProperty<bool> _isAiming = new();
+        private SwayAimUpdater _swayAimUpdater;
         private IReticleProvider _reticleProvider;
         private IShootable _shootableWeapon;
         private int _gunLayerIndex;
@@ -42,7 +44,9 @@ namespace Rigging.Demo.Characters.Player
             Debugger.ValidateSerializeField(gripPivot, this);
             Debugger.ValidateSerializeField(aimTrigger, this);
             Debugger.ValidateSerializeField(spine2Pivot, this);
+            Debugger.ValidateSerializeField(aimCameraPivot, this);
 
+            _swayAimUpdater = new();
             _gunLayerIndex = animator.GetLayerIndex(AnimatorLayers.GunLayer);
         }
         
@@ -60,7 +64,7 @@ namespace Rigging.Demo.Characters.Player
                 .AddTo(this);
             
             IsAiming
-                .Where(isAiming => isAiming == true)
+                .Where(isAiming => isAiming)
                 .Subscribe(InitializeReticle)
                 .AddTo(this);
         }
@@ -86,6 +90,11 @@ namespace Rigging.Demo.Characters.Player
             UpdateReticleSize();
             UpdateAnimatorParameters();
             LayerWeightUpdater.UpdateLayerWeight(animator, _gunLayerIndex, IsActiveLayer(), towardSpeed);
+        }
+
+        private void LateUpdate()
+        {
+            _swayAimUpdater.SwayAim(_shootableWeapon, aimCameraPivot);
         }
 
         private void OnActionTriggered(InputAction.CallbackContext context)
@@ -148,6 +157,11 @@ namespace Rigging.Demo.Characters.Player
             return true;
         }
 
+        private void InitializeReticle(bool isAiming)
+        {
+            _reticleProvider.ReticleModel.CurrentSize.Value = _reticleProvider.ReticleModel.MaxSize;
+        }
+
         private void UpdateReticleSize()
         {
             if (_reticleProvider == null) return;
@@ -166,11 +180,6 @@ namespace Rigging.Demo.Characters.Player
             {
                 _reticleProvider.OnStopReticle();
             }
-        }
-
-        private void InitializeReticle(bool isAiming)
-        {
-            _reticleProvider.ReticleModel.CurrentSize.Value = _reticleProvider.ReticleModel.MaxSize;
         }
 
         /// <summary>

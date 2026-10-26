@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6255124276319622896
+--- !u!1 &4787159221097678706
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,51 +8,52 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8817421600428069655}
-  - component: {fileID: 4314782477532130775}
-  - component: {fileID: 7789425217352169928}
-  - component: {fileID: 4508983754515770757}
-  - component: {fileID: 2953289937012051011}
-  - component: {fileID: 41831004560243020}
-  - component: {fileID: 3867537863675057479}
-  - component: {fileID: 294939600622848295}
+  - component: {fileID: 4116673809246748041}
+  - component: {fileID: 119289889014276628}
+  - component: {fileID: 1154964476054652846}
+  - component: {fileID: 7249355740588753254}
+  - component: {fileID: 181975366397097448}
+  - component: {fileID: 2072805157242296257}
+  - component: {fileID: 2823591376887249076}
+  - component: {fileID: 6357754640766870003}
+  - component: {fileID: 4781728538411369530}
   m_Layer: 0
-  m_Name: AimCinemachine
+  m_Name: StandMoveCinemachine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8817421600428069655
+--- !u!4 &4116673809246748041
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6255124276319622896}
+  m_GameObject: {fileID: 4787159221097678706}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.48000458, y: 1.6670389, z: -0.67273974}
+  m_LocalRotation: {x: -0.043636803, y: 0, z: 0, w: 0.99904746}
+  m_LocalPosition: {x: 0.71000457, y: 1.1954155, z: -1.5947691}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4314782477532130775
+  m_LocalEulerAnglesHint: {x: -5.002, y: 0, z: 0}
+--- !u!114 &119289889014276628
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6255124276319622896}
-  m_Enabled: 0
+  m_GameObject: {fileID: 4787159221097678706}
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
     Enabled: 1
-    m_Value: 2
+    m_Value: 1
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -81,23 +82,23 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
---- !u!114 &7789425217352169928
+--- !u!114 &1154964476054652846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6255124276319622896}
+  m_GameObject: {fileID: 4787159221097678706}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 625c14eee3ad46c99df7c7c891ef668a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineThirdPersonFollow
-  Damping: {x: 0, y: 0, z: 0}
-  ShoulderOffset: {x: 0.39, y: 0.06, z: 0}
-  VerticalArmLength: 0
+  Damping: {x: 0.1, y: 0, z: 0}
+  ShoulderOffset: {x: 0.5, y: -1, z: 0}
+  VerticalArmLength: 1.2
   CameraSide: 1
-  CameraDistance: 0.59
+  CameraDistance: 1.18
   AvoidObstacles:
     Enabled: 0
     CollisionFilter:
@@ -107,13 +108,13 @@ MonoBehaviour:
     CameraRadius: 0.2
     DampingIntoCollision: 0
     DampingFromCollision: 0.5
---- !u!114 &4508983754515770757
+--- !u!114 &7249355740588753254
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6255124276319622896}
+  m_GameObject: {fileID: 4787159221097678706}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2588cc5dedbb75e49a44aada63f7b939, type: 3}
@@ -125,13 +126,13 @@ MonoBehaviour:
   IgnoreTag: 
   AimDistance: 200
   NoiseCancellation: 1
---- !u!114 &2953289937012051011
+--- !u!114 &181975366397097448
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6255124276319622896}
+  m_GameObject: {fileID: 4787159221097678706}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbe43d662878a7c43bcd44d43c9e2094, type: 3}
@@ -164,38 +165,21 @@ MonoBehaviour:
     NearLimit: 5
     FarLimit: 30
     MaxQualityBoost: 0.2
---- !u!114 &41831004560243020
+--- !u!114 &2072805157242296257
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6255124276319622896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBasicMultiChannelPerlin
-  NoiseProfile: {fileID: 11400000, guid: 46965f9cbaf525742a6da4c2172a99cd, type: 2}
-  PivotOffset: {x: 1, y: 0, z: 1}
-  AmplitudeGain: 1
-  FrequencyGain: 1
-  m_NoiseOffsets: {x: 0, y: 0, z: 0}
---- !u!114 &3867537863675057479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6255124276319622896}
+  m_GameObject: {fileID: 4787159221097678706}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6f457ad16cdfd14196ac3fc111dc2e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rigging.CameraPivotController
   actionReference: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  cinemachine: {fileID: 4314782477532130775}
-  shareAxis: {fileID: 0}
+  cinemachine: {fileID: 119289889014276628}
+  shareAxis: {fileID: 2823591376887249076}
   limitData:
     MaxYaw: 180
     MinYaw: -180
@@ -205,19 +189,54 @@ MonoBehaviour:
     IsWrapPitch: 0
   isInvertYaw: 0
   isInvertPitch: 1
-  speedMagnitude: 0.3
-  maxSpeed: 4
---- !u!114 &294939600622848295
+  speedMagnitude: 0.25
+  maxSpeed: 9.5
+--- !u!114 &2823591376887249076
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6255124276319622896}
+  m_GameObject: {fileID: 4787159221097678706}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bc0c0cd8abe485c84f69154613bc3e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 5cea27d4006c45fe8ee07b9b0f0c59f8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Rigging.Demo.AimCameraActiveController
-  cinemachine: {fileID: 4314782477532130775}
-  shooter: {fileID: 0}
+  m_EditorClassIdentifier: Rigging::Rigging.Common.CameraPivotAxis
+--- !u!114 &6357754640766870003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4787159221097678706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9c0c3dabeb143b4b91df920824f94e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Rigging.Common.CameraOrbitMovement
+  topCameraDistance: 1.75
+  bottomCameraDistance: 0.5
+  topShoulderOffsetZ: -0.24
+  bottomShoulderOffsetZ: 0.1
+  thirdPersonFollow: {fileID: 1154964476054652846}
+  cinemachine: {fileID: 119289889014276628}
+  maxPitch: 50
+  minPitch: -40
+--- !u!114 &4781728538411369530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4787159221097678706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0779fbb286884f4aa9f19514a535b06e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rigging::Rigging.Demo.Characters.Player.StandCinemachineEnabler
+  cinemachine: {fileID: 119289889014276628}
+  otherCinemachines:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

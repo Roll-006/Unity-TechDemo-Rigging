@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Rigging.Demo.Characters.Player
 {
-    public class StandCinemachineEnabler : MonoBehaviour
+    public class StandCinemachinePriorityUpdater : MonoBehaviour
     {
         [SerializeField] private CinemachineCamera cinemachine;
         [SerializeField] private List<CinemachineCamera> otherCinemachines;
@@ -19,13 +19,13 @@ namespace Rigging.Demo.Characters.Player
         {
             foreach (var otherCinemachine in otherCinemachines)
             {
-                if (!otherCinemachine.enabled) continue;
+                if (!CinemachineCore.IsLiveInBlend(otherCinemachine)) continue;
                 
-                cinemachine.enabled = false;
+                cinemachine.Priority = 0;
                 return;
             }
 
-            cinemachine.enabled = true;
+            cinemachine.Priority = 1;
         }
     }
 }

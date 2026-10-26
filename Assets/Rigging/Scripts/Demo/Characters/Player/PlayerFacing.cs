@@ -50,7 +50,10 @@ namespace Rigging.Demo.Characters.Player
 
         private Vector3 GetMoveCameraForward()
         {
-            var forward = CameraManager.I.ActiveCinemachine.transform.forward;
+            var outputCamera = CameraManager.I.OutputCamera;
+            if (outputCamera == null) return Vector3.forward;
+            
+            var forward = outputCamera.transform.forward;
             forward.y = 0f;
             return forward.normalized;
         }
