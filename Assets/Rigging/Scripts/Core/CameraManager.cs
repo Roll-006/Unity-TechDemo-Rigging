@@ -8,17 +8,17 @@ namespace Rigging.Core
         /// <summary>
         /// null チェック推奨
         /// </summary>
-        public CinemachineBrain Brain => CinemachineBrain.ActiveBrainCount > 0 ? CinemachineBrain.GetActiveBrain(CinemachineBrain.ActiveBrainCount - 1) : null;
+        public CinemachineBrain ActiveBrain => CinemachineBrain.ActiveBrainCount > 0 ? CinemachineBrain.GetActiveBrain(CinemachineBrain.ActiveBrainCount - 1) : null;
         
         /// <summary>
         /// null チェック推奨
         /// </summary>
-        public Camera OutputCamera => Brain?.OutputCamera;
+        public Camera OutputCamera => ActiveBrain?.OutputCamera;
 
         /// <summary>
         /// null チェック推奨
         /// </summary>
-        public CinemachineCamera ActiveCinemachine => Brain?.ActiveVirtualCamera as CinemachineCamera;
+        public CinemachineCamera ActiveCinemachine => ActiveBrain?.ActiveVirtualCamera as CinemachineCamera;
         
         protected override void OnDispose()
         {
