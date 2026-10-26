@@ -1,12 +1,11 @@
 using R3;
-using Rigging.Common;
 using Rigging.Core;
 using UnityEngine;
 using Unity.Cinemachine;
 
 namespace Rigging.Demo.Characters.Player
 {
-    public class AimCinemachineEnabler : MonoBehaviour
+    public class AimCinemachinePriorityUpdater : MonoBehaviour
     {
         [SerializeField] private CinemachineCamera cinemachine;
         [SerializeField] private Shooter shooter;
@@ -26,7 +25,7 @@ namespace Rigging.Demo.Characters.Player
 
         private void OnEnableCinemachine(bool isAiming)
         {
-            cinemachine.enabled = isAiming;
+            cinemachine.Priority = isAiming ? 1 : 0;
         }
     }
 }

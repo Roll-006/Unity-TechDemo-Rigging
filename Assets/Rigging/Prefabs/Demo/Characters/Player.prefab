@@ -1784,6 +1784,7 @@ MonoBehaviour:
   gripPivot: {fileID: 634774319089298478}
   aimTrigger: {fileID: 2990940900379771316}
   spine2Pivot: {fileID: 8353929034275076428}
+  aimCameraPivot: {fileID: 6636028573596938164}
   towardSpeed: 4
 --- !u!114 &5286044153528273230
 MonoBehaviour:

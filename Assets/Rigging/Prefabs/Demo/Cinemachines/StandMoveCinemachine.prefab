@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
     Enabled: 1
-    m_Value: 0
+    m_Value: 1
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -189,8 +189,8 @@ MonoBehaviour:
     IsWrapPitch: 0
   isInvertYaw: 0
   isInvertPitch: 1
-  speedMagnitude: 0.3
-  maxSpeed: 10
+  speedMagnitude: 0.25
+  maxSpeed: 9.5
 --- !u!114 &2823591376887249076
 MonoBehaviour:
   m_ObjectHideFlags: 0

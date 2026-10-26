@@ -1,10 +1,10 @@
-﻿using Rigging.Core;
-using UnityEngine;
+using Rigging.Core;
 using Unity.Cinemachine;
+using UnityEngine;
 
 namespace Rigging.Demo.Characters.Player
 {
-    public class CrouchCinemachineEnabler : MonoBehaviour
+    public class SprintCinemachinePriorityUpdater : MonoBehaviour
     {
         [SerializeField] private CinemachineCamera cinemachine;
         [SerializeField] private PlayerMovement playerMovement;
@@ -17,7 +17,7 @@ namespace Rigging.Demo.Characters.Player
 
         private void Update()
         {
-            cinemachine.enabled = playerMovement.IsCrouching;
+            cinemachine.Priority = playerMovement.IsSprinting && playerMovement.IsMoving ? 1 : 0;
         }
     }
 }

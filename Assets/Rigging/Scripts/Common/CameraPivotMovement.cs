@@ -36,7 +36,7 @@ namespace Rigging.Common
 
         private void Rotate()
         {
-            if (cinemachine.enabled)
+            if (CinemachineCore.IsLive(cinemachine))
             {
                 AddInput();
                 shareAxis.MovePivot(Input);

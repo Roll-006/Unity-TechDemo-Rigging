@@ -115,7 +115,10 @@ namespace Rigging.Demo.Characters.Player
 
         private void UpdateMoveDirection()
         {
-            var cameraTransform = CameraManager.I.ActiveCinemachine.transform;
+            var outputCamera = CameraManager.I.OutputCamera;
+            if (outputCamera == null) return;
+            
+            var cameraTransform = outputCamera.transform;
 
             var cameraForward = cameraTransform.forward;
             var cameraRight = cameraTransform.right;

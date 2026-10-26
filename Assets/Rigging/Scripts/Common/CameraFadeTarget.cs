@@ -25,7 +25,10 @@ namespace Rigging.Common
 
         private void Transparent()
         {
-            var cameraPosition = CameraManager.I.OutputCamera.transform.position;
+            var outputCamera = CameraManager.I.OutputCamera;
+            if (outputCamera == null) return;
+            
+            var cameraPosition = outputCamera.transform.position;
             renderer.enabled = Vector3.Distance(targetTransform.position, cameraPosition) > transparentDistance;
         }
     }

@@ -10,6 +10,8 @@ namespace Rigging.Demo.Weapons
         [SerializeField] private WeaponRigData rig;
         [SerializeField] private float initialVelocity;
         [SerializeField] private float range;
+        [SerializeField, Min(0)] private float swayAmount;
+        [SerializeField, Min(0)] private float swaySpeed;
         [SerializeField] private Transform rayPivot;
         [SerializeField] private ReticleModel reticleModel;
         [SerializeField, Min(1)] private Vector2Int gridSize;
@@ -19,6 +21,8 @@ namespace Rigging.Demo.Weapons
         public override WeaponRigData Rig => rig;
         public float InitialVelocity => initialVelocity;
         public float Range => range;
+        public float SwayAmount => swayAmount;
+        public float  SwaySpeed => swaySpeed;
         public Transform AimTarget { get; set; }
         public ReticleModel ReticleModel => reticleModel;
         public ReticleEnlargeState ReticleEnlargeState { private set; get; }
@@ -79,8 +83,11 @@ namespace Rigging.Demo.Weapons
 
         public void UpdateAimTarget()
         {
+            var outputCamera = CameraManager.I.OutputCamera;
+            if (outputCamera == null) return;
+            
             // カメラからのレイ
-            var cameraTransform = CameraManager.I.OutputCamera.transform;
+            var cameraTransform = outputCamera.transform;
             var cameraRay = new Ray(cameraTransform.position + cameraTransform.forward * 2f, cameraTransform.forward);
             var obstaclePosition = Physics.Raycast(cameraRay, out var cameraTarget) ? cameraTarget.point : cameraTransform.position + cameraTransform.forward * Range;
             var direction = (obstaclePosition - rayPivot.position).normalized;

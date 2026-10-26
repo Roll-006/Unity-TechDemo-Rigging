@@ -139,6 +139,8 @@ MonoBehaviour:
     LeftHandRigTargetRotation: {x: 7.282, y: -155.581, z: 13.942}
   initialVelocity: 98
   range: 50
+  swayAmount: 1
+  swaySpeed: 2
   rayPivot: {fileID: 1581181626771004747}
   reticleModel:
     ReticleShapeType: 1
