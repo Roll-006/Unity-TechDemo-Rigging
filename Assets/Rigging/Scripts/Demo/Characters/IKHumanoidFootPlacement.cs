@@ -44,11 +44,12 @@ namespace Rigging.Demo.Characters
         [SerializeField, Min(0f), Tooltip("つま先が埋まっても Ray を飛ばすために始点の高さをずらす値")]
         private float toeRayOffset;
         
+        public float CurrentBodyDownOffset { get; private set; }
+        
         private IKOneFootData _leftOneFootData;
         private IKOneFootData _rightOneFootData;
         private float _currentBodySmoothTime;
         private float _currentFootSmoothTime;
-        private float _currentBodyDownOffset;
         private float _bodyDownVelocity;
         private Vector3 _distanceFootToGroundVector;
 
@@ -209,10 +210,10 @@ namespace Rigging.Demo.Characters
             
             // 両足から下げる距離が長い方を選択する (最大距離あり)
             var downDistance = Mathf.Min(Mathf.Max(leftDownDistance, rightDownDistance), maxBodyDownDistance);
-            _currentBodyDownOffset = Mathf.SmoothDamp(_currentBodyDownOffset, downDistance, ref _bodyDownVelocity, _currentBodySmoothTime);
+            CurrentBodyDownOffset = Mathf.SmoothDamp(CurrentBodyDownOffset, downDistance, ref _bodyDownVelocity, _currentBodySmoothTime);
 
             var position = animator.bodyPosition;
-            position.y -= _currentBodyDownOffset;
+            position.y -= CurrentBodyDownOffset;
             animator.bodyPosition = position;
         }
 
