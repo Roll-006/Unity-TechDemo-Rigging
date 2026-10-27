@@ -40,6 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3015298621225371561}
+  - component: {fileID: 3142798303033068993}
   m_Layer: 3
   m_Name: StandCameraPivot
   m_TagString: Untagged
@@ -62,6 +63,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2906248445288140528}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3142798303033068993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730187583168526991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dce01bba98464d58aacd01a77c5959af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rigging::Rigging.Demo.Characters.CameraPivotIKBodyOffset
+  footPlacement: {fileID: 8851300468419097096}
 --- !u!1 &2024267617288157960
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,6 +230,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3368692189598137405}
+  - component: {fileID: 1851134740323094515}
   m_Layer: 3
   m_Name: CrouchCameraPivot
   m_TagString: Untagged
@@ -238,6 +253,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2906248445288140528}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1851134740323094515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3104730900675389359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dce01bba98464d58aacd01a77c5959af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rigging::Rigging.Demo.Characters.CameraPivotIKBodyOffset
+  footPlacement: {fileID: 8851300468419097096}
 --- !u!1 &3543940322916620319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1723,7 +1751,7 @@ MonoBehaviour:
   distanceFootToGround: 0.11
   maxBodyDownDistance: 0.6
   downBodyWeightThreshold: 0.9
-  bodySmoothTime: 0.1
+  bodySmoothTime: 0.15
   footSmoothTime: 0.1
   rotateSpeed: 4
   footRayOffset: 1
