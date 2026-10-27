@@ -8,11 +8,15 @@ namespace Rigging.Demo.Characters.Player
         
         private void OnTriggerEnter(Collider other)
         {
+            if (other.isTrigger) return;
+            
             IsHit = true;
         }
 
         private void OnTriggerExit(Collider other)
         {
+            if (other.isTrigger) return;
+            
             IsHit = false;
         }
     }

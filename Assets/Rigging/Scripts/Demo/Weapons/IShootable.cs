@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Rigging.Core;
+using UnityEngine;
 
 namespace Rigging.Demo.Weapons
 {
@@ -28,6 +29,12 @@ namespace Rigging.Demo.Weapons
         public float SwaySpeed { get; }
         
         public Transform AimTarget { get; set; }
+        
+        /// <summary>
+        /// 撃つ。
+        /// </summary>
+        /// <param name="bulletPool">弾丸のプールマネージャー</param>
+        public void Shoot(GameObjectPool bulletPool, GameObjectPool hitPointPool);
         
         /// <summary>
         /// 狙う場所を更新する。

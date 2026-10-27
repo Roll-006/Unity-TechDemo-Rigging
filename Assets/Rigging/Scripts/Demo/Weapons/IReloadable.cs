@@ -6,6 +6,16 @@ namespace Rigging.Demo.Weapons
     public interface IReloadable
     {
         /// <summary>
+        /// 弾薬数
+        /// </summary>
+        public int AmmoAmount { get; }
+        
+        /// <summary>
+        /// 最大弾薬数
+        /// </summary>
+        public int MaxAmmoAmount { get; }
+        
+        /// <summary>
         /// リロードする。
         /// </summary>
         public void OnReload();

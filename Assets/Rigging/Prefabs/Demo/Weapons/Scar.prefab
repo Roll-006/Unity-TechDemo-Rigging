@@ -908,7 +908,7 @@ MonoBehaviour:
   initialVelocity: 714
   range: 600
   swayAmount: 1
-  swaySpeed: 2
+  swaySpeed: 1
   rayPivot: {fileID: 6708908309979222767}
   reticleModel:
     ReticleShapeType: 1

@@ -13,7 +13,10 @@ namespace Rigging.Demo.Characters.Player
         [SerializeField] private PlayerInput playerInput;
         [SerializeField] private InputActionReference aimGunAction;
         [SerializeField] private InputActionReference fireAction;
+        [SerializeField] private InputActionReference reloadAction;
         [SerializeField] private Animator animator;
+        [SerializeField] private GameObjectPool bulletPool;
+        [SerializeField] private GameObjectPool hitPointPool;
         [SerializeField] private WeaponHolder weaponHolder;
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private CameraPivotMovement cameraPivotMovement;
@@ -37,7 +40,9 @@ namespace Rigging.Demo.Characters.Player
             Debugger.ValidateSerializeField(playerInput, this);
             Debugger.ValidateSerializeField(aimGunAction, this);
             Debugger.ValidateSerializeField(fireAction, this);
+            Debugger.ValidateSerializeField(reloadAction, this);
             Debugger.ValidateSerializeField(animator, this);
+            Debugger.ValidateSerializeField(bulletPool, this);
             Debugger.ValidateSerializeField(weaponHolder, this);
             Debugger.ValidateSerializeField(playerMovement, this);
             Debugger.ValidateSerializeField(cameraPivotMovement, this);
@@ -101,6 +106,7 @@ namespace Rigging.Demo.Characters.Player
         {
             if (OnAimGun(context)) return;
             if (OnFire(context)) return;
+            if (OnReload(context)) return;
         }
 
         private bool OnAimGun(InputAction.CallbackContext context)
@@ -126,6 +132,22 @@ namespace Rigging.Demo.Characters.Player
         private bool OnFire(InputAction.CallbackContext context)
         {
             if (context.action != fireAction.action) return false;
+            if (!IsAiming.CurrentValue) return false;
+            if (_shootableWeapon == null) return false;
+            
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:
+                    _shootableWeapon.Shoot(bulletPool, hitPointPool);
+                    break;
+            }
+            
+            return true;
+        }
+
+        private bool OnReload(InputAction.CallbackContext context)
+        {
+            if (context.action != reloadAction.action) return false;
 
             return true;
         }

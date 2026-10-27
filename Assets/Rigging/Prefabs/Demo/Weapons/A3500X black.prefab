@@ -140,8 +140,10 @@ MonoBehaviour:
   initialVelocity: 98
   range: 50
   swayAmount: 1
-  swaySpeed: 2
+  swaySpeed: 1
   rayPivot: {fileID: 1581181626771004747}
+  ammoAmount: 0
+  maxAmmoAmount: 0
   reticleModel:
     ReticleShapeType: 1
     ReticlePrefab: {fileID: 7875297149783155948, guid: cb08fa50bb613ee4eba357367c2429be, type: 3}

@@ -30,6 +30,7 @@ namespace Rigging.Demo.Characters
     public class IKHumanoidFootPlacement : MonoBehaviour
     {
         [SerializeField] private Animator animator;
+        [SerializeField] private LayerMask layerMask;
         [SerializeField] private LandingDetector landingDetector;
         [SerializeField, Range(0f, 1f)] private float distanceFootToGround;
         [SerializeField, Min(0f)] private float maxBodyDownDistance;
@@ -151,7 +152,7 @@ namespace Rigging.Demo.Characters
         {
             var ray = new Ray(animator.GetIKPosition(foot) + Vector3.up * footRayOffset, Vector3.down);
             
-            if (!Physics.Raycast(ray, out hitInfo, distanceFootToGround + footRayOffset, ~LayerMasks.Player)) return false;
+            if (!Physics.Raycast(ray, out hitInfo, distanceFootToGround + footRayOffset, layerMask)) return false;
             if (hitInfo.transform.gameObject.layer != Layers.Walkable) return false;
 
             return true;
@@ -168,7 +169,7 @@ namespace Rigging.Demo.Characters
             var toePosition = animator.GetIKPosition(ikOneFootData.IKGoal) + animator.GetIKRotation(ikOneFootData.IKGoal) * Vector3.forward * ikOneFootData.DistanceFootToToe;
             var ray = new Ray(toePosition + Vector3.up * toeRayOffset, Vector3.down);
             
-            if (!Physics.Raycast(ray, out hitInfo, toeRayOffset, ~LayerMasks.Player)) return false;
+            if (!Physics.Raycast(ray, out hitInfo, toeRayOffset, layerMask)) return false;
             if (hitInfo.transform.gameObject.layer != Layers.Walkable) return false;
 
             return true;
@@ -184,7 +185,7 @@ namespace Rigging.Demo.Characters
         {
             var ray = new Ray(animator.GetIKPosition(foot), Vector3.down);
             
-            if (Physics.Raycast(ray, out hitInfo, maxBodyDownDistance, ~LayerMasks.Player))
+            if (Physics.Raycast(ray, out hitInfo, maxBodyDownDistance, layerMask))
             {
                 if (hitInfo.transform.gameObject.layer == Layers.Walkable) return false;
             }
