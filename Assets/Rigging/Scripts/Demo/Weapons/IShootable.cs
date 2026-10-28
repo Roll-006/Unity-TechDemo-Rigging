@@ -1,4 +1,5 @@
-﻿using Rigging.Core;
+﻿using System.Collections.Generic;
+using Rigging.Core;
 using UnityEngine;
 
 namespace Rigging.Demo.Weapons
@@ -34,7 +35,8 @@ namespace Rigging.Demo.Weapons
         /// 撃つ。
         /// </summary>
         /// <param name="bulletPool">弾丸のプールマネージャー</param>
-        public void Shoot(GameObjectPool bulletPool, GameObjectPool hitPointPool);
+        /// <param name="ignoreColliders">無視するコライダー</param>
+        public void Shoot(GameObjectPool bulletPool, GameObjectPool hitPointPool, List<Collider> ignoreColliders);
         
         /// <summary>
         /// 狙う場所を更新する。

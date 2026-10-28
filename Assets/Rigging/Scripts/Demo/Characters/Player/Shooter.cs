@@ -1,4 +1,6 @@
-﻿using R3;
+﻿using System.Collections.Generic;
+using System.Linq;
+using R3;
 using Rigging.Common;
 using Rigging.Core;
 using Rigging.Demo.Reticle;
@@ -23,7 +25,7 @@ namespace Rigging.Demo.Characters.Player
         [SerializeField] private Transform gripPivot;
         [SerializeField] private Transform aimTrigger;
         [SerializeField] private Transform spine2Pivot;
-        [SerializeField] private Transform aimCameraPivot;
+        [SerializeField] private CameraPivotShareAxis cameraPivotShareAxis;
         [SerializeField] private float towardSpeed;
         
         public ReadOnlyReactiveProperty<bool> IsAiming => _isAiming;
@@ -32,6 +34,7 @@ namespace Rigging.Demo.Characters.Player
         private SwayAimUpdater _swayAimUpdater;
         private IReticleProvider _reticleProvider;
         private IShootable _shootableWeapon;
+        private List<Collider> _ignoreColliders;
         private int _gunLayerIndex;
         private bool _isAimingInput;
 
@@ -49,9 +52,10 @@ namespace Rigging.Demo.Characters.Player
             Debugger.ValidateSerializeField(gripPivot, this);
             Debugger.ValidateSerializeField(aimTrigger, this);
             Debugger.ValidateSerializeField(spine2Pivot, this);
-            Debugger.ValidateSerializeField(aimCameraPivot, this);
+            Debugger.ValidateSerializeField(cameraPivotShareAxis, this);
 
             _swayAimUpdater = new();
+            _ignoreColliders = GetComponentsInChildren<Collider>().ToList();
             _gunLayerIndex = animator.GetLayerIndex(AnimatorLayers.GunLayer);
         }
         
@@ -99,7 +103,7 @@ namespace Rigging.Demo.Characters.Player
 
         private void LateUpdate()
         {
-            _swayAimUpdater.SwayAim(_shootableWeapon, aimCameraPivot);
+            _swayAimUpdater.SwayAim(_shootableWeapon, cameraPivotShareAxis, IsAiming.CurrentValue);
         }
 
         private void OnActionTriggered(InputAction.CallbackContext context)
@@ -138,7 +142,7 @@ namespace Rigging.Demo.Characters.Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    _shootableWeapon.Shoot(bulletPool, hitPointPool);
+                    _shootableWeapon.Shoot(bulletPool, hitPointPool, _ignoreColliders);
                     break;
             }
             

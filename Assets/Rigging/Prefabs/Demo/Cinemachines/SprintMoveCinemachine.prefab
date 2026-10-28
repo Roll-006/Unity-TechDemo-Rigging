@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7428106667700689086
+--- !u!1 &5615437068469179057
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,14 +8,13 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3813336183980659992}
-  - component: {fileID: 7453272626172982477}
-  - component: {fileID: 622704181375990142}
-  - component: {fileID: 5106454215635753351}
-  - component: {fileID: 8798983406988528126}
-  - component: {fileID: 1028744436269918771}
-  - component: {fileID: 6387525929979816558}
-  - component: {fileID: 1898805519980072517}
+  - component: {fileID: 9018943263535261675}
+  - component: {fileID: 2119592026311588785}
+  - component: {fileID: 8492895391735817907}
+  - component: {fileID: 4989924271506714186}
+  - component: {fileID: 8652688452777010498}
+  - component: {fileID: 8091934081414844625}
+  - component: {fileID: 5251490602726074698}
   m_Layer: 0
   m_Name: SprintMoveCinemachine
   m_TagString: Untagged
@@ -23,28 +22,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3813336183980659992
+--- !u!4 &9018943263535261675
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7428106667700689086}
+  m_GameObject: {fileID: 5615437068469179057}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.043636803, y: 0, z: 0, w: 0.99904746}
-  m_LocalPosition: {x: -2.017, y: 1.2501843, z: -5.1487584}
+  m_LocalRotation: {x: -0.043634314, y: 1.961098e-12, z: 1.8409126e-12, w: 0.9990476}
+  m_LocalPosition: {x: -2.017, y: 1.2379783, z: -5.288225}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -5.002, y: 0, z: 0}
---- !u!114 &7453272626172982477
+  m_LocalEulerAnglesHint: {x: -4.97, y: 0, z: 0}
+--- !u!114 &2119592026311588785
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7428106667700689086}
+  m_GameObject: {fileID: 5615437068469179057}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
@@ -81,13 +80,13 @@ MonoBehaviour:
       BarrelClipping: 0.25
       Anamorphism: 0
   BlendHint: 0
---- !u!114 &622704181375990142
+--- !u!114 &8492895391735817907
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7428106667700689086}
+  m_GameObject: {fileID: 5615437068469179057}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 625c14eee3ad46c99df7c7c891ef668a, type: 3}
@@ -107,13 +106,13 @@ MonoBehaviour:
     CameraRadius: 0.2
     DampingIntoCollision: 0
     DampingFromCollision: 0.5
---- !u!114 &5106454215635753351
+--- !u!114 &4989924271506714186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7428106667700689086}
+  m_GameObject: {fileID: 5615437068469179057}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2588cc5dedbb75e49a44aada63f7b939, type: 3}
@@ -125,13 +124,13 @@ MonoBehaviour:
   IgnoreTag: 
   AimDistance: 200
   NoiseCancellation: 1
---- !u!114 &8798983406988528126
+--- !u!114 &8652688452777010498
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7428106667700689086}
+  m_GameObject: {fileID: 5615437068469179057}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbe43d662878a7c43bcd44d43c9e2094, type: 3}
@@ -164,20 +163,20 @@ MonoBehaviour:
     NearLimit: 5
     FarLimit: 30
     MaxQualityBoost: 0.2
---- !u!114 &1028744436269918771
+--- !u!114 &8091934081414844625
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7428106667700689086}
+  m_GameObject: {fileID: 5615437068469179057}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6f457ad16cdfd14196ac3fc111dc2e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rigging.CameraPivotController
   actionReference: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  cinemachine: {fileID: 7453272626172982477}
+  cinemachine: {fileID: 2119592026311588785}
   shareAxis: {fileID: 0}
   limitData:
     MaxYaw: 180
@@ -190,13 +189,13 @@ MonoBehaviour:
   isInvertPitch: 1
   speedMagnitude: 0.25
   maxSpeed: 9.5
---- !u!114 &6387525929979816558
+--- !u!114 &5251490602726074698
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7428106667700689086}
+  m_GameObject: {fileID: 5615437068469179057}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9c0c3dabeb143b4b91df920824f94e6, type: 3}
@@ -206,21 +205,7 @@ MonoBehaviour:
   bottomCameraDistance: 0.5
   topShoulderOffsetZ: -0.24
   bottomShoulderOffsetZ: 0.1
-  thirdPersonFollow: {fileID: 622704181375990142}
-  cinemachine: {fileID: 7453272626172982477}
+  thirdPersonFollow: {fileID: 8492895391735817907}
+  cinemachine: {fileID: 2119592026311588785}
   maxPitch: 50
   minPitch: -40
---- !u!114 &1898805519980072517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7428106667700689086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb22da490cd54657b49c534b627cfeb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Rigging::Rigging.Demo.Characters.Player.SprintCinemachineEnabler
-  cinemachine: {fileID: 7453272626172982477}
-  playerMovement: {fileID: 0}

@@ -1,4 +1,5 @@
-﻿using Rigging.Core;
+﻿using System.Collections.Generic;
+using Rigging.Core;
 using Rigging.Demo.Inventory;
 using Rigging.Demo.Items;
 using Rigging.Demo.Reticle;
@@ -53,10 +54,13 @@ namespace Rigging.Demo.Weapons
             UpdateAimTarget();
         }
 
-        public void Shoot(GameObjectPool bulletPool, GameObjectPool hitPointPool)
+        public void Shoot(GameObjectPool bulletPool, GameObjectPool hitPointPool, List<Collider> ignoreColliders)
         {
             var bullet = bulletPool.Get().GetComponent<Bullet>();
-            bullet?.OnShot(InitialVelocity, Range, rayPivot, _weaponRay.direction, bulletPool);
+            if (bullet == null) return;
+            
+            bullet.OnShot(InitialVelocity, Range, rayPivot, _weaponRay.direction, bulletPool, ignoreColliders);
+            bullet.RecordHitPoint(hitPointPool);
         }
 
         public void UpdateAimTarget()

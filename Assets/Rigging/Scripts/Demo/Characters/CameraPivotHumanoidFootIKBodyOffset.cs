@@ -7,18 +7,18 @@ namespace Rigging.Demo.Characters
     {
         [SerializeField] private IKHumanoidFootPlacement footPlacement;
 
-        private float _initializeHeight;
+        private float _initialHeight;
 
         private void Awake()
         {
             Debugger.ValidateSerializeField(footPlacement, this);
             
-            _initializeHeight = transform.localPosition.y;
+            _initialHeight = transform.localPosition.y;
         }
 
         private void LateUpdate()
         {
-            transform.localPosition = new(transform.localPosition.x, _initializeHeight, transform.localPosition.z);
+            transform.localPosition = new(transform.localPosition.x, _initialHeight, transform.localPosition.z);
             
             var position = transform.position;
             position.y -= footPlacement.CurrentBodyDownOffset;

@@ -11,7 +11,7 @@ namespace Rigging.Demo.Items
         private GameObjectPool _hitPointPool;
         private Vector3 _initialPosition;
         private float _range;
-        private List<Collider> _ignoreColliders = new();
+        private List<Collider> _ignoreColliders;
 
         private void Awake()
         {
@@ -35,9 +35,12 @@ namespace Rigging.Demo.Items
 
         private void OnCollisionEnter(Collision collision)
         {
-            foreach (var ignoreCollider in _ignoreColliders)
+            if (_ignoreColliders != null)
             {
-                if (ignoreCollider == collision.collider) return;
+                foreach (var ignoreCollider in _ignoreColliders)
+                {
+                    if (ignoreCollider == collision.collider) return;
+                }
             }
             
             var contact = collision.GetContact(0);
@@ -54,20 +57,21 @@ namespace Rigging.Demo.Items
         /// <param name="shotPivot">発射地点の Pivot</param>
         /// <param name="shotDirection">撃った方向</param>
         /// <param name="bulletPool">弾丸のプールマネージャー</param>
-        public void OnShot(float initialVelocity, float range, Transform shotPivot, Vector3 shotDirection, GameObjectPool bulletPool)
+        /// <param name="ignoreColliders">無視するコライダー</param>
+        public void OnShot(float initialVelocity, float range, Transform shotPivot, Vector3 shotDirection, GameObjectPool bulletPool, List<Collider> ignoreColliders)
         {
             _bulletPool = bulletPool;
             _range = range;
+            _ignoreColliders = ignoreColliders;
             
-            transform.position = shotPivot.position;
-            transform.rotation = shotPivot.rotation;
+            transform.SetPositionAndRotation(shotPivot.position, shotPivot.rotation);
             _rigidbody.AddForce(shotDirection * initialVelocity, ForceMode.Impulse);
         }
 
         private void Release()
         {
             _bulletPool.Release(gameObject);
-            _ignoreColliders.Clear();
+            _ignoreColliders = null;
         }
 
         public void RecordHitPoint(GameObjectPool hitPointPool)

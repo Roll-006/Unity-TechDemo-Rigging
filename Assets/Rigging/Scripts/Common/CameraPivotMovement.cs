@@ -38,15 +38,16 @@ namespace Rigging.Common
         {
             if (CinemachineCore.IsLive(cinemachine))
             {
-                AddInput();
-                shareAxis.MovePivot(Input);
+                UpdateInput();
+                shareAxis.AddInput(Input);
                 shareAxis.ApplyLimit(limitData);
             }
             
             cinemachine.Target.TrackingTarget.transform.rotation = Quaternion.Euler(shareAxis.Axis.y, shareAxis.Axis.x, 0f);
+            cinemachine.Target.TrackingTarget.transform.rotation *= Quaternion.Euler(shareAxis.Noise.x, shareAxis.Noise.y, 0f);
         }
 
-        private void AddInput()
+        private void UpdateInput()
         {
             Input = actionReference.action.ReadValue<Vector2>();
             Input *= new Vector2(isInvertYaw ? -1 : 1, isInvertPitch ? -1 : 1) * speedMagnitude;

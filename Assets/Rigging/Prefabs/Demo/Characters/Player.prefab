@@ -468,8 +468,8 @@ MonoBehaviour:
         transform: {fileID: 0}
         weight: 0
     m_Offset: {x: 0, y: 0, z: 0}
-    m_MinLimit: -90
-    m_MaxLimit: 90
+    m_MinLimit: -20
+    m_MaxLimit: 20
     m_AimAxis: 4
     m_UpAxis: 2
     m_WorldUpType: 0
@@ -478,8 +478,8 @@ MonoBehaviour:
     m_MaintainOffset: 0
     m_ConstrainedAxes:
       x: 1
-      y: 1
-      z: 1
+      y: 0
+      z: 0
 --- !u!1 &5068007385669987790
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,8 +641,8 @@ MonoBehaviour:
         transform: {fileID: 0}
         weight: 0
     m_Offset: {x: 0, y: 0, z: 0}
-    m_MinLimit: -180
-    m_MaxLimit: 180
+    m_MinLimit: -50
+    m_MaxLimit: 50
     m_AimAxis: 4
     m_UpAxis: 2
     m_WorldUpType: 0
@@ -651,8 +651,8 @@ MonoBehaviour:
     m_MaintainOffset: 0
     m_ConstrainedAxes:
       x: 1
-      y: 1
-      z: 1
+      y: 0
+      z: 0
 --- !u!1 &6696748144492766937
 GameObject:
   m_ObjectHideFlags: 0
@@ -1747,6 +1747,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Rigging::Rigging.Demo.Characters.IKFootPlacement
   animator: {fileID: 145777745517364244}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 119
   landingDetector: {fileID: 3013723064189833041}
   distanceFootToGround: 0.11
   maxBodyDownDistance: 0.6
@@ -1805,14 +1808,17 @@ MonoBehaviour:
   playerInput: {fileID: 8653298901011962525}
   aimGunAction: {fileID: -6834717552555626933, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   fireAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  reloadAction: {fileID: 6344066472068238823, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   animator: {fileID: 145777745517364244}
+  bulletPool: {fileID: 0}
+  hitPointPool: {fileID: 0}
   weaponHolder: {fileID: 5286044153528273230}
   playerMovement: {fileID: 8744046751771125862}
   cameraPivotMovement: {fileID: 0}
   gripPivot: {fileID: 634774319089298478}
   aimTrigger: {fileID: 2990940900379771316}
   spine2Pivot: {fileID: 8353929034275076428}
-  aimCameraPivot: {fileID: 6636028573596938164}
+  cameraPivotShareAxis: {fileID: 0}
   towardSpeed: 4
 --- !u!114 &5286044153528273230
 MonoBehaviour:

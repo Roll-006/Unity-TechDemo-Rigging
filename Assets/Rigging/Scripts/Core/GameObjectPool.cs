@@ -7,7 +7,7 @@ namespace Rigging.Core
     {
         [SerializeField] private GameObject pooledPrefab;
         [SerializeField] private Transform parent;
-        [SerializeField, Min(0)] private int initializePoolSize;
+        [SerializeField, Min(0)] private int initialPoolSize;
         [SerializeField, Min(0)] private int maxPoolSize;
         
         private ObjectPool<GameObject> _pool;
@@ -20,7 +20,7 @@ namespace Rigging.Core
                 actionOnRelease: OnReturnedObject,
                 actionOnDestroy: OnDestroyObject,
                 collectionCheck: false,
-                defaultCapacity: initializePoolSize,
+                defaultCapacity: initialPoolSize,
                 maxSize: maxPoolSize
             );
         }

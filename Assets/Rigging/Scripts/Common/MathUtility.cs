@@ -4,7 +4,7 @@ namespace Rigging.Common
 {
     public static class MathUtility
     {
-        private const float KSqrt2Half = 0.70710678118f;
+        private const float kSqrt2Half = 0.70710678118f;
         
         /// <summary>
         /// 直角二等辺三角形の隣辺の1つの長さを取得する。
@@ -14,7 +14,7 @@ namespace Rigging.Common
         public static float GetIsoscelesRightTriangleLegLength(float hypotenuse)
         {
             // 直角二等辺三角形の各辺の比率より (1 : 1 : √2)
-            return hypotenuse * KSqrt2Half;
+            return hypotenuse * kSqrt2Half;
         }
         
         /// <summary>

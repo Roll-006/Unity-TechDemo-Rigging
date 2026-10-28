@@ -5,8 +5,14 @@ namespace Rigging.Common
     public class CameraPivotShareAxis : MonoBehaviour
     {
         public Vector2 Axis { get; private set; }
+        public Vector2 Noise { get; private set; }
 
-        public void MovePivot(Vector2 input)
+        public void SetNoise(Vector2 noise)
+        {
+            Noise = noise;
+        }
+        
+        public void AddInput(Vector2 input)
         {
             Axis += input;
         }
