@@ -910,6 +910,8 @@ MonoBehaviour:
   swayAmount: 1
   swaySpeed: 1
   rayPivot: {fileID: 6708908309979222767}
+  ammoAmount: 0
+  maxAmmoAmount: 0
   reticleModel:
     ReticleShapeType: 1
     ReticlePrefab: {fileID: 7875297149783155948, guid: a3e4d16ce1ead0742b1efa93eb3b4f33, type: 3}
