@@ -137,7 +137,7 @@ MonoBehaviour:
     LeftHandRigHintPosition: {x: 0.096, y: -0.04, z: 0.18}
     LeftHandRigTargetPosition: {x: -0.0055506, y: 0.02513298, z: 0.0692343}
     LeftHandRigTargetRotation: {x: 7.282, y: -155.581, z: 13.942}
-  initialVelocity: 98
+  initialVelocity: 250
   range: 50
   swayAmount: 1
   swaySpeed: 1
