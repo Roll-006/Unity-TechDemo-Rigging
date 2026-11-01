@@ -1,6 +1,7 @@
 using System;
 using Rigging.Core;
 using Rigging.Common;
+using Rigging.Demo.Items;
 using UnityEngine;
 
 namespace Rigging.Demo.Characters.Player
@@ -16,6 +17,8 @@ namespace Rigging.Demo.Characters.Player
         public AimTrigger AimTrigger => aimTrigger;
         public AimTrigger AimArmBackTrigger => aimArmBackTrigger;
         public AimTrigger AimBackTrigger => aimBackTrigger;
+        
+        private readonly Collider[] _hitColliders = new Collider[16];
         
         private void Awake()
         {
@@ -63,24 +66,47 @@ namespace Rigging.Demo.Characters.Player
         {
             if (wasNotifiedTrigger) return false;
 
-            if (Physics.CheckCapsule(
-                    currentAimTrigger.transform.position,
-                    targetAimTrigger.transform.position,
-                    extendArmTriggerRadius,
-                    ~LayerMasks.Player,
-                    QueryTriggerInteraction.Ignore))
-                return false;
+            if (!CheckCapsule(currentAimTrigger, targetAimTrigger)) return false;
+            if (!CheckRay(targetAimTrigger)) return false;
             
+            animator.SetTrigger(AnimatorParameters.ExtendArm);
+            return true;
+        }
+
+        private bool CheckCapsule(AimTrigger currentAimTrigger, AimTrigger targetAimTrigger)
+        {
+            var hitCount = Physics.OverlapCapsuleNonAlloc(
+                currentAimTrigger.transform.position,
+                targetAimTrigger.transform.position,
+                extendArmTriggerRadius,
+                _hitColliders,
+                ~LayerMasks.Player,
+                QueryTriggerInteraction.Ignore);
+
+            for (var i = 0; i < hitCount; i++)
+            {
+                if (_hitColliders[i].TryGetComponent<IOwnable>(out var ownable) && ownable.Owner == gameObject) continue;
+
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool CheckRay(AimTrigger targetAimTrigger)
+        {
             var spine2ToTarget = targetAimTrigger.transform.position - spine2Pivot.position;
             if (Physics.Raycast(
                     spine2Pivot.position,
                     spine2ToTarget.normalized,
+                    out var hitInfo,
                     spine2ToTarget.magnitude,
                     ~LayerMasks.Player,
                     QueryTriggerInteraction.Ignore))
-                return false;
-            
-            animator.SetTrigger(AnimatorParameters.ExtendArm);
+            {
+                if (!hitInfo.collider.TryGetComponent<IOwnable>(out var ownable) || ownable.Owner != gameObject) return false;
+            }
+                
             return true;
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Rigging.Core;
 using Rigging.Demo.Inventory;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace Rigging.Demo.Weapons
 {
-    public class Revolver : WeaponBase, IShootable, IReloadable, IReticleProvider, IInventoryStorable
+    public class Revolver : WeaponBase, IShootable, IReloadable, IReticleProvider, IOwnable, IInventoryStorable
     {
         [SerializeField] private WeaponRigData rig;
         [SerializeField] private float initialVelocity;
@@ -32,6 +33,7 @@ namespace Rigging.Demo.Weapons
         public int MaxAmmoAmount => maxAmmoAmount;
         public ReticleModel ReticleModel => reticleModel;
         public ReticleEnlargeState ReticleEnlargeState { private set; get; }
+        public GameObject Owner { get; private set; }
         public Vector2Int GridSize => gridSize;
         public Sprite Icon => icon;
 
@@ -56,11 +58,16 @@ namespace Rigging.Demo.Weapons
 
         public void Shoot(GameObjectPool bulletPool, GameObjectPool hitPointPool, List<Collider> ignoreColliders)
         {
-            var bullet = bulletPool.Get().GetComponent<Bullet>();
+            var obj = bulletPool.Get();
+            
+            var bullet = obj.GetComponent<Bullet>();
             if (bullet == null) return;
+            var ownable = obj.GetComponent<IOwnable>();
+            if (ownable == null) return;
             
             bullet.OnShot(InitialVelocity, Range, rayPivot, _weaponRay.direction, bulletPool, ignoreColliders);
             bullet.RecordHitPoint(hitPointPool);
+            ownable.SetOwner(Owner);
         }
 
         public void UpdateAimTarget()
@@ -71,17 +78,23 @@ namespace Rigging.Demo.Weapons
             // カメラからのレイ
             var cameraTransform = outputCamera.transform;
             var cameraRay = new Ray(cameraTransform.position + cameraTransform.forward * 2f, cameraTransform.forward);
-            var obstaclePosition = Physics.Raycast(cameraRay, out var cameraTarget) ? cameraTarget.point : cameraTransform.position + cameraTransform.forward * Range;
-            var direction = (obstaclePosition - rayPivot.position).normalized;
+            var cameraTarget = Physics.Raycast(cameraRay, out var cameraHitInfo) ? cameraHitInfo.point : cameraTransform.position + cameraTransform.forward * Range;
 
             // 武器からのレイ
+            var direction = (cameraTarget - rayPivot.position).normalized;
             _weaponRay = new Ray(rayPivot.position, direction);
-            AimTarget.position = Physics.Raycast(_weaponRay, out var weaponTarget) ? weaponTarget.point : obstaclePosition;
-            
+            if (Physics.Raycast(_weaponRay, out var weaponHitInfo))
+            {
+                AimTarget.position = !weaponHitInfo.collider.TryGetComponent<IOwnable>(out var ownable) || ownable.Owner != Owner ? 
+                    weaponHitInfo.point : cameraTarget;
+            }
+            else
+            {
+                AimTarget.position = cameraTarget;
+            }
+
             // 障害物と衝突した場合座標を通知
-            ReticleModel.ObstaclePosition.Value = Vector3.Distance(AimTarget.position, obstaclePosition) > 0.1f ? AimTarget.position : null;
-            
-            Debug.DrawRay(_weaponRay.origin, _weaponRay.direction, Color.red);
+            ReticleModel.ObstaclePosition.Value = Vector3.Distance(AimTarget.position, cameraTarget) > 0.1f ? AimTarget.position : null;
         }
 
         public void OnReload()
@@ -112,6 +125,11 @@ namespace Rigging.Demo.Weapons
         public void UpdateReticle()
         {
             ReticleUpdater.CalcReticleSize(ReticleModel, ReticleEnlargeState);
+        }
+        
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
         }
     }
 }

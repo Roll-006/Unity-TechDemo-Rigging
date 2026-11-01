@@ -2,6 +2,7 @@
 using Rigging.Common;
 using System.Collections.Generic;
 using R3;
+using Rigging.Demo.Items;
 using Rigging.Demo.Weapons;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -38,6 +39,7 @@ namespace Rigging.Demo.Characters.Player
         public ReadOnlyReactiveProperty<WeaponBase> EquippedWeaponInstanceChanged => _equippedWeaponInstanceChanged;
         
         private readonly ReactiveProperty<WeaponBase> _equippedWeaponInstanceChanged = new();
+        private IOwnable _ownableWeapon;
         private bool _isEquipped; //仮
         private int _count; //仮
 
@@ -120,6 +122,7 @@ namespace Rigging.Demo.Characters.Player
 
             EquippedWeapon = PendingWeapon;
 
+            // TODO: 設計変更候補
             rightHandGripPivot.localPosition = EquippedWeapon.Rig.PivotOffset;
             leftHandRigHint.localPosition = EquippedWeapon.Rig.LeftHandRigHintPosition;
             leftHandRigTarget.localPosition = EquippedWeapon.Rig.LeftHandRigTargetPosition;
@@ -134,6 +137,12 @@ namespace Rigging.Demo.Characters.Player
                 shootable.AimTarget = aimTarget;
             }
             
+            _ownableWeapon = EquippedWeaponInstance.GetComponent<IOwnable>();
+            if (_ownableWeapon != null)
+            {
+                _ownableWeapon.SetOwner(gameObject);
+            }
+            
             _equippedWeaponInstanceChanged.Value = EquippedWeaponInstance;
         }
 
@@ -145,6 +154,7 @@ namespace Rigging.Demo.Characters.Player
 
             EquippedWeaponInstance = null;
             EquippedWeapon = null;
+            _ownableWeapon = null;
             
             _equippedWeaponInstanceChanged.Value = EquippedWeaponInstance;
         }

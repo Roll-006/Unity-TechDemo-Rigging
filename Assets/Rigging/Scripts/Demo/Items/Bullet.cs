@@ -4,8 +4,11 @@ using UnityEngine;
 
 namespace Rigging.Demo.Items
 {
-    public class Bullet : MonoBehaviour
+    public class Bullet : MonoBehaviour, IOwnable
     {
+        public GameObject Owner { get; private set; }
+        
+        private bool _isReleased;
         private Rigidbody _rigidbody;
         private GameObjectPool _bulletPool;
         private GameObjectPool _hitPointPool;
@@ -20,6 +23,7 @@ namespace Rigging.Demo.Items
 
         private void OnEnable()
         {
+            _isReleased = false;
             _rigidbody.linearVelocity = Vector3.zero;
             _rigidbody.angularVelocity = Vector3.zero;
             _initialPosition = transform.position;
@@ -35,6 +39,12 @@ namespace Rigging.Demo.Items
 
         private void OnCollisionEnter(Collision collision)
         {
+            if (_isReleased) return;
+            if (collision.gameObject == Owner) return;
+            
+            var ownable = collision.collider.GetComponent<IOwnable>();
+            if (!(ownable == null || ownable.Owner != Owner)) return;
+            
             if (_ignoreColliders != null)
             {
                 foreach (var ignoreCollider in _ignoreColliders)
@@ -45,8 +55,13 @@ namespace Rigging.Demo.Items
             
             var contact = collision.GetContact(0);
             _hitPointPool.Get().transform.SetPositionAndRotation(contact.point, Quaternion.LookRotation(contact.normal));
-
+            
             Release();
+        }
+
+        public void SetOwner(GameObject owner)
+        {
+            Owner = owner;
         }
 
         /// <summary>
@@ -60,6 +75,8 @@ namespace Rigging.Demo.Items
         /// <param name="ignoreColliders">無視するコライダー</param>
         public void OnShot(float initialVelocity, float range, Transform shotPivot, Vector3 shotDirection, GameObjectPool bulletPool, List<Collider> ignoreColliders)
         {
+            if (_isReleased) return;
+            
             _bulletPool = bulletPool;
             _range = range;
             _ignoreColliders = ignoreColliders;
@@ -70,6 +87,7 @@ namespace Rigging.Demo.Items
 
         private void Release()
         {
+            _isReleased = true;
             _bulletPool.Release(gameObject);
             _ignoreColliders = null;
         }
