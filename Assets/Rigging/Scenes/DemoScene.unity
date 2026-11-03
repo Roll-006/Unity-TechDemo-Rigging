@@ -692,6 +692,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 490899188693643882, guid: 1447992f184ba904bb3f650a08e41d9c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.666
+      objectReference: {fileID: 0}
     - target: {fileID: 3794954169302928909, guid: 1447992f184ba904bb3f650a08e41d9c, type: 3}
       propertyPath: m_Name
       value: PrototypeMap
@@ -735,6 +739,18 @@ PrefabInstance:
     - target: {fileID: 4603156116648498359, guid: 1447992f184ba904bb3f650a08e41d9c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960452862334285126, guid: 1447992f184ba904bb3f650a08e41d9c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.594
+      objectReference: {fileID: 0}
+    - target: {fileID: 6422249035401838200, guid: 1447992f184ba904bb3f650a08e41d9c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.533
+      objectReference: {fileID: 0}
+    - target: {fileID: 9215344783491857071, guid: 1447992f184ba904bb3f650a08e41d9c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.527
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1341,6 +1357,10 @@ PrefabInstance:
       propertyPath: hitPointPool
       value: 
       objectReference: {fileID: 141659547}
+    - target: {fileID: 5322086283071475904, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
+      propertyPath: rootRectTransform
+      value: 
+      objectReference: {fileID: 867660344}
     - target: {fileID: 5322086283071475904, guid: f39e9c2e062c6bd46a3bded0692f6a0f, type: 3}
       propertyPath: cameraPivotMovement
       value: 

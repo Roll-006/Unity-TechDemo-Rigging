@@ -4,6 +4,5 @@ namespace Rigging.Demo.Reticle
     {
         Square,
         Circle,
-        Capsule,
     }
 }

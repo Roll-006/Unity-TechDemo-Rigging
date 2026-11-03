@@ -7,7 +7,7 @@ namespace Rigging.Demo.Reticle
     {
         public static void CalcCardinalDirectionPosition(RectTransform transform, CardinalDirection direction, float size)
         {
-            transform.sizeDelta = new Vector2(size, size);
+            transform.sizeDelta = new(size, size);
             
             if (direction.Left != null) direction.Left.anchoredPosition = new(-direction.Left.sizeDelta.x / 2f, 0f);
             if (direction.Right != null) direction.Right.anchoredPosition = new(direction.Right.sizeDelta.x / 2f, 0f);

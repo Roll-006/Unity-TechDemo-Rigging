@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Rigging.Core;
 using Rigging.Demo.Inventory;
 using Rigging.Demo.Items;
@@ -56,7 +55,7 @@ namespace Rigging.Demo.Weapons
             UpdateAimTarget();
         }
 
-        public void Shoot(GameObjectPool bulletPool, GameObjectPool hitPointPool, List<Collider> ignoreColliders)
+        public void Shoot(GameObjectPool bulletPool, RectTransform rootRectTransform, GameObjectPool hitPointPool, List<Collider> ignoreColliders)
         {
             var obj = bulletPool.Get();
             
@@ -65,7 +64,7 @@ namespace Rigging.Demo.Weapons
             var ownable = obj.GetComponent<IOwnable>();
             if (ownable == null) return;
             
-            bullet.OnShot(InitialVelocity, Range, rayPivot, _weaponRay.direction, bulletPool, ignoreColliders);
+            bullet.OnShot(InitialVelocity, Range, rayPivot, ShootDirectionCalculator.CalcShootDirection(ReticleModel, AimTarget.position, rootRectTransform, _weaponRay), bulletPool, ignoreColliders);
             bullet.RecordHitPoint(hitPointPool);
             ownable.SetOwner(Owner);
         }

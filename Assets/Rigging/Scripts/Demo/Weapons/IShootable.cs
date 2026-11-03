@@ -35,8 +35,9 @@ namespace Rigging.Demo.Weapons
         /// 撃つ。
         /// </summary>
         /// <param name="bulletPool">弾丸のプールマネージャー</param>
+        /// <param name="rootRectTransform">UI のルート</param>
         /// <param name="ignoreColliders">無視するコライダー</param>
-        public void Shoot(GameObjectPool bulletPool, GameObjectPool hitPointPool, List<Collider> ignoreColliders);
+        public void Shoot(GameObjectPool bulletPool, RectTransform rootRectTransform, GameObjectPool hitPointPool, List<Collider> ignoreColliders);
         
         /// <summary>
         /// 狙う場所を更新する。

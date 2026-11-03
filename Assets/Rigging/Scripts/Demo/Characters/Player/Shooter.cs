@@ -16,6 +16,7 @@ namespace Rigging.Demo.Characters.Player
         [SerializeField] private InputActionReference aimGunAction;
         [SerializeField] private InputActionReference fireAction;
         [SerializeField] private InputActionReference reloadAction;
+        [SerializeField] private RectTransform rootRectTransform;
         [SerializeField] private Animator animator;
         [SerializeField] private GameObjectPool bulletPool;
         [SerializeField] private GameObjectPool hitPointPool;
@@ -44,6 +45,7 @@ namespace Rigging.Demo.Characters.Player
             Debugger.ValidateSerializeField(aimGunAction, this);
             Debugger.ValidateSerializeField(fireAction, this);
             Debugger.ValidateSerializeField(reloadAction, this);
+            Debugger.ValidateSerializeField(rootRectTransform, this);
             Debugger.ValidateSerializeField(animator, this);
             Debugger.ValidateSerializeField(bulletPool, this);
             Debugger.ValidateSerializeField(weaponHolder, this);
@@ -142,7 +144,7 @@ namespace Rigging.Demo.Characters.Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    _shootableWeapon.Shoot(bulletPool, hitPointPool, _ignoreColliders);
+                    _shootableWeapon.Shoot(bulletPool, rootRectTransform, hitPointPool, _ignoreColliders);
                     break;
             }
             
