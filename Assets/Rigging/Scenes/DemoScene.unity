@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 141659548}
   - component: {fileID: 141659547}
   m_Layer: 0
-  m_Name: HitPointRecorder
+  m_Name: HitPointPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Rigging::Rigging.Core.PoolManager
   pooledPrefab: {fileID: 3106739694446275295, guid: a43c1dbfe798f704d85c8b9b478eed42, type: 3}
   parent: {fileID: 141659548}
-  initialPoolSize: 0
+  initialPoolSize: 10
   maxPoolSize: 100
 --- !u!4 &141659548
 Transform:
@@ -667,7 +667,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Rigging::Rigging.Demo.Bullet.BulletPool
   pooledPrefab: {fileID: 3106739694446275295, guid: 02e4c110a37038c41b45ec0bf9d7080c, type: 3}
   parent: {fileID: 0}
-  initialPoolSize: 0
+  initialPoolSize: 10
   maxPoolSize: 100
 --- !u!4 &1670204609
 Transform:

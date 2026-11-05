@@ -12,7 +12,7 @@ namespace Rigging.Core
         
         private ObjectPool<GameObject> _pool;
         
-        private void Start()
+        private void Awake()
         {
             _pool = new(
                 createFunc: OnCreateObject,
@@ -42,7 +42,7 @@ namespace Rigging.Core
 
         void OnDestroyObject(GameObject obj)
         {
-            Destroy(obj);
+            Debug.Log(obj.name);
         }
 
         public GameObject Get()

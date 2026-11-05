@@ -111,9 +111,7 @@ namespace Rigging.Demo.Weapons
         
         public void OnEnlargeReticle()
         {
-            ReticleModel.CurrentSize.Value = ReticleModel.CurrentSize.CurrentValue < ReticleModel.MiddleSize ? 
-                ReticleModel.MiddleSize : 
-                Mathf.Min(ReticleModel.MaxSize, ReticleModel.CurrentSize.CurrentValue + ReticleModel.ShotEnlargeAmount);
+            ReticleModel.CurrentSize.Value = Mathf.Min(ReticleModel.MaxSize, ReticleModel.CurrentSize.CurrentValue + ReticleModel.ShotEnlargeAmount);
         }
 
         public void UpdateReticle()

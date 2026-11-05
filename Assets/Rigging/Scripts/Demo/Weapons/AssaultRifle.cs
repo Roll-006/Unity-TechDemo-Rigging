@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Rigging.Demo.Weapons
 {
-    public class Rifle : WeaponBase, IShootable, IReloadable, IReticleProvider, IOwnable, IInventoryStorable
+    public class AssaultRifle : WeaponBase, IShootable, IReloadable, IReticleProvider, IOwnable, IInventoryStorable
     {
         [SerializeField] private WeaponRigData rig;
         [SerializeField] private float initialVelocity;
@@ -110,9 +110,7 @@ namespace Rigging.Demo.Weapons
         
         public void OnEnlargeReticle()
         {
-            ReticleModel.CurrentSize.Value = ReticleModel.CurrentSize.CurrentValue < ReticleModel.MiddleSize ? 
-                ReticleModel.MiddleSize : 
-                Mathf.Min(ReticleModel.MaxSize, ReticleModel.CurrentSize.CurrentValue + ReticleModel.ShotEnlargeAmount);
+            ReticleModel.CurrentSize.Value = Mathf.Min(ReticleModel.MaxSize, ReticleModel.CurrentSize.CurrentValue + ReticleModel.ShotEnlargeAmount);
         }
         
         public void UpdateReticle()

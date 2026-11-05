@@ -95,7 +95,7 @@ namespace Rigging.Demo.Weapons
             }
 
             // 障害物と衝突した場合座標を通知
-            ReticleModel.ObstaclePosition.Value = Vector3.Distance(AimTarget.position, cameraTarget) > 0.1f ? AimTarget.position : null;
+            ReticleModel.ObstaclePosition.Value = Vector3.Distance(AimTarget.position, cameraTarget) > 0.1f && Vector3.Distance(AimTarget.position, _weaponRay.origin) < 4f ? AimTarget.position : null;
         }
 
         public void OnReload()
@@ -110,9 +110,7 @@ namespace Rigging.Demo.Weapons
 
         public void OnEnlargeReticle()
         {
-            ReticleModel.CurrentSize.Value = ReticleModel.CurrentSize.CurrentValue < ReticleModel.MiddleSize ? 
-                ReticleModel.MiddleSize : 
-                Mathf.Min(ReticleModel.MaxSize, ReticleModel.CurrentSize.CurrentValue + ReticleModel.ShotEnlargeAmount);
+            ReticleModel.CurrentSize.Value = Mathf.Min(ReticleModel.MaxSize, ReticleModel.CurrentSize.CurrentValue + ReticleModel.ShotEnlargeAmount);
         }
 
         public void UpdateReticle()

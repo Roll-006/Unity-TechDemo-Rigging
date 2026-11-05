@@ -145,13 +145,13 @@ MonoBehaviour:
   ammoAmount: 0
   maxAmmoAmount: 0
   reticleModel:
-    ReticleShapeType: 1
+    ReticleShapeType: 2
     ReticlePrefab: {fileID: 7875297149783155948, guid: cb08fa50bb613ee4eba357367c2429be, type: 3}
     MinSize: 40
     MiddleSize: 80
     MaxSize: 130
     ObstacleSize: 250
-    ShotEnlargeAmount: 10
+    ShotEnlargeAmount: 130
     FirstStepEnlargeSpeed: 140
     FirstStepReduceSpeed: 140
     SecondStepEnlargeSpeed: 60

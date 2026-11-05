@@ -48,7 +48,7 @@ namespace Rigging.Demo.Reticle
         public float MaxSize;
         
         /// <summary>
-        /// 障害物に衝突した際のサイズ
+        /// 障害物衝突時レティクルサイズ
         /// </summary>
         public float ObstacleSize;
 
