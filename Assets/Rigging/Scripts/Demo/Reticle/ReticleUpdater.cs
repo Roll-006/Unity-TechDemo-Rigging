@@ -14,6 +14,13 @@ namespace Rigging.Demo.Reticle
             if (reticleEnlargeState == ReticleEnlargeState.Stop) return;
 
             var isEnlarge = reticleEnlargeState == ReticleEnlargeState.Enlarge;
+            if (isEnlarge)
+            {
+                if (model.CurrentSize.Value < model.MiddleSize)
+                {
+                    model.CurrentSize.Value = model.MiddleSize;
+                }
+            }
             
             if (model.CurrentSize.CurrentValue >= model.MaxSize && isEnlarge) return;
             if (model.CurrentSize.CurrentValue <= model.MinSize && !isEnlarge) return;

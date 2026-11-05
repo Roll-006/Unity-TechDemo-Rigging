@@ -196,18 +196,11 @@ namespace Rigging.Demo.Characters.Player
             
             if (playerMovement.IsMoving || cameraPivotMovement.InputMagnitude > 1f)
             {
-                _reticleProvider.OnEnlargeReticle();
+                _reticleProvider.SetEnlargeState(ReticleEnlargeState.Enlarge);
                 return;
             }
-
-            if (IsAiming.CurrentValue)
-            {
-                _reticleProvider.OnReduceReticle();
-            }
-            else
-            {
-                _reticleProvider.OnStopReticle();
-            }
+            
+            _reticleProvider.SetEnlargeState(IsAiming.CurrentValue ? ReticleEnlargeState.Reduce : ReticleEnlargeState.Stop);
         }
 
         /// <summary>

@@ -51,6 +51,11 @@ namespace Rigging.Demo.Reticle
         /// 障害物に衝突した際のサイズ
         /// </summary>
         public float ObstacleSize;
+
+        /// <summary>
+        /// 射撃時のレティクル拡大量
+        /// </summary>
+        public float ShotEnlargeAmount;
         
         /// <summary>
         /// MinSize -> MiddleSize への拡大速度

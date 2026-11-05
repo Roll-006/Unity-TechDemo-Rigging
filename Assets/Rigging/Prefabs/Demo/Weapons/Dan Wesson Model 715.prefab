@@ -99,6 +99,7 @@ MonoBehaviour:
     MiddleSize: 80
     MaxSize: 130
     ObstacleSize: 250
+    ShotEnlargeAmount: 50
     FirstStepEnlargeSpeed: 140
     FirstStepReduceSpeed: 140
     SecondStepEnlargeSpeed: 60

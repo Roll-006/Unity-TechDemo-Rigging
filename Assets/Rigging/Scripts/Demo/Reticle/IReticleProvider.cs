@@ -9,19 +9,14 @@ namespace Rigging.Demo.Reticle
         public ReticleEnlargeState ReticleEnlargeState { get; }
 
         /// <summary>
+        /// レティクルを拡大状態を設定する。
+        /// </summary>
+        public void SetEnlargeState(ReticleEnlargeState state);
+
+        /// <summary>
         /// レティクルを拡大する。
         /// </summary>
         public void OnEnlargeReticle();
-
-        /// <summary>
-        /// レティクルを縮小する。
-        /// </summary>
-        public void OnReduceReticle();
-        
-        /// <summary>
-        /// レティクルを停止する。
-        /// </summary>
-        public void OnStopReticle();
         
         /// <summary>
         /// レティクルを更新する。

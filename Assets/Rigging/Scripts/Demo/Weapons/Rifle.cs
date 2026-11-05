@@ -65,8 +65,10 @@ namespace Rigging.Demo.Weapons
             if (ownable == null) return;
             
             bullet.OnShot(InitialVelocity, Range, rayPivot, ShootDirectionCalculator.CalcShootDirection(ReticleModel, AimTarget.position, rootRectTransform, _weaponRay), bulletPool, ignoreColliders);
-            bullet.RecordHitPoint(hitPointPool);
             ownable.SetOwner(Owner);
+            OnEnlargeReticle();
+            
+            bullet.RecordHitPoint(hitPointPool);
         }
 
         public void UpdateAimTarget()
@@ -101,24 +103,16 @@ namespace Rigging.Demo.Weapons
 
         }
         
+        public void SetEnlargeState(ReticleEnlargeState state)
+        {
+            ReticleEnlargeState = state;
+        }
+        
         public void OnEnlargeReticle()
         {
-            ReticleEnlargeState =  ReticleEnlargeState.Enlarge;
-            
-            if (ReticleModel.CurrentSize.Value < ReticleModel.MiddleSize)
-            {
-                ReticleModel.CurrentSize.Value = ReticleModel.MiddleSize;
-            }
-        }
-
-        public void OnReduceReticle()
-        {
-            ReticleEnlargeState =  ReticleEnlargeState.Reduce;
-        }
-
-        public void OnStopReticle()
-        {
-            ReticleEnlargeState =  ReticleEnlargeState.Stop;
+            ReticleModel.CurrentSize.Value = ReticleModel.CurrentSize.CurrentValue < ReticleModel.MiddleSize ? 
+                ReticleModel.MiddleSize : 
+                Mathf.Min(ReticleModel.MaxSize, ReticleModel.CurrentSize.CurrentValue + ReticleModel.ShotEnlargeAmount);
         }
         
         public void UpdateReticle()

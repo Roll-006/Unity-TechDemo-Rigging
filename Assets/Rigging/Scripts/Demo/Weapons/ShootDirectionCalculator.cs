@@ -16,19 +16,21 @@ namespace Rigging.Demo.Weapons
         /// <returns>撃つ方向</returns>
         public static Vector3 CalcShootDirection(ReticleModel reticleModel, Vector3 aimTargetPosition, RectTransform rootRectTransform, Ray weaponRay)
         {
+            var reticleSize = reticleModel.ObstaclePosition.Value.HasValue ? reticleModel.ObstacleSize : reticleModel.CurrentSize.CurrentValue;
+            
             var targetPosition = reticleModel.ReticleShapeType switch
             {
-                ReticleShapeType.Square => CalcSquareReticleTargetPosition(reticleModel, aimTargetPosition, rootRectTransform),
-                ReticleShapeType.Circle => CalcCircleReticleTargetPosition(reticleModel, aimTargetPosition, rootRectTransform),
+                ReticleShapeType.Square => CalcSquareReticleTargetPosition(reticleSize, aimTargetPosition, rootRectTransform),
+                ReticleShapeType.Circle => CalcCircleReticleTargetPosition(reticleSize, aimTargetPosition, rootRectTransform),
                 _ => aimTargetPosition
             };
             
             return (targetPosition - weaponRay.origin).normalized;
         }
         
-        private static Vector3 CalcSquareReticleTargetPosition(ReticleModel reticleModel, Vector3 aimTargetPosition, RectTransform rootRectTransform)
+        private static Vector3 CalcSquareReticleTargetPosition(float reticleSize, Vector3 aimTargetPosition, RectTransform rootRectTransform)
         {
-            var halfSize = reticleModel.CurrentSize.CurrentValue * 0.5f;
+            var halfSize = reticleSize * 0.5f;
             var range = new Vector2(
                 Random.Range(-halfSize, halfSize),
                 Random.Range(-halfSize, halfSize));
@@ -36,9 +38,9 @@ namespace Rigging.Demo.Weapons
             return ConvertRangeToWorld(aimTargetPosition, range, rootRectTransform);
         }
         
-        private static Vector3 CalcCircleReticleTargetPosition(ReticleModel reticleModel, Vector3 aimTargetPosition, RectTransform rootRectTransform)
+        private static Vector3 CalcCircleReticleTargetPosition(float reticleSize, Vector3 aimTargetPosition, RectTransform rootRectTransform)
         {
-            var range = Random.insideUnitCircle * reticleModel.CurrentSize.CurrentValue * 0.5f;
+            var range = Random.insideUnitCircle * reticleSize * 0.5f;
             return ConvertRangeToWorld(aimTargetPosition, range, rootRectTransform);
         }
         
